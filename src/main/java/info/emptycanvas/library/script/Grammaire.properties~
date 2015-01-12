@@ -1,0 +1,3 @@
+NUMBER_CLASS=java.lang.Double
+INT_CLASS=java.lang.Integer
+Point3D.class=be.ibiiztera.md.pushmatrix.Point3D

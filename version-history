@@ -1,0 +1,61 @@
+Licence
+=======
+    Microsoft Public Licence or GNU GPL
+
+Part of Emptycanvas software
+============================
+Creation date
+=============
+    2014-11-02 
+Author
+======
+    Manuel Dahmen
+
+History of source repository changes
+====================================
+Github.com : ibiiztera /emptycanvas
+Codeplex.com : manueldahmen / emptycanvas
+
+Microsoft Public Licence
+
+Part of Emptycanvas software
+
+Le package ect est destiné aux tests, en même temps, c'est un artwork 
+rapide. Fast-coding. Quand les résultats des tests
+sont intégrés, le source code d'Emptycanvas est releasé publiquement.
+Parfois télécharger des versions en développement peut conduire 
+à des dysfonctionnement, code incompilable ou d'autres.
+
+
+
+This file date : 2014-11-02
+
+Author : Manuel Dahmen
+======================
+
+Version 25 (2014-11-001)
+========================
+Start date: 2014-11
+TODO List
+Rétablir la vue isométrique
+Vérifier et rétablir l'orientation des axes à l'écran (caméra et axes) DONE
+Pas sortir mais il reste une tâche.
+
+Version Noël2014
+================
+Start date: 2014-12
+Textures Vidéos: plaquer des vidéos sur des objet à maillage de quadrillage.OK
+
+Version spéciale voire nouveau projet: tonfilm
+Schéma: cubes et polyhèdres (réguliers sans doute) à faces cubiques. avec projection de vidéos
+
+}}
+
+Version Saint-Valentin
+======================
+- Nurbs ? qui va m'aider pour le code?
+- Double fenêtre pour le testing: vue des frames (même en cours de générations) et une pour la vidéo.
+Toujours les boutons pause et stop le label frame N° et en plus avant de quitter les options 
+Garder les frames et la vidéo, supprimer les frames, supprimer la vidéo, enregistrer les frames et la 
+vidéo. Publier et enregistrer.
+- Fenêtre d'édition de scène. Edition en mode arborescent avec preview EC ou OGL

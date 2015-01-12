@@ -1,0 +1,7 @@
+package be.ibiiztera.md.pmatrix.pushmatrix.scripts;
+    public interface Definition
+    {
+	public void addTypes(ArrayList<Pile.Type> types);
+	public void addVariable(ArrayList<Pile.Variable> types);
+	public void addOperateurs(ArrayList<Pile.Operateur> types);
+    }
