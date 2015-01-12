@@ -1,0 +1,41 @@
+package be.ibiiztera.md.pmatrix.pushmatrix;
+
+/***
+
+PACKAGE be.ibiiztera.md.pmatrix.pushmatrix
+OWNER DAHMEN MANUEL
+ */
+import java.awt.Color;
+import java.util.ArrayList;
+public class LumiereScene
+{
+    public class Lumiere
+    {
+	private double ratio = 1.0;
+	private Color baseCouleur = Color.White;
+	private Point3D vecteur = new Point3D(0,0,1);
+	public void ratio(double r)
+	{
+	    ratio = r;
+	}
+	public double ratio()
+	{
+	    return ratio;
+	}
+	public void vecteur(Point3D v)
+	{
+	    vecteur=v;
+	}
+	public Point3D vecteur()
+	{
+	    return vecteur;
+	}
+	public void couleur(Color c)
+	{
+	    baseCouleur = c;
+	}
+    }
+
+    private ArrayList<Lumiere> lumieres = new ArrayList<Lumiere>();
+    public 
+}
