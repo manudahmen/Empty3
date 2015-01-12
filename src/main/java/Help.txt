@@ -1,0 +1,38 @@
+Syntaxe des différents éléments
+
+Généralement les éléments 3D se composent d'un identifiant suivi de propriétés.
+Les propriétés sont incluses dans les éléments et sont entourées de parenthèses.
+Les éléments peuvent également contenir d'autres éléments.
+
+* Entier
+    [0-9]+
+* Double
+    [0-9]+.[0.9]+
+* NomFichier
+    Nom de fichier (chemin absolu ou relatif au répertoire de travail de
+    l'application.
+* Point
+    <<Point3D>>
+    L'élément a deux syntaxes.
+    Au niveau de la scène:
+        p( (x,y,z) (r,v,b))
+        Où: x,y,z sont les coordonnées du point. Par défaut z est l'axe
+        perpendiculaire à l'écran. x l'axe horizontal, y l'axe vertical.
+* Couleur
+    <<Color>>
+    (r,v,b) où r est la composante rouge, v la composante verte,
+    b la composante bleue.
+    Les composantes s'expriment sous forme d'entiers de 0 à 255.
+    0 NOIR -> 255 BLANC
+* Triangle
+    tri ( <<Point3D>> <<Point3D>> <<Point3D>> <<Color>> )
+* Liste de triangle
+    tris ( <<Triangle>>+ * )
+* SimpleSphere
+    simplesphere( <<Point3D centre>> <<Double rayon>> <<Color couleur>> )
+* SimpleSphereAvecTexture
+    simplespheretexture( <<Point3D centre>> <<Double rayon>>
+        <<NomFichier couleur>> )
+* Objet composé de points
+* Tourbillon
+* ...

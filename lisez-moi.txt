@@ -1,0 +1,21 @@
+D'abord connu sous le nom ibiiztera¹, il est devenu Emptycanvas¹ ou Empty Canvas¹.
+Sur github.com²,, il était publié sous le nom ibiiztera¹ (nom d'utilisateur)
+Sur Codeplex², il était publié sous le nom EmptyCanvas¹, et des projets proches: 
+ECNom_du_projet (appelation des jar ECtests¹, batterie de tests -- 
+non unitaires ils sont plus ou moins lourds), ECS Samples¹: fichies fournis 
+à titre d'exemple, non exhaustif des fonctionnalités d'Emptycanvas¹, et DarkFortress¹, 
+le premier jeu utilisant Emptycanvas¹ pour les graphismes.
+
+Aujourd'hui, le 18 décembre 2014, le projet est en stand-by. Mais peut reprendre 
+prochainement. C'est-à-dire, que je voudrais faire un clone de OpenGL², peut-etre 
+pas exactement un clone (support 3D matérielle, dernière fonctionnalités avancées, 
+etc). Mais tout de même, diminuer les temps de rendu, jusqu'à obtenir des fonctions 
+similaires ou mieux. Egalement si je peux, faire une api³ pour DirectX²: base et avancé.
+Pour cette dernière API³/config, mes connaissances et 'mon porte-feuille' seraient-ils 
+suffisant?
+
+DarkFortress¹ a bin avancé. Un projet actuellement appelé 'Darz'¹ viendra le remplacer, 
+mais... qui n'utilise pas EC mais OpenGL²/Java² = Jogl².
+¹ (ancien) nom d'uitlisateur de l'auteur sur github.com, noms des projets der l'auteur.
+² Marque ou produits ou sites internet de : Microsoft, Oracle America.
+

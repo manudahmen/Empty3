@@ -1,0 +1,118 @@
+* README MIS A JOUR
+* AU 18/12/2014. 
+
+Ce texte est écrit en français. Il sera peut-être traduit dans 
+sa version actuelle ou future dans d'autres langues comme 
+l'anglais, l'italien, l'espagnol, l'allemand, le nérerlandais.
+Selon mes moyens, mon temps, etc.
+
+Ce fichier README est fourni tel quel.
+Emptycanvas est une bibliothèque de classes Java. Il a été conçu 
+pour être prêt à l'emploi, après téléchargement. Mais Netbeans, 
+Eclipse, ou autre, reste pour le moment des outils incontournables.
+
+Il est disponible en telechargement sur :
+http://www.ibiiztera.be/ qui contient des informations de base 
+sur l'auteur du projet.
+
+Les sites de référence pour le code source sont:
+
+http://github.com
+http://codeplex.com/ (Actuelle source)
+Une nouvelle URL a été achetée par l'auteur (Manuel Daniel Dahmen) :
+emptycanvas.info C'est l'URL de base pour les projets qu'il 
+développe / initie lui-même.
+
+Le logiciel accompagné de ces sources est fourni ici, sous forme de 
+sources Java ou autre langage. Des releases plus ou moins fréquentes
+permettent à ce projet de se donner régulièrement à l'utilisateur.
+
+Le projet, cependant, n'évolue pas vite. Il "n'est pas à la hauteur" 
+c'est-à-dire "L'essayer c'est l'adopter". ... Mais oui, mais 
+Mesdames, Messieurs, parfois on se lasse, l'utilisateur, que dire 
+alors du développeur?
+
+Le prix: 
+
++ no cost for proper internet connexion.
+
+Licence logicielle:
+
+J'ai déjà pensé à bdouiller mes licences, à jouer à qui-perd-gagne, 
+au pigeon idiot, au requin méchant.
+
+Disons que la licence est libre, en tant que développeur ou 
+utlisateur vous avez un choix:
+- Microsoft Public Licence
+- FSF GNU General Licence (123+)
+- Une licence que je souhaite écrire moi-même, ou me faire 
+aider d'une secrétaire ou d'un avocat.
+
+
+[DESSIN DE PILULLE] Emptycanvas ne contient pas de code malicieux a ma connaissance.
+Toutefois beaucoup de calculs sans accélération matérielle 
+peuvent être lourds: dans ce cas, il vaut mieux ne pas utiliser Emptycanvas.
+
+
+Le logiciel a été testé avec succès sur différentes plateformes 
+et systèmes d'exploitation;
+
+WINDOWS² 7 32b
+WINDOWS² 7 64b 
+LINUX² Ubuntu² 32b
+- Java²@Oracle ²
+- Java²@openjdk²
+
+Les jars ne sont pas signés pour l'instant:
+"""ce serait pas trop te"""
+"""demander que de ne pas .."""
+""te faire taxer "ton bic"!"""
+
+
+Emptycanvas utlise les bibliothèques tierces suivantes:
+- OpenGL (Jogl) OpenGL from Java.²
+- Montemedia randelhofs.ch Creative Commons)²
+- La bibliotheque MonteMedia d'une tierce partie est incluse²
+- JAI Java Advanced Imaging²
+- API Netbeans
+
+Qu'est-ce qu'il fait Emtycanvas au juste:
+C'était au départ une excercice. Je voulais je crois extraire la
+logique d'une image 2D en obtenant des paramètres de perspective,
+de localisation d'objets, d'idenfication de forme et de personnes.
+Le projet est lui-même à ce stade est plus modeste. Apparence
+d'une bibliothèque de classe permettant de dessiner des images et de
+construire des vidéos à partir des formes de base: comme le point,
+le triangle, le polygone, le segemnt de droite,
+les équations paramétriques, les polyhèdres, les formes
+de Bézier (courbes et surface) et bientôt les NURBS. D'autres objets
+mathèmathiques, pour le rendu, les utlisent comme les fractales,
+les processus stochastiques, et d'autres.
+Au niveau des vidéos, EC génère une série d'images. Au cours de la
+génération de chaque image, un processus - une méthode - permet
+de modifier la scène (composée d'objets géométriques tels que
+=======
+
+
+Qu'est-ce qu'il fait Emtycanvas au juste:
+C'était au départ une excercice. Je voulais je crois extraire la
+logique d'une image 2D en obtenant des paramètres de perspective, 
+de localisation d'objets, d'idenfication de forme et de personnes.
+
+Le projet est lui-même à ce stade est plus modeste. Apparence
+d'une bibliothèque de classe permettant de dessiner des images et de
+construire des vidéos à partir des formes de base: comme le point, 
+le triangle, le polygone, le segemnt de droite,
+les équations paramétriques, les polyhèdres, les formes 
+de Bézier (courbes et surface) et bientôt les NURBS. D'autres objets 
+mathèmathiques, pour le rendu, les utlisent comme les fractales, 
+les processus stochastiques, et d'autres.
+
+Au niveau des vidéos, EC génère une série d'images. Au cours de la 
+génération de chaque image, un processus - une méthode - permet 
+de modifier la scène (composée d'objets géométriques tels que 
+cités plus haut) on peut avoir une méthode qui calcule l'image suivante.
+Différents calculs sont posibles:
+- Modification de formes et de couleurs d'objets.
+- Ajout / Suppression d'objets.
+- Déplacement d'objets (y compris la caméra)

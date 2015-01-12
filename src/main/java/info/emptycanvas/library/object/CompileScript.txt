@@ -1,0 +1,14 @@
+package be.ibiiztera.md.pmatrix.pushmatrix;
+
+public class CompileScript
+{
+	private String [] instructions;
+	public CompileScript(String text)
+	{
+		instructions = text.split("\n");
+	}
+	public void analyse()
+	{
+		
+	}
+}
