@@ -198,7 +198,7 @@ public class NurbsSurface1 extends TRIObjetGenerateurAbstract {
         this.degreeV = deg;
     }
     public Point3D[][] maillage() {
-        Point3D[][] qres = new Point3D[getMaxX()][getMaxY()];
+        Point3D[][] qres = new Point3D[getMaxX()+1][getMaxY()+1];
        
 	int i;
 	int npts,mpts;
@@ -225,40 +225,41 @@ public class NurbsSurface1 extends TRIObjetGenerateurAbstract {
 
 	System.out.printf("k,l,npts,mpts,p1,p2 = %d %d %d %d %d %d \n",k,l,npts,mpts,p1,p2);
 
-	for (i = 1; i <= 4*npts; i++){
+	for (i = 1; i <= b.length-1; i++){
 		b[i] = 0.;
 	}
 
-	for (i = 1; i <= 3*p1*p2; i++){
+	for (i = 1; i <= q.length-1; i++){
 		q[i] = 0.;
 	}
-        
         for(i=1; i<points.length; i++)
             for(int j=0;j<points[i].length; j++)
             {
                 for(int k2=0;k2<3; k2++)
                 {
-                    b[(j*points[i].length+i)*4+k2] = points[i][j].get(k2);
+                    b[(j*points[i].length+i)*4+k2] = forme.getPoint3D(i, j).get(k2);
                 }
-                b[(j*points[i].length+i)*4+3] = 1.0;
+                b[(j*points[i].length+i)*4+3] = forme.getPoids(i, j);
             }
                 
         Nurbs.rbspsurf(k,l,npts,mpts,p1,p2,b, q);
         
         
-        for(i=0; i<q.length; i++)
+/*        for(i=1; i<q.length-2; i+=3)
         {
-            System.out.printf("Q[%d]=%f\n", i, q[i]);
+            System.out.printf("Q[%d] =%f, %f, %f\n", i, q[i], q[i+1], q[i+2]);
         }
-        
-        
-        for(i=0; i<getMaxX(); i++)
-            for(int j=0;j<getMaxY(); j++)
+        for (i = 1; i <= 3*p1*p2; i=i+3){
+		System.out.printf("%f, %f, %f \n",q[i],q[i+1],q[i+2]);
+	}
+  */      
+        for(i=0; i<getMaxX()+1; i++)
+            for(int j=0;j<getMaxY()+1; j++)
             {
                 qres[i][j] = new Point3D();
                 for(int k2=0;k2<=2; k2++)
                 {
-                    int qindex = (j*getMaxX()+i)*3+k2+1;
+                    int qindex = (j*getMaxX()+i)*3+k2;
                     //if(i<qres.length&&j<qres[i].length&&k2<=2&&qindex<q.length)
                     qres[i][j].set(k2, q[qindex]);
                 }

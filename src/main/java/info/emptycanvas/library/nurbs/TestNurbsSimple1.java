@@ -75,8 +75,8 @@ public class TestNurbsSimple1 extends TestObjet {
 
         n.creerNurbs();
 
-        n.setMaxX(20);
-        n.setMaxY(20);
+        n.setMaxX(5);
+        n.setMaxY(5);
 
         scene().add(n);
         System.out.println(n);
