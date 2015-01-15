@@ -7,7 +7,7 @@
  *
  **
  */
-package info.emptycanvas.library.object.temps;
+package info.emptycanvas.library.animation;
 
 import info.emptycanvas.library.object.Representable;
 

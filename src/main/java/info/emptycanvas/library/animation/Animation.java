@@ -3,7 +3,7 @@
  Vous êtes libre de :
 
  */
-package info.emptycanvas.library.object.temps;
+package info.emptycanvas.library.animation;
 
 import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.ZBuffer;

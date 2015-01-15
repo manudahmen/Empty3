@@ -1,4 +1,4 @@
-package info.emptycanvas.library.object.temps;
+package info.emptycanvas.library.animation;
 
 import info.emptycanvas.library.object.Matrix33;
 import info.emptycanvas.library.object.Point2D;

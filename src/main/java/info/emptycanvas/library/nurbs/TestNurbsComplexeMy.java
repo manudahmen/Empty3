@@ -19,7 +19,7 @@ import java.awt.Color;
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class TestNurbsComplexe1 extends TestObjet {
+public class TestNurbsComplexeMy extends TestObjet {
     private double longpc = 0;
     private double latpc = 0;
     
@@ -36,7 +36,7 @@ public class TestNurbsComplexe1 extends TestObjet {
         latpc +=Math.random()/10;
         
         
-        NurbsSurface1 n = new NurbsSurface1();
+        NurbsSurface n = new NurbsSurface();
 
         n.setMaillage(new Point3D[][]{{
             changeValue(new Point3D(-15.0, 0.0, 15.0)),
@@ -66,8 +66,8 @@ public class TestNurbsComplexe1 extends TestObjet {
         n.setDegreV(3);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 0, 1, 1, 1, 1},
-            {0, 0, 0, 0, 1, 1, 1, 1}
+            {0, 0, 0, 0.5, 1, 1, 1},
+            {0, 0, 0, 0.5, 1, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -86,7 +86,7 @@ public class TestNurbsComplexe1 extends TestObjet {
 
     public static void main(String[] args) {
 
-        TestNurbsComplexe1 n = new TestNurbsComplexe1();
+        TestNurbsComplexeMy n = new TestNurbsComplexeMy();
 
         n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
 

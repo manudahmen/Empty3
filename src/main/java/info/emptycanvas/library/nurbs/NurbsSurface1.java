@@ -259,7 +259,7 @@ public class NurbsSurface1 extends TRIObjetGenerateurAbstract {
                 qres[i][j] = new Point3D();
                 for(int k2=0;k2<=2; k2++)
                 {
-                    int qindex = (j*getMaxX()+i)*3+k2;
+                    int qindex = (j*getMaxX()+i)*3+k2+1;
                     //if(i<qres.length&&j<qres[i].length&&k2<=2&&qindex<q.length)
                     qres[i][j].set(k2, q[qindex]);
                 }

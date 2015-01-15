@@ -8,11 +8,12 @@ Global license :
 ***/
 
 
-package info.emptycanvas.library.object.temps;
+package info.emptycanvas.library.animation;
 
 /**
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class Model {
+public class Fonction {
+    
 }

@@ -5,7 +5,7 @@
 */
 package info.emptycanvas.library.object;
 
-import info.emptycanvas.library.object.temps.Animation;
+import info.emptycanvas.library.animation.Animation;
 import info.emptycanvas.library.extra.SimpleSphere;
 import java.awt.*;
 import java.util.*;

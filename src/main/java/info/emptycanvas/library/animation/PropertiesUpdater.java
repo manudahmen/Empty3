@@ -8,7 +8,7 @@ Global license :
 ***/
 
 
-package info.emptycanvas.library.object.temps;
+package info.emptycanvas.library.animation;
 
 /**
  *

@@ -4,7 +4,7 @@
 
 package info.emptycanvas.library.object;
 
-import info.emptycanvas.library.object.temps.Animation;
+import info.emptycanvas.library.animation.Animation;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
