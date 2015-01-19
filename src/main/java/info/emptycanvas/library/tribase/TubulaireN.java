@@ -13,26 +13,18 @@ package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.nurbs.CourbeParametriquePolynomialeBezier;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.ZBufferImpl;
 import info.emptycanvas.library.object.TRI;
 import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIObject;
 import info.emptycanvas.library.object.CouleurOutils;
-import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.Barycentre;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.PObjet;
-import info.emptycanvas.library.object.ZBuffer;
 
 import java.awt.Color;
-import java.awt.image.RenderedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.imageio.ImageIO;
-
-import info.emptycanvas.library.script.Loader;
 
 public class TubulaireN extends Representable implements TRIGenerable, TRIConteneur {
 
@@ -142,7 +134,20 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
 
         for (int i = 0; i < points.size() - 3; i += 4) {
         }
-        beziers = new CourbeParametriquePolynomialeBezier((Point3D[])points.toArray());
+        Object[] toArray = points.toArray();
+        Point3D [] arr = new Point3D[toArray.length];
+        int i=0;
+        for( Object o : toArray)
+        {
+           if(o !=null && o instanceof Point3D) 
+           {
+               Point3D p = (Point3D)o;
+               arr[i]=p;
+               i++;
+           }
+           
+        }
+        beziers = new CourbeParametriquePolynomialeBezier(arr);
 
     }
     @Override
