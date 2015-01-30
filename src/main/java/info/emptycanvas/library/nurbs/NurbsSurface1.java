@@ -8,8 +8,6 @@
  */
 package info.emptycanvas.library.nurbs;
 
-import static info.emptycanvas.library.nurbs.Nurbs.rbspsurf;
-import info.emptycanvas.library.object.POINT3D_RIO;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 

@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<title>OpenGL FAQ / 20 Picking and Using Selection</title>
+<!--?php require($_SERVER['DOCUMENT_ROOT']."/inc/global_head.txt"); ?-->	
+
+<link href="OpenGL%20FAQ%20_%2020%20Picking%20and%20Using%20Selection_fichiers/resources.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="OpenGL%20FAQ%20_%2020%20Picking%20and%20Using%20Selection_fichiers/inner_layout.js"></script>
+
+</head>
+
+<body id="resources_page"> 
+
+<!--?php include_once($_SERVER['DOCUMENT_ROOT']."/inc/masthead_archives.txt"); ?-->
+
+<div id="wrap">
+
+<div id="header-frame">
+<div id="header">
+<!--?php require($_SERVER['DOCUMENT_ROOT']."/inc/inner_header.txt"); ?-->	
+<!--?php require($_SERVER['DOCUMENT_ROOT']."/inc/nav.txt"); ?-->
+</div>	
+</div>
+
+
+<div id="container">
+<div id="main">
+<div id="content" class="floatclear">
+
+<h1>20 Picking and Using Selection</h1>
+
+<p style="margin-left:0.5in;text-indent:-.5in"><a name="sele0010"></a><font size="3"><strong>20.010 How can I know which primitive a user has
+selected with the mouse?</strong></font></p>
+
+<blockquote>
+    <p><font>OpenGL provides the </font><a href="#sele0020"><font>GL_SELECTION render mode</font></a><font> for this purpose. However, you can use other
+    methods.</font></p>
+    <p><font>You might render each primitive in a unique
+    color, then use glReadPixels() to read the single pixel under
+    the current mouse location. Examining the color determines
+    the primitive that the user selected. </font><a href="https://www.opengl.org/archives/resources/faq/technical/color.htm#0050"><font>Here's information on
+    rendering each primitive in a unique color</font></a><font> and </font><a href="https://www.opengl.org/archives/resources/faq/technical/rasterization.htm#rast0015"><font>information on using glDrawPixels()</font></a><font>.</font></p>
+    <p><font>Yet another method involves shooting a pick
+    ray through the mouse location and testing for intersections
+    with the currently displayed objects. OpenGL doesn't test for
+    ray intersections (for how to do, see </font><a href="http://reality.sgi.com/bspfaq/"><font>the BSP
+    FAQ</font></a><font>), but you'll need to interact
+    with OpenGL to generate the pick ray.</font></p>
+    <p><font>One way to generate a pick ray is to call </font><a href="https://www.opengl.org/archives/resources/faq/technical/glu.htm#0070"><font>gluUnProject()</font></a><font> twice for the mouse location, first with <em>winz</em>
+    of 0.0 (at the near plane), then with <em>winz</em> of 1.0 (at
+    the far plane). Subtract the near plane call's results from
+    the far plane call's results to obtain the XYZ direction
+    vector of your ray. The ray origin is the view location, of
+    course.</font></p>
+    <p><font>Another method is to generate the ray in
+    eye coordinates, and transform it by the inverse of the
+    ModelView matrix. </font>In eye coordinates, the pick ray
+    origin is simply (0, 0, 0). You can build the pick ray vector
+    from the perspective projection parameters, for example, by
+    setting up your perspective projection this way</p>
+    <blockquote>
+        <code>aspect = double(window_width)/double(window_height);
+glMatrixMode( GL_PROJECTION );
+glLoadIdentity(); 
+glFrustum(-near_height * aspect, 
+&nbsp;&nbsp; near_height * aspect, 
+&nbsp;&nbsp; -near_height,
+&nbsp;&nbsp; near_height, zNear, zFar );</code>
+    </blockquote>
+    <p>you can build your pick ray vector like this:</p>
+    <blockquote>
+        <code>int window_y = (window_height - mouse_y) - window_height/2;
+double norm_y = double(window_y)/double(window_height/2);
+int window_x = mouse_x - window_width/2;
+double norm_x = double(window_x)/double(window_width/2);</code>
+    </blockquote>
+    <p>(Note that most window systems place the mouse coordinate
+    origin in the upper left of the window instead of the lower
+    left. That's why <em>window_y</em> is calculated the way it
+    is in the above code. When using a glViewport() that doesn't
+    match the window height, the viewport height and viewport Y
+    are used to determine the values for <em>window_y</em> and <em>norm_y</em>.)</p>
+    <p>The variables <em>norm_x</em> and <em>norm_y</em> are
+    scaled between -1.0 and 1.0. Use them to find the mouse
+    location on your <em>zNear</em> clipping plane like so:</p>
+    <blockquote>
+        <code>float y = near_height * norm_y;
+float x = near_height * aspect * norm_x;</code>
+    </blockquote>
+    <p>Now your pick ray vector is (x, y, -zNear).</p>
+    <p>To transform this eye coordinate pick ray into object
+    coordinates, multiply it by the inverse of the ModelView
+    matrix in use when the scene was rendered. When performing
+    this multiplication, remember that the pick ray is made up of
+    a vector and a point, and that vectors and points transform
+    differently. You can translate and rotate points, but vectors
+    only rotate. The way to guarantee that this is working
+    correctly is to define your point and vector as four-element
+    arrays, as the following pseudo-code shows:</p>
+    <blockquote>
+        <code>float ray_pnt[4] = {0.f, 0.f, 0.f, 1.f};
+float ray_vec[4] = {x, y, -near_distance, 0.f};</code>
+    </blockquote>
+    <p>The one and zero in the last element determines whether an
+    array transforms as a point or a vector when multiplied by
+    the inverse of the ModelView matrix.</p>
+</blockquote>
+
+<p style="margin-left:0.5in;text-indent:-.5in"><a name="sele0020"></a><font size="3"><strong>20.020 What do I need to know to use selection?</strong></font></p>
+
+<blockquote>
+    <p><font>Specify a selection buffer:</font></p>
+    <blockquote>
+        <code><font>GLuint buffer[BUF_SIZE];
+glSelectBuffer (BUF_SIZE, buffer);</font></code>
+    </blockquote>
+    <p><font>Enter selection mode, render as usual, then
+    exit selection mode:</font></p>
+    <blockquote>
+        <code><font>GLint hits;
+
+glRenderMode(GL_SELECT);
+// ...render as usual...
+hits = glRenderMode(GL_RENDER);</font></code>
+    </blockquote>
+    <p><font>The call to glRenderMode(GL_RENDER) exits
+    selection mode and returns the number of hit records stored
+    in the selection buffer. Each hit record contains information
+    on the primitives that were inside the view volume (controlled
+    with the ModelView and Projection matrices).</font></p>
+    <p><font>That's the basic concept. In practice, you
+    may want to restrict the view volume. The gluPickMatrix()
+    function is a handy method for restricting the view volume
+    size to within a set number of pixels away from a given (X,Y)
+    position, such as the current mouse or cursor location.</font></p>
+    <p><font>You'll also want to use the name stack to
+    specify unique names for primitives of interest. After the
+    stack is pushed once, any number of different names may be
+    loaded onto the stack. Typically, load a name, then render a
+    primitive or group of primitives. The name stack allows for
+    selection to occur on heirarchical databases.</font></p>
+    <p><font>After returning to GL_RENDER render mode,
+    you'll need to parse the selection buffer. It will contain
+    zero or more hit records. The number of hit records is
+    returned by the call to glRenderMode(GL_RENDER). Each hit
+    record contains the following information stored as unsigned
+    ints:</font></p>
+    <ul>
+        <li><font>Number of names in the name stack for
+            this hit record</font></li>
+        <li><font>Minimum depth value of primitives (range
+            0 to 2<sup>32</sup>-1)</font></li>
+        <li><font>Maximum depth value of primitives (range
+            0 to 2<sup>32</sup>-1)</font></li>
+        <li><font>Name stack contents (one name for each
+            unsigned int).</font></li>
+    </ul>
+    <p><font>You can use the minimum and maximum Z
+    values with the device coordinate X and Y if known (perhaps
+    from a mouse click) to determine an object coordinate
+    location of the picked primitive. You can scale the Z values
+    to the range 0.0 to 1.0, for example, and use them in a call
+    to </font><a href="https://www.opengl.org/archives/resources/faq/technical/glu.htm#0070"><font>gluUnProject()</font></a><font>.</font></p>
+</blockquote>
+
+<p style="margin-left:0.5in;text-indent:-.5in"><a name="sele0030"></a><font size="3"><strong>20.030 Why doesn't selection work?</strong></font></p>
+
+<blockquote>
+    <p><font>This is usually caused by one of two things.</font></p>
+    <p><font>Did you account for the inverted Y
+    coordinate? Most window systems (Microsoft Windows, X Windows,
+    others?) usually return mouse coordinates to your program
+    with Y=0 at the top of the window, while OpenGL assumes Y=0
+    is at the bottom of the window. Assuming you're using a
+    default viewport, transform the Y value from window system
+    coordinates to OpenGL coordinates as (windowHeight-y).</font></p>
+    <p><font>Did you set up the transformations
+    correctly? Assuming you're using gluPickMatrix(), it should
+    be loaded onto the Projection matrix immediately after a call
+    to glLoadIdentity() and before you multiply your projection
+    transform (using glFrustum(), gluPerspective(), glOrtho(),
+    etc.). Your ModelView transformation should be the same as if
+    you were rendering normally.</font></p>
+</blockquote>
+
+<p style="margin-left:0.5in;text-indent:-.5in"><a name="sele0040"></a><font size="3"><strong>20.040 How can I debug my picking code?</strong></font></p>
+
+<blockquote>
+    <p><font>A good technique for debugging picking or
+    selection code is not to call glRenderMode(GL_SELECT). Simply
+    comment out this function call in your code. The result is
+    instead of performing a selection, your code will render the
+    contents of the pick box to your window. This allows you to
+    see visually what is inside your pick box.</font></p>
+    <p><font>Along with this method, it's generally a
+    good idea to enlarge your pick box, so you can see more in
+    your window.</font></p>
+</blockquote>
+
+<p style="margin-left:0.5in;text-indent:-.5in"><a name="sele0050"></a><font size="3"><strong>20.050 How can I perform pick highlighting the
+way PHIGS and PEX provided?</strong></font></p>
+
+<blockquote>
+    <p><font>There's no elegant way to do this, and that's
+    why many former PHIGS and PEX implementers are now happy as
+    OpenGL implementers. OpenGL leaves this up to the application.</font></p>
+    <p><font>After you've identified the primitive you
+    need to highlight with selection, how you highlight it is up
+    to your application. You might render the primitive into the
+    displayed image in the front buffer with a different color
+    set. You may need to use polygon offset to make this work, or
+    at least set glDepthFunc(GL_EQUAL). You might only render the
+    outline or render the primitive consecutive times in
+    different colors to create a flashing effect.</font></p>
+</blockquote>
+</div> <!--content --> 
+</div> <!--main --> 
+</div> <!--container --> 
+     
+<div id="right_column">
+<div class="cap_top">Column Header</div>
+<div class="sidecontent">
+<!--?php require($_SERVER['DOCUMENT_ROOT']."/inc/nav_resources.txt"); ?-->
+</div>
+<div class="cap_bottom">Column Footer</div>	
+</div>
+
+<!--?php require($_SERVER['DOCUMENT_ROOT']."/inc/footer.txt"); ?-->
+</div> <!--wrap -->   
+
+
+
+
+</body></html>

@@ -1,36 +1,45 @@
 package info.emptycanvas.library.tribase;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.rmi.server.ExportException;
-import java.util.ArrayList;
-
-import info.emptycanvas.library.object.BezierCubique;
-import info.emptycanvas.library.object.MODObjet;
-import info.emptycanvas.library.object.Matrix33;
-import info.emptycanvas.library.object.Point2D;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.Scene;
-import info.emptycanvas.library.object.SegmentDroite;
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.export.STLExport;
 
 public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Point3D centre = new Point3D(0, 0, 0);
-	private double hauteur = 1.0;
-	private double radius = 1.0;
-	private Barycentre position;
 	private boolean sectionA = true;
 	private boolean sectionB = true;
 	public Chemin chemin;
 	public Surface surface;
+
+    public boolean isSectionA() {
+        return sectionA;
+    }
+
+    public boolean isSectionB() {
+        return sectionB;
+    }
+
+    public void setSectionA(boolean sectionA) {
+        this.sectionA = sectionA;
+    }
+
+    public void setSectionB(boolean sectionB) {
+        this.sectionB = sectionB;
+    }
+
+    public void setChemin(Chemin chemin) {
+        this.chemin = chemin;
+    }
+
+    public void setSurface(Surface surface) {
+        this.surface = surface;
+    }
+
+    public Chemin getChemin() {
+        return chemin;
+    }
+
+    public Surface getSurface() {
+        return surface;
+    }
 
 	public TRIExtrusionGeneralisee() {
 		setCirculaireY(true);
@@ -72,46 +81,10 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
 
 		Point3D p0 = Op.plus(v.mult(surface.getPoint(isurface).getX())).plus(
 				k.mult(surface.getPoint(isurface).getY()));
-		if (position == null)
-			position = new Barycentre();
+		if (this.bc == null)
+			bc = new Barycentre();
 
-		return position.calculer(p0);
+		return bc.calculer(p0);
 
 	}
-
-	public Point3D getCentre() {
-		return centre;
-	}
-
-	public double getHauteur() {
-		return hauteur;
-	}
-
-	public double getRadius() {
-		return radius;
-	}
-
-	public void sectionAB(boolean sectionA, boolean sectionB) {
-		this.sectionA = sectionA;
-		this.sectionB = sectionB;
-	}
-
-	public void setCentre(Point3D centre) {
-		this.centre = centre;
-	}
-
-	public void setHauteur(double hauteur) {
-		this.hauteur = radius;
-	}
-
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
-
-	public void surface(Surface s) {
-		this.surface = s;
-	}
-
-
-
 }
