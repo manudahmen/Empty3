@@ -80,12 +80,12 @@ public class TestNurbsComplexe1 extends TestObjet {
         n.setMaillage(pp, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
         
         
-        n.setDegreU(3);
-        n.setDegreV(3);
+        n.setDegreU(4);
+        n.setDegreV(4);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 0, 0.5, 1, 1, 1, 1},
-            {0, 0, 0, 0, 0.5, 1, 1, 1, 1}
+            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1},
+            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -100,7 +100,7 @@ public class TestNurbsComplexe1 extends TestObjet {
         scene().add(n);
         System.out.println(n);
 
-        scene().cameraActive(new Camera(Point3D.Z.mult(-200), Point3D.O0));
+        scene().cameraActive(new Camera(Point3D.Z.mult(-30), Point3D.O0));
     }
 
     public static void main(String[] args) {
