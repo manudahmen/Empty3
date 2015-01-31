@@ -56,18 +56,18 @@ public class NurbsSurface extends ParametrizedSurface {
         private final double[][] Data;
         private final int m, n;
 
-        private Intervalle(double[][] T) {
-            this.Data = T;
-            m = T.length;
-            n = T[0].length;
+        private Intervalle(double[] Tu, double [] Tv) {
+            this.Data = new double {Tu, Tv};
+            m = Data[0].length;
+            n = Data[1].length;
         }
 
         public double get(int i, int j) {
-            try {
+          //  try {
                 return this.Data[i][j];
-            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
-                return 0;
-            }
+            //} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+              //  return 0;
+        //    }
         }
 
         public void set(int i, int j, double v) {
@@ -162,7 +162,7 @@ public class NurbsSurface extends ParametrizedSurface {
     }
 
     public double N(int type_coord, int i, int deg, double t) {
-        if (i >= intervalle.m)
+        if (i >= intervalle.m && type_coord==0 || i>=intervalle.n&&type_coord==1)
             return 1;
         if (i<0) {
             return 0;
@@ -170,17 +170,13 @@ public class NurbsSurface extends ParametrizedSurface {
         if (deg <=0) {
             return 1;
         }
-        if(coefficients(type_coord, t)>=i && coefficients(type_coord, t)<=i+deg+1)
-            {
         return N(type_coord, i, deg - 1, t)
                 * f0sur0egal0(t-intervalle.get(type_coord, i) , 
-                  intervalle.get(type_coord, i+deg-1) - intervalle.get(type_coord, i))
+                  intervalle.get(type_coord, i+deg) - intervalle.get(type_coord, i))
                 + N(type_coord, i + 1, deg - 1, t)
                 * f0sur0egal0(intervalle.get(type_coord, i + deg+1) - t, 
                   intervalle.get(type_coord, i+deg+1) - intervalle.get(type_coord, i + 1));
             }
-        else
-            return 0;
     }
 
     public long C(int i, int n) {
