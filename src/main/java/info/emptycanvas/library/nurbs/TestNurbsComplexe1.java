@@ -109,7 +109,7 @@ public class TestNurbsComplexe1 extends TestObjet {
 
         n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
 
-        n.setMaxFrames(200);
+        n.setMaxFrames(2000);
 
         n.loop(true);
 

@@ -20,54 +20,72 @@ import java.awt.Color;
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
 public class TestNurbsComplexeMy extends TestObjet {
-    private double longpc = 0;
-    private double latpc = 0;
+   
+    private double [][] longpc = new double[4][4];
+    private double [][] latpc = new double[4][4];
+    Point3D[][] pp ;
     
     
-    public Point3D changeValue(Point3D p)
+    public void changeValue(int i, int j)
     {
-        return Trajectoires.sphere(longpc+Math.random()/100, latpc+Math.random()/100, p.norme());
+        longpc[i][j] = longpc[i][j]+Math.random()/100;
+        latpc[i][j] = latpc[i][j]+Math.random()/100;
+        pp[i][j] = Trajectoires.sphere(longpc[i][j],latpc[i][j], pp[i][j].norme());
     }
+    public void updateValues(Point3D [][] ppp)
+    {
+        for(int i=0; i<ppp.length; i++)
+        {
+            for(int j=0; j<ppp[i].length; j++)
+                changeValue(i,j);
+        }
+    }
+    @Override
+    public void ginit() {
+    pp = new Point3D[][]{{
+           new Point3D(-15.0, 0.0, 15.0),
+           new Point3D(-15.0, 5.0, 5.0),
+           new Point3D(-15.0, 5.0, -5.0),
+           new Point3D(-15.0, 0.0, -15.0)
+        }, {
+           new Point3D(-5.0, 5.0, 15.0),
+           new Point3D(-5.0, 10.0, 5.0),
+           new Point3D(-5.0, 10.0, -5.0),
+           new Point3D(-5.0, 5.0, -15.0)
+        }, {
+           new Point3D(5.0, 5.0, 15.0),
+           new Point3D(5.0, 10.0, 5.0),
+           new Point3D(5.0, 10.0, -5.0),
+           new Point3D(5.0, 0.0, -15.0)
+        }, {
+           new Point3D(15.0, 0.0, 15.0),
+           new Point3D(15.0, 5.0, 5.0),
+           new Point3D(15.0, 5.0, -5.0),
+           new Point3D(15.0, 0.0, -15.0)
+        }
+        };
+    }
+    
+    
+    
+    
     @Override
     public void testScene() throws Exception {
         scene().clear();
 
-        longpc +=Math.random()/10;
-        latpc +=Math.random()/10;
-        
-        
+        updateValues(pp);
         NurbsSurface n = new NurbsSurface();
-
-        n.setMaillage(new Point3D[][]{{
-            changeValue(new Point3D(-15.0, 0.0, 15.0)),
-            changeValue(new Point3D(-15.0, 5.0, 5.0)),
-            changeValue(new Point3D(-15.0, 5.0, -5.0)),
-            changeValue(new Point3D(-15.0, 0.0, -15.0))
-        }, {
-            changeValue(new Point3D(-5.0, 5.0, 15.0)),
-            changeValue(new Point3D(-5.0, 10.0, 5.0)),
-            changeValue(new Point3D(-5.0, 10.0, -5.0)),
-            changeValue(new Point3D(-5.0, 5.0, -15.0))
-        }, {
-            changeValue(new Point3D(5.0, 5.0, 15.0)),
-            changeValue(new Point3D(5.0, 10.0, 5.0)),
-            changeValue(new Point3D(5.0, 10.0, -5.0)),
-            changeValue(new Point3D(5.0, 0.0, -15.0))
-        }, {
-            changeValue(new Point3D(15.0, 0.0, 15.0)),
-            changeValue(new Point3D(15.0, 5.0, 5.0)),
-            changeValue(new Point3D(15.0, 5.0, -5.0)),
-            changeValue(new Point3D(15.0, 0.0, -15.0))
-        }
-        }, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
         
         
-        n.setDegreU(3);
-        n.setDegreV(3);
+        n.setMaillage(pp, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
+        
+        
+        n.setDegreU(4);
+        n.setDegreV(4);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 0.5, 1, 1, 1},
-            {0, 0, 0, 0.5, 1, 1, 1}
+            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1},
+            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -78,10 +96,11 @@ public class TestNurbsComplexeMy extends TestObjet {
         n.creerNurbs();
 
 
+
         scene().add(n);
         System.out.println(n);
 
-        scene().cameraActive(new Camera(Point3D.Z.mult(-20), Point3D.O0));
+        scene().cameraActive(new Camera(Point3D.Z.mult(-30), Point3D.O0));
     }
 
     public static void main(String[] args) {
@@ -90,7 +109,7 @@ public class TestNurbsComplexeMy extends TestObjet {
 
         n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
 
-        n.setMaxFrames(1000);
+        n.setMaxFrames(2000);
 
         n.loop(true);
 
