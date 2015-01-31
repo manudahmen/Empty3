@@ -80,12 +80,12 @@ public class TestNurbsComplexeMy extends TestObjet {
         n.setMaillage(pp, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
         
         
-        n.setDegreU(4);
-        n.setDegreV(4);
+        n.setDegreU(3);
+        n.setDegreV(3);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1},
-            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1}
+            {0, 0, 0, 0.25, 0.5, 0.75, 1, 1, 1},
+            {0, 0, 0, 0.25, 0.5, 0.75, 1, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -109,7 +109,7 @@ public class TestNurbsComplexeMy extends TestObjet {
 
         n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
 
-        n.setMaxFrames(2000);
+        n.setMaxFrames(200);
 
         n.loop(true);
 
