@@ -69,3 +69,4 @@ Où mettre la fenêtre de visualisation de scène?
 ArcBall (rotation autour du barycentre
 - Move (caméra qui bouge 'Drag'n'drop
 - TestObjet noms de fichiers sans accent! classname__YYYY-MM-DD-HH-mm-ss
+- NurbsSurface.java déboguer+> implémenter strictement le calcul de points3D
