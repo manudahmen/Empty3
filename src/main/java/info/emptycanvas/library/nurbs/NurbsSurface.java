@@ -16,25 +16,13 @@ import info.emptycanvas.library.object.Point3D;
  */
 public class NurbsSurface extends ParametrizedSurface {
 
-    /**
-     * *
-     *
-     * degree:
-     *
-     * Degré de la fonction de base
-     *
-     * params[]:
-     *
-     * Tableau de noeuds weights[]: * Tableau de pondérations pour des courbes
-     * NURBS rationnelles ; sinon NULL ou 1.0 pour une b-spline polynomiale.
-     * c_pnts[][3]:
-     *
-     * Tableau de points de contrôle Définition : k = degree of basis function N
-     * = number of knots, degree -2 wi = weights Ci = control points (x, y, z) *
-     * wi Bi,k = basis functions Par cette équation, le nombre de points de
-     * contrôle est égal à N+1.
-     */
+    /***
+     * degreeU degré de la fonction de base B_spline pour U
+     * */
     private int degreeU;
+    /***
+     * degreeV degré de la fonction de base B_spline pour V
+     * */
     private int degreeV;
 
     @Override
@@ -53,21 +41,27 @@ public class NurbsSurface extends ParametrizedSurface {
      */
     class Intervalle {
 
+        /**
+         * Data : tableau à 2 lignes longueur de la première ligne
+         * degreeU + 1 : premiers nombres égaux à a (en particulier a==0)
+         * r points croissant de a à b
+         * degreeU + 1 : derniers nombres égaux à b (en particulier b==1)
+         * deuxième ligne:
+         * degreeV + 1 : premiers nombres égaux à c (en particulier c==0)
+         * r points croissant de c à d
+         * degreeV + 1 : derniers nombres égaux à d (en particulier d==1)
+         * */
         private final double[][] Data;
         private final int m, n;
 
-        private Intervalle(double[][] T) {
-            this.Data = T;
-            m = T.length;
-            n = T[0].length;
+        private Intervalle(double[] Tu, double [] Tv) {
+            this.Data = new double {Tu, Tv};
+            m = Data[0].length;
+            n = Data[1].length;
         }
 
         public double get(int i, int j) {
-            try {
                 return this.Data[i][j];
-            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
-                return 0;
-            }
         }
 
         public void set(int i, int j, double v) {
@@ -140,7 +134,9 @@ public class NurbsSurface extends ParametrizedSurface {
             return t1 / t2;
         }
     }
-
+    /***
+     * Méthode non utilisée
+     * */
     public int coefficients(int type_coord, double t) {
         if(t<=intervalle.get(type_coord, 0))
             return 0;
@@ -162,7 +158,7 @@ public class NurbsSurface extends ParametrizedSurface {
     }
 
     public double N(int type_coord, int i, int deg, double t) {
-        if (i >= intervalle.m)
+        if (i >= intervalle.m && type_coord==0 || i>=intervalle.n&&type_coord==1)
             return 1;
         if (i<0) {
             return 0;
@@ -170,17 +166,13 @@ public class NurbsSurface extends ParametrizedSurface {
         if (deg <=0) {
             return 1;
         }
-        if(coefficients(type_coord, t)>=i && coefficients(type_coord, t)<=i+deg+1)
-            {
         return N(type_coord, i, deg - 1, t)
                 * f0sur0egal0(t-intervalle.get(type_coord, i) , 
-                  intervalle.get(type_coord, i+deg-1) - intervalle.get(type_coord, i))
+                  intervalle.get(type_coord, i+deg) - intervalle.get(type_coord, i))
                 + N(type_coord, i + 1, deg - 1, t)
                 * f0sur0egal0(intervalle.get(type_coord, i + deg+1) - t, 
                   intervalle.get(type_coord, i+deg+1) - intervalle.get(type_coord, i + 1));
             }
-        else
-            return 0;
     }
 
     public long C(int i, int n) {
@@ -207,8 +199,7 @@ public class NurbsSurface extends ParametrizedSurface {
         int lengthPv = forme.m;
         int largeurTu = degreeU;
         int largeurTv = degreeV;
-        //double placeGaucheU = lengthPu-largeurTu/2.0;
-        //double placeGaucheV = lengthPv-largeurTv/2.0;
+
         double sum = 0;
         Point3D ret = Point3D.O0;
         for (int i = 0; i < forme.m; i++) {

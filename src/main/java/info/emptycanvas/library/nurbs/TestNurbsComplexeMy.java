@@ -80,8 +80,8 @@ public class TestNurbsComplexeMy extends TestObjet {
         n.setMaillage(pp, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
         
         
-        n.setDegreU(4);
-        n.setDegreV(4);
+        n.setDegreU(3);
+        n.setDegreV(3);
 
         n.setReseauFonction(new double[][]{
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},

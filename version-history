@@ -51,11 +51,22 @@ Schéma: cubes et polyhèdres (réguliers sans doute) à faces cubiques. avec pr
 
 }}
 
-Version Saint-Valentin
-======================
+Version "Saint-Valentin"
+========================
 - Nurbs ? qui va m'aider pour le code?
 - Double fenêtre pour le testing: vue des frames (même en cours de générations) et une pour la vidéo.
-Toujours les boutons pause et stop le label frame N° et en plus avant de quitter les options 
+Toujours les boutons pause et stop le label frame N° FAIT
+- et en plus avant de quitter les options 
 Garder les frames et la vidéo, supprimer les frames, supprimer la vidéo, enregistrer les frames et la 
 vidéo. Publier et enregistrer.
 - Fenêtre d'édition de scène. Edition en mode arborescent avec preview EC ou OGL
+Après TODO
+==========
+- Publisher interface YoutubePublisher FTPPublisher, ... pour vidéos, frames, modèles
+- Support STEP ?
+
+Où mettre la fenêtre de visualisation de scène? 
+ArcBall (rotation autour du barycentre
+- Move (caméra qui bouge 'Drag'n'drop
+- TestObjet noms de fichiers sans accent! classname__YYYY-MM-DD-HH-mm-ss
+- NurbsSurface.java déboguer+> implémenter strictement le calcul de points3D
