@@ -21,8 +21,8 @@ import java.awt.Color;
  */
 public class TestNurbsComplexeMy extends TestObjet {
    
-    private double [][] longpc = new double[4][4];
-    private double [][] latpc = new double[4][4];
+    private final double [][] longpc = new double[4][4];
+    private final double [][] latpc = new double[4][4];
     Point3D[][] pp ;
     
     
@@ -84,8 +84,8 @@ public class TestNurbsComplexeMy extends TestObjet {
         n.setDegreV(4);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1},
-            {0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1}
+            {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+            {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -109,7 +109,7 @@ public class TestNurbsComplexeMy extends TestObjet {
 
         n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
 
-        n.setMaxFrames(2000);
+        n.setMaxFrames(200);
 
         n.loop(true);
 
