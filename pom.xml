@@ -6,17 +6,9 @@
 
     <groupId>be.ibiiztera</groupId>
     <artifactId>emptycanvas</artifactId>
-    <version>2015-01-S02</version>
+    <version>2015-02-S01</version>
     <packaging>jar</packaging>
     <name>emptycanvas</name>
-    <distributionManagement>
-        <repository>
-            <id>ibiiztera</id>
-            <name>ibiiztera dist</name>
-            <url>ftp://ftp.ibiiztera.be</url>
-            <layout>default</layout>
-        </repository>
-    </distributionManagement>
     <description>3D rendering engine. Plus modelling.</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
