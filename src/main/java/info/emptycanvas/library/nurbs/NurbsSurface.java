@@ -55,7 +55,7 @@ public class NurbsSurface extends ParametrizedSurface {
         private final int m, n;
 
         private Intervalle(double[] Tu, double [] Tv) {
-            this.Data = new double {Tu, Tv};
+            this.Data = new double[][] {Tu, Tv};
             m = Data[0].length;
             n = Data[1].length;
         }
@@ -113,7 +113,7 @@ public class NurbsSurface extends ParametrizedSurface {
 
     public void creerNurbs() {
         if (points != null && T != null && poids != null) {
-            intervalle = new Intervalle(T);
+            intervalle = new Intervalle(T[0], T[1]);
             forme = new Point3DPoids(points, poids);
 
 
@@ -173,7 +173,8 @@ public class NurbsSurface extends ParametrizedSurface {
                 * f0sur0egal0(intervalle.get(type_coord, i + deg+1) - t, 
                   intervalle.get(type_coord, i+deg+1) - intervalle.get(type_coord, i + 1));
             }
-    }
+    
+
 
     public long C(int i, int n) {
         return factorielle(n) / factorielle(i) / factorielle(n - i);
