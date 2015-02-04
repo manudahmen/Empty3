@@ -6,7 +6,7 @@
 
     <groupId>be.ibiiztera</groupId>
     <artifactId>emptycanvas</artifactId>
-    <version>2015-02-S01</version>
+    <version>2015-02-S02</version>
     <packaging>jar</packaging>
     <name>emptycanvas</name>
     <description>3D rendering engine. Plus modelling.</description>
