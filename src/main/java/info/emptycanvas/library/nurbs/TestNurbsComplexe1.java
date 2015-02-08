@@ -20,66 +20,60 @@ import java.awt.Color;
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
 public class TestNurbsComplexe1 extends TestObjet {
-   
-    private double [][] longpc = new double[4][4];
-    private double [][] latpc = new double[4][4];
-    Point3D[][] pp ;
-    
-    
-    public void changeValue(int i, int j)
-    {
-        longpc[i][j] = longpc[i][j]+Math.random()/100;
-        latpc[i][j] = latpc[i][j]+Math.random()/100;
-        pp[i][j] = Trajectoires.sphere(longpc[i][j],latpc[i][j], pp[i][j].norme());
+
+    private double[][] longpc = new double[4][4];
+    private double[][] latpc = new double[4][4];
+    Point3D[][] pp;
+
+    public void changeValue(int i, int j) {
+        longpc[i][j] = longpc[i][j] + Math.random() / 100;
+        latpc[i][j] = latpc[i][j] + Math.random() / 100;
+        pp[i][j] = Trajectoires.sphere(longpc[i][j], latpc[i][j], pp[i][j].norme());
     }
-    public void updateValues(Point3D [][] ppp)
-    {
-        for(int i=0; i<ppp.length; i++)
-        {
-            for(int j=0; j<ppp[i].length; j++)
-                changeValue(i,j);
+
+    public void updateValues(Point3D[][] ppp) {
+        for (int i = 0; i < ppp.length; i++) {
+            for (int j = 0; j < ppp[i].length; j++) {
+                changeValue(i, j);
+            }
         }
     }
+
     @Override
     public void ginit() {
-    pp = new Point3D[][]{{
-           new Point3D(-15.0, 0.0, 15.0),
-           new Point3D(-15.0, 5.0, 5.0),
-           new Point3D(-15.0, 5.0, -5.0),
-           new Point3D(-15.0, 0.0, -15.0)
+        pp = new Point3D[][]{{
+            new Point3D(-15.0, 0.0, 15.0),
+            new Point3D(-15.0, 5.0, 5.0),
+            new Point3D(-15.0, 5.0, -5.0),
+            new Point3D(-15.0, 0.0, -15.0)
         }, {
-           new Point3D(-5.0, 5.0, 15.0),
-           new Point3D(-5.0, 10.0, 5.0),
-           new Point3D(-5.0, 10.0, -5.0),
-           new Point3D(-5.0, 5.0, -15.0)
+            new Point3D(-5.0, 5.0, 15.0),
+            new Point3D(-5.0, 10.0, 5.0),
+            new Point3D(-5.0, 10.0, -5.0),
+            new Point3D(-5.0, 5.0, -15.0)
         }, {
-           new Point3D(5.0, 5.0, 15.0),
-           new Point3D(5.0, 10.0, 5.0),
-           new Point3D(5.0, 10.0, -5.0),
-           new Point3D(5.0, 0.0, -15.0)
+            new Point3D(5.0, 5.0, 15.0),
+            new Point3D(5.0, 10.0, 5.0),
+            new Point3D(5.0, 10.0, -5.0),
+            new Point3D(5.0, 0.0, -15.0)
         }, {
-           new Point3D(15.0, 0.0, 15.0),
-           new Point3D(15.0, 5.0, 5.0),
-           new Point3D(15.0, 5.0, -5.0),
-           new Point3D(15.0, 0.0, -15.0)
+            new Point3D(15.0, 0.0, 15.0),
+            new Point3D(15.0, 5.0, 5.0),
+            new Point3D(15.0, 5.0, -5.0),
+            new Point3D(15.0, 0.0, -15.0)
         }
         };
     }
-    
-    
-    
-    
+
     @Override
     public void testScene() throws Exception {
         scene().clear();
 
         updateValues(pp);
         NurbsSurface1 n = new NurbsSurface1();
-        
-        
+
         n.setMaillage(pp, new double[][]{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}});
-        
-        
+
         n.setDegreU(4);
         n.setDegreV(4);
 
@@ -95,8 +89,6 @@ public class TestNurbsComplexe1 extends TestObjet {
 
         n.creerNurbs();
 
-
-
         scene().add(n);
         System.out.println(n);
 
@@ -107,7 +99,7 @@ public class TestNurbsComplexe1 extends TestObjet {
 
         TestNurbsComplexe1 n = new TestNurbsComplexe1();
 
-        n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
+        n.setGenerate(GENERATE_MODEL | GENERATE_IMAGE);
 
         n.setMaxFrames(2000);
 

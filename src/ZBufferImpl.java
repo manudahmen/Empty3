@@ -2,8 +2,8 @@
 
  Copyright (C) 2010-2013  DAHMEN, Manuel, Daniel
 
-* Microsoft Public Licence
-* 
+ * Microsoft Public Licence
+ * 
  */
 package info.emptycanvas.library.object;
 
@@ -262,6 +262,7 @@ public class ZBufferImpl implements ZBuffer {
 
         }
     }
+
     public class Box2DPerspective {
 
         public float d = -10.0f;
@@ -274,6 +275,7 @@ public class ZBufferImpl implements ZBuffer {
         public Box2DPerspective(Scene scene) {
         }
     }
+
     public class ImageMap {
 
         private ImageMapElement ime;
@@ -300,8 +302,7 @@ public class ZBufferImpl implements ZBuffer {
             int x = (int) ce.getX();
             int y = (int) ce.getY();
             if (x >= 0 & x < la & y >= 0 & y < ha
-                    && c.getAlpha()==255
-                    ) {
+                    && c.getAlpha() == 255) {
                 ime.setElementID(x, y, id);
                 ime.setElementPoint(x, y, x3d);
                 ime.setElementCouleur(x, y, c);
@@ -369,9 +370,8 @@ public class ZBufferImpl implements ZBuffer {
                     & y >= 0
                     & y < ha
                     && (prof < ime.getElementProf(x, y) || ime.getElementID(x,
-                    y) != id)
-                    && c.getAlpha()==255
-                    ) {
+                            y) != id)
+                    && c.getAlpha() == 255) {
                 ime.setElementID(x, y, id);
                 ime.setElementPoint(x, y, x3d);
                 if (scene().lumiereActive() != null) {
@@ -389,8 +389,7 @@ public class ZBufferImpl implements ZBuffer {
             double prof = distanceCamera(x3d);
             if (x >= 0 & x < la & y >= 0 & y < ha
                     && prof < ime.getElementProf(x, y)
-                    && c.getAlpha()==255
-                    ) {
+                    && c.getAlpha() == 255) {
                 ime.setElementID(x, y, id);
                 if (scene().lumiereActive() != null) {
                     c = scene().lumiereActive().getCouleur(c, x3d, x3d.getNormale() != null ? x3d.getNormale() : null);
@@ -408,6 +407,7 @@ public class ZBufferImpl implements ZBuffer {
             testProf(p, c);
         }
     }
+
     public class ImageMapElement {
 
         private ImageMapElement instance;
@@ -461,6 +461,7 @@ public class ZBufferImpl implements ZBuffer {
                 return -1;
             }
         }
+
         public Point3D getElementPoint(int x, int y) {
             if (checkCoordonnees(x, y) && Simeid[x][y] == id) {
                 return Sx[x][y];
@@ -648,8 +649,6 @@ public class ZBufferImpl implements ZBuffer {
         return p2;
     }
 
-   
-
     @Override
     public Point coordonneesPoint2D(Point3D p) {
         switch (type_perspective) {
@@ -708,7 +707,6 @@ public class ZBufferImpl implements ZBuffer {
             original = new int[la * ha];
         }
 
-
         if (c.type() == TColor.TYPE_COULEUR) {
             couleurDeFond(c.getCouleur());
         } else {
@@ -744,7 +742,7 @@ public class ZBufferImpl implements ZBuffer {
                     TRI t = ts.next();
 
                     tracerTriangle(t.getSommet()[0], t.getSommet()[1],
-                            t.getSommet()[2], new Color(t.texture().getColorAt(0.5,0.5)));
+                            t.getSommet()[2], new Color(t.texture().getColorAt(0.5, 0.5)));
                 }
             } else if (r instanceof BSpline) {
                 BSpline b = (BSpline) r;
@@ -817,7 +815,7 @@ public class ZBufferImpl implements ZBuffer {
                 }
             } else if (r instanceof TRIConteneur) {
                 for (TRI t : ((TRIConteneur) r).iterable()) {
-                    Color c = new Color(t.texture().getColorAt(0.5,0.5));
+                    Color c = new Color(t.texture().getColorAt(0.5, 0.5));
 
                     tracerAretes(t.getSommet()[0], t.getSommet()[1], c);
                     tracerAretes(t.getSommet()[1], t.getSommet()[2], c);
@@ -853,8 +851,7 @@ public class ZBufferImpl implements ZBuffer {
                     TRI t = ts.next();
 
                     tracerTriangle(t.getSommet()[0], t.getSommet()[1],
-                            t.getSommet()[2], new Color(t.texture().getColorAt(0.5, 0.5)))
-                            ;
+                            t.getSommet()[2], new Color(t.texture().getColorAt(0.5, 0.5)));
                 }
 
             } else if (r instanceof Point3D) {
@@ -916,11 +913,11 @@ public class ZBufferImpl implements ZBuffer {
                 for (TRI t : ((TRIConteneur) r).iterable()) {
                     // pi = new TrianglePix();
                     tracerAretes(t.getSommet()[0], t.getSommet()[1],
-                            new Color(t.texture().getColorAt(0.5,0.5)));
+                            new Color(t.texture().getColorAt(0.5, 0.5)));
                     tracerAretes(t.getSommet()[1], t.getSommet()[2],
-                            new Color(t.texture().getColorAt(0.5,0.5)));
+                            new Color(t.texture().getColorAt(0.5, 0.5)));
                     tracerAretes(t.getSommet()[2], t.getSommet()[0],
-                            new Color(t.texture().getColorAt(0.5,0.5)));
+                            new Color(t.texture().getColorAt(0.5, 0.5)));
                     // tracerTriangle(pi);
 
                 }
@@ -928,6 +925,7 @@ public class ZBufferImpl implements ZBuffer {
             }
         }
     }
+
     @Override
     public void dessinerSilhouette3D() {
         if (firstRun) {
@@ -949,7 +947,6 @@ public class ZBufferImpl implements ZBuffer {
     }
 
     public void dessinerSilhouette3D(Representable re) {
-
 
         Iterator<Representable> it = null;
         // COLLECTION
@@ -992,7 +989,7 @@ public class ZBufferImpl implements ZBuffer {
                     interactionCourant = t;
                     tracerTriangle(camera(t.getSommet()[0]),
                             camera(t.getSommet()[1]), camera(t.getSommet()[2]),
-                            new Color(t.texture().getColorAt(0.5,0.5)));
+                            new Color(t.texture().getColorAt(0.5, 0.5)));
 
                 }
             } else if (r instanceof Point3D) {
@@ -1009,7 +1006,7 @@ public class ZBufferImpl implements ZBuffer {
                 interactionCourant = r;
                 tracerTriangle(camera(t.getSommet()[0]),
                         camera(t.getSommet()[1]), camera(t.getSommet()[2]),
-                       new Color(t.texture().getColorAt(0.5,0.5)));
+                        new Color(t.texture().getColorAt(0.5, 0.5)));
             } else if (r instanceof BSpline) {
                 BSpline b = (BSpline) r;
                 interactionCourant = r;
@@ -1045,20 +1042,20 @@ public class ZBufferImpl implements ZBuffer {
                     for (int j = 0; j < i2; j++) {
                         dessinerSilhouette3D(new Polygone(
                                 new Point3D[]{
-                            b.calculerPoint3D((i - 1 < 0 ? 0
-                            : i - 1) * 1d / i1, (j) * 1d
-                            / i2),
-                            b.calculerPoint3D((i) * 1d / i1, (j)
-                            * 1d / i2),
-                            b.calculerPoint3D((i) * 1d / i1,
-                            (j - 1 < 0 ? 0 : j - 1) * 1d
-                            / i2),
-                            b.calculerPoint3D((i - 1 < 0 ? 0
-                            : i - 1) * 1d / i1,
-                            (j - 1 < 0 ? 0 : j - 1) * 1d
-                            / i2)},
+                                    b.calculerPoint3D((i - 1 < 0 ? 0
+                                                    : i - 1) * 1d / i1, (j) * 1d
+                                            / i2),
+                                    b.calculerPoint3D((i) * 1d / i1, (j)
+                                            * 1d / i2),
+                                    b.calculerPoint3D((i) * 1d / i1,
+                                            (j - 1 < 0 ? 0 : j - 1) * 1d
+                                            / i2),
+                                    b.calculerPoint3D((i - 1 < 0 ? 0
+                                                    : i - 1) * 1d / i1,
+                                            (j - 1 < 0 ? 0 : j - 1) * 1d
+                                            / i2)},
                                 new TColor(b.getColor(i1,
-                                i2, 1.0d * i / i1, 1.d * j / i2))));
+                                                i2, 1.0d * i / i1, 1.d * j / i2))));
                     }
                 }
             } else if (r instanceof PObjet) {
@@ -1084,7 +1081,7 @@ public class ZBufferImpl implements ZBuffer {
                         interactionCourant = t;
                         tracerTriangle(camera(t.getSommet()[0]),
                                 camera(t.getSommet()[1]), camera(t.getSommet()[2]),
-                                new Color(t.texture().getColorAt(0.5,0.5)));
+                                new Color(t.texture().getColorAt(0.5, 0.5)));
                     }
                 }
 
@@ -1125,30 +1122,30 @@ public class ZBufferImpl implements ZBuffer {
                 for (double i = 0; i <= 1 - incr; i += incr) {
                     dessinerSilhouette3D(new SegmentDroite(n.calculerPoint3D(i),
                             n.calculerPoint3D(i + incr), Color.MAGENTA));
-                    
+
                     //System.out
                     //        .print("+"+n.calculerPoint3D(i).toString());
                 }
 
             } else if (r instanceof ParametrizedSurface) {
-               // System.out.println("Surface");
+                // System.out.println("Surface");
                 ParametrizedSurface n = (ParametrizedSurface) r;
                 interactionCourant = n;
-                double incr1 = 1.0/n.incr1;
-                double incr2 = 1.0/n.incr2;
-                for (double i = 0; i <= 1-incr1; i +=incr1) {
-                for (double j = 0; j <= 1-incr2; j +=incr2) {
-                    double u = i;
-                    double v = j;
+                double incr1 = 1.0 / n.incr1;
+                double incr2 = 1.0 / n.incr2;
+                for (double i = 0; i <= 1 - incr1; i += incr1) {
+                    for (double j = 0; j <= 1 - incr2; j += incr2) {
+                        double u = i;
+                        double v = j;
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
                                 n.calculerPoint3D(u + incr1, v),
-                                n.calculerPoint3D(u + incr2, 
-                                v + incr2),                                
+                                n.calculerPoint3D(u + incr2,
+                                        v + incr2),
                                 new TColor(Color.MAGENTA)));
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
-                                n.calculerPoint3D(u , v+incr2),
-                                n.calculerPoint3D(u + incr2, 
-                                v + incr2),                                
+                                n.calculerPoint3D(u, v + incr2),
+                                n.calculerPoint3D(u + incr2,
+                                        v + incr2),
                                 new TColor(Color.MAGENTA)));
 
                     }
@@ -1226,11 +1223,11 @@ public class ZBufferImpl implements ZBuffer {
             } else if (r instanceof TRI) {
                 TRI t = (TRI) r;
                 dessinerStructure(new SegmentDroite(camera(t.getSommet()[0]),
-                        camera(t.getSommet()[1]), new Color(t.texture().getColorAt(0.5,0.5))));
+                        camera(t.getSommet()[1]), new Color(t.texture().getColorAt(0.5, 0.5))));
                 dessinerStructure(new SegmentDroite(camera(t.getSommet()[1]),
-                        camera(t.getSommet()[2]), new Color(t.texture().getColorAt(0.5,0.5))));
+                        camera(t.getSommet()[2]), new Color(t.texture().getColorAt(0.5, 0.5))));
                 dessinerStructure(new SegmentDroite(camera(t.getSommet()[2]),
-                        camera(t.getSommet()[0]), new Color(t.texture().getColorAt(0.5,0.5))));
+                        camera(t.getSommet()[0]), new Color(t.texture().getColorAt(0.5, 0.5))));
             } else if (r instanceof BSpline) {
                 BSpline b = (BSpline) r;
                 int nt = 100;
@@ -1309,12 +1306,13 @@ public class ZBufferImpl implements ZBuffer {
 
     @Override
     public Color getColorAt(Point p) {
-        if(ime.getIME().getElementProf((int) p.getX(),
-                (int) p.getY())>=INFINI_PROF)
-        return new Color(ime.getIME().getElementCouleur((int) p.getX(),
-                (int) p.getY()));
-        else
+        if (ime.getIME().getElementProf((int) p.getX(),
+                (int) p.getY()) >= INFINI_PROF) {
+            return new Color(ime.getIME().getElementCouleur((int) p.getX(),
+                    (int) p.getY()));
+        } else {
             return new Color(Color.TRANSLUCENT);
+        }
     }
 
     public int[] getData() {
@@ -1327,11 +1325,12 @@ public class ZBufferImpl implements ZBuffer {
     }
 
     public Representable getObjectAt(Point p) {
-        if(ime.getIME().getElementProf((int) p.getX(),
-                (int) p.getY())>=INFINI_PROF)
-            return ime.getIME().getElementRepresentable((int)p.getX(), (int)p.getY());
-        else
+        if (ime.getIME().getElementProf((int) p.getX(),
+                (int) p.getY()) >= INFINI_PROF) {
+            return ime.getIME().getElementRepresentable((int) p.getX(), (int) p.getY());
+        } else {
             return null;
+        }
     }
 
     /**
@@ -1447,10 +1446,9 @@ public class ZBufferImpl implements ZBuffer {
     private double maxDistance(Point p1, Point p2, Point p3) {
         return Math.max(
                 Math.max(Point.distance(p1.x, p1.y, p2.x, p2.y),
-                Point.distance(p2.x, p2.y, p3.x, p3.y)),
+                        Point.distance(p2.x, p2.y, p3.x, p3.y)),
                 Point.distance(p3.x, p3.y, p1.x, p1.y));
     }
-
 
     public void perspective() {
         type_perspective = PERSPECTIVE_OEIL;
@@ -1526,7 +1524,7 @@ public class ZBufferImpl implements ZBuffer {
 
     @Override
     public void testPoint(Point3D p) {
-        if (p != null && p.getC()!=null) {
+        if (p != null && p.getC() != null) {
             ime.testProf(p, p.getC());
         }
     }
@@ -1585,6 +1583,7 @@ public class ZBufferImpl implements ZBuffer {
             }
         }
     }
+
     public void tracerTriangle(Point3D pp1, Point3D pp2, Point3D pp3, Color c) {
         Point p1, p2, p3;
         p1 = coordonneesPoint2D(pp1);
@@ -1612,6 +1611,7 @@ public class ZBufferImpl implements ZBuffer {
             }
         }
     }
+
     @Override
     public boolean unlock() {
         if (!locked) {

@@ -6,5 +6,5 @@ import java.awt.Color;
  *
  * @author Atelier
  */
-public interface LumierePoint extends Lumiere{
+public interface LumierePoint extends Lumiere {
 }

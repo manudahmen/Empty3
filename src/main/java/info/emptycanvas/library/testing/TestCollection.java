@@ -18,14 +18,14 @@ import java.util.logging.Logger;
  * @author Manuel DAHMEN
  */
 public class TestCollection {
+
     private ArrayList<TestObjet> tests = new ArrayList<TestObjet>();
-	private boolean dr;
-    
-    public void add(File fichier)
-    {
+    private boolean dr;
+
+    public void add(File fichier) {
         try {
             TestObjet to = new TestObjet();
-                to.scene(new Loader().load(fichier, to.scene()));
+            to.scene(new Loader().load(fichier, to.scene()));
             add(to);
         } catch (VersionNonSupporteeException ex) {
             Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
@@ -33,11 +33,9 @@ public class TestCollection {
             Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void add(File [] fichiers)
-    {
-        for(int i=0; i<fichiers.length; i++)
-        {
+
+    public void add(File[] fichiers) {
+        for (int i = 0; i < fichiers.length; i++) {
             try {
                 TestObjet to = new TestObjet();
                 to.scene(new Loader().load(fichiers[i], to.scene()));
@@ -49,30 +47,29 @@ public class TestCollection {
             }
         }
     }
-    public void add(TestObjet to)
-    {
+
+    public void add(TestObjet to) {
         tests.add(to);
     }
+
     public void displayResult(boolean b) {
-		this.dr = b;
-		
-	}
-    
-    public void run()
-    {
+        this.dr = b;
+
+    }
+
+    public void run() {
         Iterator<TestObjet> it = tests.iterator();
-        while(it.hasNext())
-        {
-           TestObjet next =  it.next();
-           next.publishResult(dr);
-           next.run();
+        while (it.hasNext()) {
+            TestObjet next = it.next();
+            next.publishResult(dr);
+            next.run();
         }
     }
 
-	public void testCollection()
-    {
+    public void testCollection() {
         Iterator<TestObjet> it = tests.iterator();
-        while(it.hasNext())
+        while (it.hasNext()) {
             it.next().run();
+        }
     }
 }

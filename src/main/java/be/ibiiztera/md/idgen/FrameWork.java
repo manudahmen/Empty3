@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package be.ibiiztera.md.idgen;
 
 /**

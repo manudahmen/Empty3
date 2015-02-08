@@ -96,13 +96,13 @@ public class ShowTestResult extends javax.swing.JFrame implements Runnable {
 
             @Override
             public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
@@ -119,11 +119,11 @@ public class ShowTestResult extends javax.swing.JFrame implements Runnable {
                         jPanel1.getGraphics().drawImage(image, 0, 0,
                                 jPanel1.getWidth(), jPanel1.getHeight(), 0, 0,
                                 image.getWidth(), image.getHeight(), null);
-						// jPanel1.getGraphics().setColor(Color.red);
+                        // jPanel1.getGraphics().setColor(Color.red);
                         // jPanel1.getGraphics().drawRect(0, 0, 400, 200);
                         jPanel1.getGraphics().drawString(biic.getStr(), 10, 10);
                         jPanel1.getGraphics().drawString(" ? Pause ? " + testRef.isPause() + " ? Pause active ? " + testRef.isPauseActive(), 50, 10);
-                        jLabelFrame.setText("f n°"+testRef.frame());
+                        jLabelFrame.setText("f n°" + testRef.frame());
                     }
                 }
             }
@@ -269,7 +269,7 @@ public class ShowTestResult extends javax.swing.JFrame implements Runnable {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Runtime runtime = Runtime.getRuntime();
         try {
-            runtime.exec("explorer \"" + testRef.getSubfolder().getAbsolutePath()+"\"");
+            runtime.exec("explorer \"" + testRef.getSubfolder().getAbsolutePath() + "\"");
         } catch (IOException ex) {
             Logger.getLogger(ShowTestResult.class.getName()).log(Level.SEVERE, null, ex);
         }

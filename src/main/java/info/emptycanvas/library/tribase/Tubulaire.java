@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.object.Point3D;
@@ -41,7 +41,7 @@ public class Tubulaire extends Representable implements TRIGenerable, TRIContene
     public float PERCENT = 0.05f;
     private int N_TOURS = 40;
     private TRIObject tris = null;
-	private Barycentre position;
+    private Barycentre position;
 
     public Tubulaire() {
         this.points = new ArrayList<Point3D>();
@@ -96,7 +96,6 @@ public class Tubulaire extends Representable implements TRIGenerable, TRIContene
 
     }
 
-
     public void diam(float diam) {
         this.diam = diam;
     }
@@ -137,26 +136,26 @@ public class Tubulaire extends Representable implements TRIGenerable, TRIContene
 
         for (int i = 0; i < points.size() - 3; i += 4) {
             BezierCubique bc = new BezierCubique();
-            bc.add(position==null ? points.get(i) : position.calculer(points.get(i)));
-            bc.add(position==null ? points.get(i + 1) : position.calculer(points.get(i + 1)));
-            bc.add(position==null ? points.get(i + 2) : position.calculer(points.get(i + 2)));
-            bc.add(position==null ? points.get(i + 3) : position.calculer(points.get(i + 3)));
+            bc.add(position == null ? points.get(i) : position.calculer(points.get(i)));
+            bc.add(position == null ? points.get(i + 1) : position.calculer(points.get(i + 1)));
+            bc.add(position == null ? points.get(i + 2) : position.calculer(points.get(i + 2)));
+            bc.add(position == null ? points.get(i + 3) : position.calculer(points.get(i + 3)));
             /*bc.add(points.get(i));
-            //bc.add((points.get(i).mult(ratio)).plus((points.get(i + 1).mult(1 - ratio))));
-            //bc.add((points.get(i + 2).mult(ratio)).plus((points.get(i + 1).mult(1 - ratio))));
-            //bc.add(points.get(i + 2));
+             //bc.add((points.get(i).mult(ratio)).plus((points.get(i + 1).mult(1 - ratio))));
+             //bc.add((points.get(i + 2).mult(ratio)).plus((points.get(i + 1).mult(1 - ratio))));
+             //bc.add(points.get(i + 2));
              */
             beziers.add(bc);
         }
 
         System.out.println("Beziers = " + beziers.size());
     }
+
     @Override
     public Representable getObj() {
         generate();
         return tris;
     }
-
 
     @Override
     public Iterable<TRI> iterable() {
@@ -192,8 +191,8 @@ public class Tubulaire extends Representable implements TRIGenerable, TRIContene
     }
 
     /*public void ratio(double r) {
-    ratio = r;
-    }*/
+     ratio = r;
+     }*/
     protected String toStringColor() {
         return "(" + couleur.getRed() + ", " + couleur.getGreen() + ", "
                 + couleur.getBlue() + ")";
@@ -230,14 +229,13 @@ public class Tubulaire extends Representable implements TRIGenerable, TRIContene
             vecteurs.add(py);
             vecteurs.add(tangente);
 
-            for (int i = 0; i < N_TOURS+1; i++) {
+            for (int i = 0; i < N_TOURS + 1; i++) {
                 double angle = 2.0f * Math.PI * i / N_TOURS;
-                vecteurs.add(p.plus(px.mult(Math.cos(angle)*diam)).plus(
-                        py.mult(Math.sin(angle)*diam)));
+                vecteurs.add(p.plus(px.mult(Math.cos(angle) * diam)).plus(
+                        py.mult(Math.sin(angle) * diam)));
             }
         }
         return vecteurs;
     }
 
- 
 }

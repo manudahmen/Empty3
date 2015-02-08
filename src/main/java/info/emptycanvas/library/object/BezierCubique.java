@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.object;
 
 import java.awt.Color;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class BezierCubique extends Representable {
-
 
     private ArrayList<Point3D> controls = new ArrayList<Point3D>();
     private Color color;
@@ -75,7 +74,7 @@ public class BezierCubique extends Representable {
     @Override
     public String toString() {
         String s = "bezier (\n\t";
-        s+= CouleurOutils.toStringColor(color)+"\n\t";
+        s += CouleurOutils.toStringColor(color) + "\n\t";
         Iterator<Point3D> ps = iterator();
         while (ps.hasNext()) {
             s += "\n\t" + ps.next().toString() + "\n";

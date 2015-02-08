@@ -46,12 +46,11 @@ import org.monte.media.math.Rational;
  *
  * @author Manuel DAHMEN
  */
-public class TestObjet implements Test, Runnable{
+public class TestObjet implements Test, Runnable {
 
     public File getSubfolder() {
         return directory;
     }
-
 
     public class ImageContainer {
 
@@ -121,7 +120,6 @@ public class TestObjet implements Test, Runnable{
     private File directory;
     protected ArrayList<TestInstance.Parameter> dynParams;
 
-
     public static final ArrayList<TestInstance.Parameter> initParams = new ArrayList<TestInstance.Parameter>();
     ShowTestResult str;
 
@@ -132,6 +130,7 @@ public class TestObjet implements Test, Runnable{
     public TestObjet() {
         init();
     }
+
     public TestObjet(ArrayList<TestInstance.Parameter> params) {
     }
 
@@ -142,8 +141,7 @@ public class TestObjet implements Test, Runnable{
         }
     }
 
-    public void afterRender()
-    {
+    public void afterRender() {
         System.gc();
 
     }
@@ -216,20 +214,17 @@ public class TestObjet implements Test, Runnable{
     public void finit() {
     }
 
-    public int frame()
-    {
+    public int frame() {
         return frame;
     }
 
     public TestInstance.Parameter getDynParameter(String name) {
         Iterator<TestInstance.Parameter> prms = dynParams.iterator();
-        
-        while(prms.hasNext())
-        {
+
+        while (prms.hasNext()) {
             TestInstance.Parameter prm = prms.next();
-            
-            if(name.equals(prm.name))
-            {
+
+            if (name.equals(prm.name)) {
                 return prm;
             }
         }
@@ -258,7 +253,7 @@ public class TestObjet implements Test, Runnable{
 
     public ArrayList<TestInstance.Parameter> getInitParameters() {
         return initParams;
-        
+
     }
 
     public ArrayList<TestInstance.Parameter> getInitParams() {
@@ -268,12 +263,15 @@ public class TestObjet implements Test, Runnable{
     public int getMaxFrames() {
         return maxFrames;
     }
+
     public int getResx() {
         return resx;
     }
+
     public int getResy() {
         return resy;
     }
+
     @Override
     public String getTemplate() {
         // throw new UnsupportedOperationException("Not supported yet.");
@@ -448,13 +446,10 @@ public class TestObjet implements Test, Runnable{
          * ex); } }
          */
 
-        
-        
-        
         if (loop() && frame > maxFrames || (frame > 1 && !loop())) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -535,13 +530,11 @@ public class TestObjet implements Test, Runnable{
 
     @Override
     public void run() {
-        
-        if((generate & GENERATE_OPENGL) >0)
-        {
+
+        if ((generate & GENERATE_OPENGL) > 0) {
             throw new UnsupportedOperationException("No class for OpenGL here");
         }
-        
-        
+
         serid();
 
         this.biic = this.new ImageContainer();
@@ -579,8 +572,6 @@ public class TestObjet implements Test, Runnable{
             return;
         }
 
-        
-        
         try {
             zip.init(zipf);
         } catch (FileNotFoundException e1) {
@@ -591,16 +582,15 @@ public class TestObjet implements Test, Runnable{
         ginit();
 
         ZBuffer z = ZBufferFactory.instance(resx, resy, D3);
-        
-        if(scene().texture()!=null)
-            z.backgroundTexture(scene().texture());
 
-        
+        if (scene().texture() != null) {
+            z.backgroundTexture(scene().texture());
+        }
+
         Logger.getLogger(getClass().getCanonicalName()).info(getClass().getCanonicalName());
         Logger.getLogger(getClass().getCanonicalName()).info(directory().getAbsolutePath());
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
 
-        
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", System.currentTimeMillis());
         while (nextFrame() && !stop) {
 
@@ -618,7 +608,7 @@ public class TestObjet implements Test, Runnable{
             finit();
 
             if ((generate & GENERATE_OPENGL) > 0 && false) {
-                    System.out.println("No OpenGL");
+                System.out.println("No OpenGL");
             } else {
                 try {
                     testScene();
@@ -726,11 +716,10 @@ public class TestObjet implements Test, Runnable{
             }
 
             afterRender();
-            
-            Logger.getLogger(getClass().getCanonicalName()).info(""+frame);
+
+            Logger.getLogger(getClass().getCanonicalName()).info("" + frame);
         }
-        
-        
+
         try {
             zip.end();
         } catch (IOException e) {
@@ -740,19 +729,16 @@ public class TestObjet implements Test, Runnable{
         try {
             aw.finish();
             aw.close();;
-            
-            
+
         } catch (IOException e) {
-        Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+            Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
         }
-            String cmd;
-            if(loop())
-            {
+        String cmd;
+        if (loop()) {
             try {
                 cmd = avif.getCanonicalPath();
                 Runtime runtime = Runtime.getRuntime();
-                if(runtime!=null)
-                {
+                if (runtime != null) {
                     runtime.exec("start \"" + cmd + "\"");
                     OutputStream outputStream = runtime.exec(cmd).getOutputStream();
                     System.out.print(outputStream);
@@ -760,9 +746,7 @@ public class TestObjet implements Test, Runnable{
             } catch (IOException ex) {
                 Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
-            else if(file.exists())
-            {
+        } else if (file.exists()) {
             try {
                 cmd = file.getCanonicalPath();
                 Runtime runtime = Runtime.getRuntime();
@@ -772,20 +756,18 @@ public class TestObjet implements Test, Runnable{
             } catch (IOException ex) {
                 Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
+        }
 
         Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + System.currentTimeMillis());
 
         if (str != null) {
             try {
-            str.dispose();
-            str.stopThreads();
-            str = null;
-            }
-            catch(NullPointerException ex)
-            {
+                str.dispose();
+                str.stopThreads();
+                str = null;
+            } catch (NullPointerException ex) {
                 Logger.getLogger(this.getClass().getName()).warning("Can't stop thread");
-                
+
             }
         }
         Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + System.currentTimeMillis());
@@ -820,13 +802,11 @@ public class TestObjet implements Test, Runnable{
 
     public boolean setDynParameter(TestInstance.Parameter parameter) {
         Iterator<TestInstance.Parameter> prms = dynParams.iterator();
-        
-        while(prms.hasNext())
-        {
+
+        while (prms.hasNext()) {
             TestInstance.Parameter prm = prms.next();
-            
-            if(parameter.name.equals(prm.name))
-            {
+
+            if (parameter.name.equals(prm.name)) {
                 dynParams.remove(prm);
                 dynParams.add(prm);
                 return true;
@@ -859,26 +839,24 @@ public class TestObjet implements Test, Runnable{
     public void setResy(int resy) {
         this.resy = resy;
     }
-    
+
     public void setStructure(boolean structure) {
         this.structure = structure;
     }
-    
-       public void STOP() {
+
+    public void STOP() {
         stop = true;
 
     }
- 
-   
-    
+
     /**
      * Definir la scene scene().add(*)
+     *
      * @throws java.lang.Exception
      */
     @Override
     public void testScene() throws Exception {
     }
-
 
     @Override
     public void testScene(File f) throws Exception {
@@ -907,6 +885,7 @@ public class TestObjet implements Test, Runnable{
 
     public void writeOnPictureBeforeZ(BufferedImage bi) {
     }
+
     public String getFolder() {
         return dir.getAbsolutePath();
     }

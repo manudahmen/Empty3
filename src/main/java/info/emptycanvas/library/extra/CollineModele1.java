@@ -35,7 +35,7 @@ import java.util.Random;
  *
  * @author Manuel
  */
-public class CollineModele1 extends Representable  implements TRIGenerable {
+public class CollineModele1 extends Representable implements TRIGenerable {
 
     private TRIObject tris = new TRIObject();
     Random r = new Random();
@@ -67,7 +67,7 @@ public class CollineModele1 extends Representable  implements TRIGenerable {
 
     private double aleatoireSigne(double maxAmpl) {
 
-        return (r.nextDouble() - 0.5)*maxAmpl;
+        return (r.nextDouble() - 0.5) * maxAmpl;
 
     }
 
@@ -84,12 +84,12 @@ public class CollineModele1 extends Representable  implements TRIGenerable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
     @Override
-	public void position(Barycentre p) {
+    public void position(Barycentre p) {
         throw new UnsupportedOperationException("Not supported yet.");
-	}
-	@Override
+    }
+
+    @Override
     public boolean supporteTexture() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -72,7 +72,7 @@ public class TestNurbs2 extends TestObjet {
 
         scene().add(n);
         System.out.println(n);
-        
+
         scene().cameraActive(new Camera(Point3D.Z.mult(-1), Point3D.O0));
     }
 
@@ -83,9 +83,9 @@ public class TestNurbs2 extends TestObjet {
         n.setGenerate(GENERATE_MODEL | GENERATE_IMAGE);
 
         n.setMaxFrames(30);
-        
+
         n.loop(true);
-        
+
         new Thread(n).start();
 
     }

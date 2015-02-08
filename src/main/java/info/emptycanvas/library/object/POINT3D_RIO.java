@@ -4,27 +4,26 @@
  */
 package info.emptycanvas.library.object;
 
-
 /**
  *
  * @author Atelier
  */
-public class POINT3D_RIO extends Point3D
-{
+public class POINT3D_RIO extends Point3D {
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -5729435529487300122L;
-	public static final Point3D X  = new Point3D(1,0,0);
-    public static final Point3D Y  = new Point3D(0,1,0);
-    public static final Point3D Z  = new Point3D(0,0,1);
-    public static final Point3D O0 = new Point3D(0,0,0);
-    
+     *
+     */
+    private static final long serialVersionUID = -5729435529487300122L;
+    public static final Point3D X = new Point3D(1, 0, 0);
+    public static final Point3D Y = new Point3D(0, 1, 0);
+    public static final Point3D Z = new Point3D(0, 0, 1);
+    public static final Point3D O0 = new Point3D(0, 0, 0);
+
     private double[] x;
+
     public POINT3D_RIO(double x0, double y0, double z0) {
         super(x0, y0, z0);
     }
-
 
     public POINT3D_RIO(Point3D p) {
         super();
@@ -45,11 +44,9 @@ public class POINT3D_RIO extends Point3D
         return new POINT3D_RIO(x[0], x[1], x[2]);
     }
 
-
-
     @Override
     public Point3D modificateurs(MODRotation r, MODTranslation t, MODHomothetie h) {
-       return this;
+        return this;
     }
 
     @Override
@@ -69,8 +66,6 @@ public class POINT3D_RIO extends Point3D
     public Point3D movePoint(Point3D translation, Point3D p) {
         return p.plus(translation);
     }
-
-
 
     @Override
     public Point3D mult(double xDIFF) {

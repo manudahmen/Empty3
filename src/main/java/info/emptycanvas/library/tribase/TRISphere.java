@@ -1,84 +1,79 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
  */
 package info.emptycanvas.library.tribase;
-
 
 import info.emptycanvas.library.object.Matrix33;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Barycentre;
 
 /**
- * 
+ *
  * @author DAHMEN Manuel
- * 
- *         dev
- * 
+ *
+ * dev
+ *
  * @date 22-mars-2012
  */
 public class TRISphere extends TRIObjetGenerateurAbstract {
-	private Point3D centre = new Point3D(0, 0, 0);
-	private double radius = 1.0;
 
-	public TRISphere(Point3D c, double r) {
-		this.centre = c;
-		this.radius = r;
-		setCirculaireY(true);
-		setCirculaireX(false);
-	}
+    private Point3D centre = new Point3D(0, 0, 0);
+    private double radius = 1.0;
 
-	@Override
-	public Point3D coordPoint3D(int x, int y) {
-		double a = 1.0 * x / getMaxX() * 2*Math.PI - Math.PI;
-		double b = 1.0 * y / getMaxY() * 2 * Math.PI - Math.PI;
+    public TRISphere(Point3D c, double r) {
+        this.centre = c;
+        this.radius = r;
+        setCirculaireY(true);
+        setCirculaireX(false);
+    }
 
-		Point3D centre = this.centre;
-		
-		if(bc==null)
-			bc = new Barycentre();
+    @Override
+    public Point3D coordPoint3D(int x, int y) {
+        double a = 1.0 * x / getMaxX() * 2 * Math.PI - Math.PI;
+        double b = 1.0 * y / getMaxY() * 2 * Math.PI - Math.PI;
 
-		if(bc !=null)
-			
-			centre = centre.plus(bc.position);
-		
-		else
-		
-		if(bc.rotation == null)
-		{
-			bc.rotation = Matrix33.I; 
-		}
-		Point3D p =
-				bc.rotation.mult(
-						new Point3D(centre.getX() + Math.sin(a) * Math.sin(b)
-								* radius, centre.getY() + Math.sin(a) * Math.cos(b) * radius,
-								centre.getZ() + Math.cos(a) * radius)
-						);
-		return p;
-	}
+        Point3D centre = this.centre;
 
-	public Point3D getCentre() {
-		return centre;
-	}
+        if (bc == null) {
+            bc = new Barycentre();
+        }
 
-	public double getRadius() {
-		return radius;
-	}
+        if (bc != null) {
+            centre = centre.plus(bc.position);
+        } else if (bc.rotation == null) {
+            bc.rotation = Matrix33.I;
+        }
+        Point3D p
+                = bc.rotation.mult(
+                        new Point3D(centre.getX() + Math.sin(a) * Math.sin(b)
+                                * radius, centre.getY() + Math.sin(a) * Math.cos(b) * radius,
+                                centre.getZ() + Math.cos(a) * radius)
+                );
+        return p;
+    }
 
-	public void setCentre(Point3D centre) {
-		this.centre = centre;
-	}
+    public Point3D getCentre() {
+        return centre;
+    }
 
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
+    public double getRadius() {
+        return radius;
+    }
 
+    public void setCentre(Point3D centre) {
+        this.centre = centre;
+    }
 
-	@Override
-	public String toString() {
-		return "Sphere (\n\t" + centre.toString() + "\n\t" + radius + "\n\t"
-				+ texture.toString() + "\n)\n";
-	}
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public String toString() {
+        return "Sphere (\n\t" + centre.toString() + "\n\t" + radius + "\n\t"
+                + texture.toString() + "\n)\n";
+    }
 
 }

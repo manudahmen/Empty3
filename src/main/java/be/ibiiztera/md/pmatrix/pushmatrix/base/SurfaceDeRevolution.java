@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package be.ibiiztera.md.pmatrix.pushmatrix.base;
 
 /**
@@ -12,17 +12,14 @@ package be.ibiiztera.md.pmatrix.pushmatrix.base;
 public class SurfaceDeRevolution extends ExtrusionGeneralisee {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -6107239459008171112L;
+     *
+     */
+    private static final long serialVersionUID = -6107239459008171112L;
 
-	public SurfaceDeRevolution(EG_Fonction_Courbe courbe,
-			EG_Fonction_Surface surface, int nC, int nS) {
-		super(courbe, surface, nC, nS);
-		// TODO Auto-generated constructor stub
-	}
-
-
-    
+    public SurfaceDeRevolution(EG_Fonction_Courbe courbe,
+            EG_Fonction_Surface surface, int nC, int nS) {
+        super(courbe, surface, nC, nS);
+        // TODO Auto-generated constructor stub
+    }
 
 }

@@ -1,14 +1,13 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <ibiiztera.it@gmail.com>
-
-    Creation time 05-nov.-2014
-
-***/
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ *
+ * Creation time 05-nov.-2014
+ *
+ **
+ */
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.nurbs.CourbeParametriquePolynomialeBezier;
@@ -25,7 +24,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class TubulaireN extends Representable implements TRIGenerable, TRIConteneur {
 
     private Color couleur = Color.BLUE;
@@ -39,7 +37,7 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
     public float PERCENT = 0.05f;
     private int N_TOURS = 40;
     private TRIObject tris = null;
-	private Barycentre position;
+    private Barycentre position;
 
     public TubulaireN() {
         this.points = new ArrayList<Point3D>();
@@ -94,7 +92,6 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
 
     }
 
-
     public void diam(float diam) {
         this.diam = diam;
     }
@@ -135,27 +132,25 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
         for (int i = 0; i < points.size() - 3; i += 4) {
         }
         Object[] toArray = points.toArray();
-        Point3D [] arr = new Point3D[toArray.length];
-        int i=0;
-        for( Object o : toArray)
-        {
-           if(o !=null && o instanceof Point3D) 
-           {
-               Point3D p = (Point3D)o;
-               arr[i]=p;
-               i++;
-           }
-           
+        Point3D[] arr = new Point3D[toArray.length];
+        int i = 0;
+        for (Object o : toArray) {
+            if (o != null && o instanceof Point3D) {
+                Point3D p = (Point3D) o;
+                arr[i] = p;
+                i++;
+            }
+
         }
         beziers = new CourbeParametriquePolynomialeBezier(arr);
 
     }
+
     @Override
     public Representable getObj() {
         generate();
         return tris;
     }
-
 
     @Override
     public Iterable<TRI> iterable() {
@@ -191,8 +186,8 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
     }
 
     /*public void ratio(double r) {
-    ratio = r;
-    }*/
+     ratio = r;
+     }*/
     protected String toStringColor() {
         return "(" + couleur.getRed() + ", " + couleur.getGreen() + ", "
                 + couleur.getBlue() + ")";
@@ -229,14 +224,13 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
             vecteurs.add(py);
             vecteurs.add(tangente);
 
-            for (int i = 0; i < N_TOURS+1; i++) {
+            for (int i = 0; i < N_TOURS + 1; i++) {
                 double angle = 2.0f * Math.PI * i / N_TOURS;
-                vecteurs.add(p.plus(px.mult(Math.cos(angle)*diam)).plus(
-                        py.mult(Math.sin(angle)*diam)));
+                vecteurs.add(p.plus(px.mult(Math.cos(angle) * diam)).plus(
+                        py.mult(Math.sin(angle) * diam)));
             }
         }
         return vecteurs;
     }
 
- 
 }

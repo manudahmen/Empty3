@@ -33,7 +33,7 @@ public class STLExport {
             while (it.hasNext()) {
                 Representable r = it.next();
 
-                        traite(r, pw);
+                traite(r, pw);
             }
 
             pw.println("endsolid");
@@ -44,7 +44,7 @@ public class STLExport {
 
     public static void traite(ParametrizedSurface n, PrintWriter pw) {
         write("", pw);
-        for (double i = n.getStartU(); i <= n.getEndU()- n.getIncrU(); i += n.getIncrU()) {
+        for (double i = n.getStartU(); i <= n.getEndU() - n.getIncrU(); i += n.getIncrU()) {
             for (double j = n.getStartV(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
                 double u = i;
                 double v = j;
@@ -175,9 +175,8 @@ public class STLExport {
             }
         }
     }
-    
-    public static void write(String flowElement, PrintWriter pw)
-    {
+
+    public static void write(String flowElement, PrintWriter pw) {
         pw.write(flowElement);
     }
 }

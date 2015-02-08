@@ -6,7 +6,7 @@
 
     <groupId>be.ibiiztera</groupId>
     <artifactId>emptycanvas</artifactId>
-    <version>2015-02-S02</version>
+    <version>2015-02-S04</version>
     <packaging>jar</packaging>
     <name>emptycanvas</name>
     <description>3D rendering engine. Plus modelling.</description>
@@ -75,29 +75,30 @@
                 </executions>
             </plugin>
 
-<plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <!-- here the phase you need -->
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/target/</outputDirectory>
-              <resources>          
-                <resource>
-                  <directory>runscripts/</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>              
-            </configuration>            
-          </execution>
-        </executions>
-      </plugin>        </plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>runscripts/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>        
+        </plugins>
         <extensions>
             <!-- Enabling the use of FTP -->
             <extension>
@@ -136,9 +137,9 @@
             <url>http://octopussy.ecs.soton.ac.uk/m2/snapshots/</url>
         </repository>
         <repository>
-   <id>xuggle repo</id>
-   <url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
-  </repository>
+            <id>xuggle repo</id>
+            <url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -215,19 +216,19 @@
             <version>1.0.3</version>
         </dependency>
         <dependency>
-   <groupId>xuggle</groupId>
-   <artifactId>xuggle-xuggler</artifactId>
-   <version>5.4</version>
-  </dependency>
+            <groupId>xuggle</groupId>
+            <artifactId>xuggle-xuggler</artifactId>
+            <version>5.4</version>
+        </dependency>
         <dependency>
             <groupId>io.humble</groupId>
             <artifactId>humble-video-all</artifactId>
             <version>0.1.1</version>
         </dependency>
         <dependency>
-        	<groupId>io.humble</groupId>
-        	<artifactId>humble-video-noarch</artifactId>
-        	<version>0.1.1</version>
+            <groupId>io.humble</groupId>
+            <artifactId>humble-video-noarch</artifactId>
+            <version>0.1.1</version>
         </dependency>
     </dependencies>
     

@@ -1,9 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package be.ibiiztera.md.pmatrix.pushmatrix.structures;
 
 /**
@@ -15,7 +14,10 @@ package be.ibiiztera.md.pmatrix.pushmatrix.structures;
  *
  */
 public interface Group {
-	public void addGroup(Group g);
-	public void delGroup(Group g);
-	public Group groups();
+
+    public void addGroup(Group g);
+
+    public void delGroup(Group g);
+
+    public Group groups();
 }

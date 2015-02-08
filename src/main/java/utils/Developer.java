@@ -1,4 +1,5 @@
 package utils;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,30 +26,30 @@ import javax.imageio.ImageIO;
 
  */
 /**
- * 
+ *
  * @author manuel
  */
 public class Developer {
 
-	public static BufferedImage getImageFromClasspath(Object clazz, String path) {
-		try {
-			return ImageIO.read(clazz.getClass()
-					.getResourceAsStream(
-							path));
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public static BufferedImage getImageFromOuter(String [] path, String name) {
-		for(int i=0; i<path.length; i++)
-		{
-		try {
-			return ImageIO.read(new File(path+File.separator+name));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	return null;
-	}
+    public static BufferedImage getImageFromClasspath(Object clazz, String path) {
+        try {
+            return ImageIO.read(clazz.getClass()
+                    .getResourceAsStream(
+                            path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static BufferedImage getImageFromOuter(String[] path, String name) {
+        for (int i = 0; i < path.length; i++) {
+            try {
+                return ImageIO.read(new File(path + File.separator + name));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

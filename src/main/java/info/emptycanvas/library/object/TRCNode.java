@@ -4,22 +4,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TRCNode {
-	private Set<TRCNode> mc = null;
-	private Representable value;
 
-	public TRCNode() {
-		mc = new HashSet<TRCNode>();
+    private Set<TRCNode> mc = null;
+    private Representable value;
 
-	}
-	
-	
-	public TRCNode(Representable object) {
-		this();
-		value = object;
-	}
+    public TRCNode() {
+        mc = new HashSet<TRCNode>();
 
-	public Set<TRCNode> getValueSet() {
-		return mc;
-	}
+    }
 
-	}
+    public TRCNode(Representable object) {
+        this();
+        value = object;
+    }
+
+    public Set<TRCNode> getValueSet() {
+        return mc;
+    }
+
+}

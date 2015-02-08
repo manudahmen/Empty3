@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class InterpretesBase {
 
-	public class CODE {
+    public class CODE {
 
         private int CODE;
 
@@ -59,10 +59,12 @@ public class InterpretesBase {
     int size = 0;
 
     boolean elementParsed = false;
+
     public InterpretesBase() {
         objects = new ArrayList<Object>();
         pos = 0;
     }
+
     public void compile(ArrayList<Integer> pattern) {
         this.pattern = pattern;
     }
@@ -113,12 +115,12 @@ public class InterpretesBase {
                     }
                     elementParsed = true;
                 }
-                if (pos < substring.length()-2) {
+                if (pos < substring.length() - 2) {
                     c = substring.charAt(pos);
                     if (pos < substring.length() && (c == 'E' || c == 'e')) {
                         pos++;
                         c = substring.charAt(pos);
-                    while (pos < substring.length() && ((c >= '1' & c <= '9') | c == '0') | c=='-') {
+                        while (pos < substring.length() && ((c >= '1' & c <= '9') | c == '0') | c == '-') {
                             pos++;
                             size = pos;
                             if (pos < substring.length()) {
@@ -161,8 +163,7 @@ public class InterpretesBase {
                     size = 1;
                     elementParsed = true;
                     return new CODE(COMA);
-                }
-                else if (pos < substring.length()) {
+                } else if (pos < substring.length()) {
                     size = 0;
                     elementParsed = true;
                     return new CODE(COMA);
@@ -237,10 +238,11 @@ public class InterpretesBase {
                 pos += size;
                 this.pos = pos;
             } else {
-                if(o!=null)
+                if (o != null) {
                     throw new InterpreteException("Parser Error : " + o.toString());
-                else
+                } else {
                     throw new InterpreteException("Parser Error : ");
+                }
             }
 
         }

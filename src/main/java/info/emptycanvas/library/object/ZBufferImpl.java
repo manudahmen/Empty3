@@ -1132,24 +1132,24 @@ public class ZBufferImpl implements ZBuffer {
                 p.generate(this);
                 p.dessine(this);
             } /*else if (r instanceof NurbsSurface) {
-                NurbsSurface n = (NurbsSurface) r;
-                double INCR = 0.01;
-                for (double i = 0; i < 1; i += INCR) {
-                    for (double j = 0; j < 1; j += INCR) {
-                        Point3D p1 = n.calculerNurbs(j, i);
-                        Point3D p2 = n.calculerNurbs(j, i + INCR);
-                        Point3D p3 = n.calculerNurbs(j + INCR, i);
-                        Point3D p4 = n.calculerNurbs(j + INCR, i + INCR);
-                        TRI[] tris = new TRI[2];
-                        tris[0] = new TRI(p1, p2, p3, n.texture());
-                        tris[1] = new TRI(p4,
-                                p3, p1,
-                                n.texture());
-                        dessinerSilhouette3D(tris[0]);
-                        dessinerSilhouette3D(tris[1]);
-                    }
-                }
-            }*/ else if (r instanceof ParametrizedCurve) {
+             NurbsSurface n = (NurbsSurface) r;
+             double INCR = 0.01;
+             for (double i = 0; i < 1; i += INCR) {
+             for (double j = 0; j < 1; j += INCR) {
+             Point3D p1 = n.calculerNurbs(j, i);
+             Point3D p2 = n.calculerNurbs(j, i + INCR);
+             Point3D p3 = n.calculerNurbs(j + INCR, i);
+             Point3D p4 = n.calculerNurbs(j + INCR, i + INCR);
+             TRI[] tris = new TRI[2];
+             tris[0] = new TRI(p1, p2, p3, n.texture());
+             tris[1] = new TRI(p4,
+             p3, p1,
+             n.texture());
+             dessinerSilhouette3D(tris[0]);
+             dessinerSilhouette3D(tris[1]);
+             }
+             }
+             }*/ else if (r instanceof ParametrizedCurve) {
                 // System.out.println("Curve");
                 ParametrizedCurve n = (ParametrizedCurve) r;
                 interactionCourant = n;
@@ -1159,7 +1159,7 @@ public class ZBufferImpl implements ZBuffer {
                             n.calculerPoint3D(i), n.calculerPoint3D(i + incr),
                             new ColorTexture(Color.MAGENTA)));
 
-					// System.out
+                    // System.out
                     // .print("+"+n.calculerPoint3D(i).toString());
                 }
 
@@ -1169,8 +1169,8 @@ public class ZBufferImpl implements ZBuffer {
                 interactionCourant = n;
                 double incr1 = 1.0 / n.getIncrU();
                 double incr2 = 1.0 / n.getIncrV();
-        for (double i = n.getStartU(); i <= n.getEndU()- n.getIncrU(); i += n.getIncrU()) {
-            for (double j = n.getStartU(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
+                for (double i = n.getStartU(); i <= n.getEndU() - n.getIncrU(); i += n.getIncrU()) {
+                    for (double j = n.getStartU(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
                         double u = i;
                         double v = j;
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),

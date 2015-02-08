@@ -74,7 +74,7 @@ public class TestNurbs1 extends TestObjet {
     public static void main(String[] args) {
         TestNurbs1 n = new TestNurbs1();
         n.loop(false);
-        n.setGenerate(GENERATE_MODEL|GENERATE_IMAGE);
+        n.setGenerate(GENERATE_MODEL | GENERATE_IMAGE);
         new Thread(n).start();
     }
 }

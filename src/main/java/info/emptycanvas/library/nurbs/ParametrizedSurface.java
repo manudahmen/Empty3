@@ -1,7 +1,6 @@
 /**
  * *
- * Global license :  *
- * Microsoft Public Licence
+ * Global license : * Microsoft Public Licence
  *
  * author Manuel Dahmen <ibiiztera.it@gmail.com>
  *

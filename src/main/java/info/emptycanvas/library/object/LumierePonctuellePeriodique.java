@@ -1,13 +1,11 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <ibiiztera.it@gmail.com>
-
-***/
-
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ *
+ **
+ */
 package info.emptycanvas.library.object;
 
 import java.awt.Color;
@@ -17,6 +15,7 @@ import java.awt.Color;
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
 public final class LumierePonctuellePeriodique implements Lumiere {
+
     private Color couleurLumiere = Color.RED;
     private Point3D position;
     private double k = 1;

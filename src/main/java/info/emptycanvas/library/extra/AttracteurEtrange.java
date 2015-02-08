@@ -38,7 +38,7 @@ public final class AttracteurEtrange extends Representable implements POConteneu
     private final double C;
     private final double D;
     private String id;
-	private Barycentre position;
+    private Barycentre position;
 
     public AttracteurEtrange(double A, double B, double C, double D) {
         this.A = A;
@@ -63,10 +63,9 @@ public final class AttracteurEtrange extends Representable implements POConteneu
         Point3D ref = new Point3D(Math.sin(A * precedent.getY()) - precedent.getZ()
                 * Math.cos(B * precedent.getX()), precedent.getZ()
                 * (Math.sin(C * precedent.getX()) - Math.cos(D
-                * precedent.getY())), Math.sin(precedent.getX()));
-        return position==null ? ref : position.calculer(ref);
+                        * precedent.getY())), Math.sin(precedent.getX()));
+        return position == null ? ref : position.calculer(ref);
     }
-
 
     @Override
     public Iterable<Point3D> iterable() {
@@ -74,17 +73,14 @@ public final class AttracteurEtrange extends Representable implements POConteneu
     }
 
     @Override
-	public void position(Barycentre p) {
+    public void position(Barycentre p) {
         this.position = p;
-	}
+    }
 
-
-	@Override
+    @Override
     public String toString() {
         return "attracteurEtrange ( " + A + " " + B + " " + " " + C + " " + D
                 + ")\n";
     }
-
-
 
 }

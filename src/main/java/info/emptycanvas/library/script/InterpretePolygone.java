@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.Point3D;
@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class InterpretePolygone implements Interprete {
+
     private String repertoire;
     private int pos = 0;
 
@@ -78,7 +79,6 @@ public class InterpretePolygone implements Interprete {
         pos = ib.getPosition();
         this.pos = pos;
 
-        
         Polygone p = new Polygone();
         p.setPoints(points);
         p.texture(c);

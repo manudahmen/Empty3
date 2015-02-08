@@ -263,8 +263,9 @@ public class Loader implements SceneLoader {
             e.printStackTrace();
         } finally {
             try {
-                if(fis!=null)
+                if (fis != null) {
                     fis.close();
+                }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -323,7 +324,6 @@ public class Loader implements SceneLoader {
                 failed = true;
             }
 
-
             if ("conteneur".equals(id)) {
                 try {
                     interpreteH.interpreteParentheseOuvrante();
@@ -346,7 +346,6 @@ public class Loader implements SceneLoader {
             }
 
             // Objects
-
             if ("scene".equals(id)) {
                 try {
                     interpreteH.interpreteBlank();
@@ -710,7 +709,7 @@ public class Loader implements SceneLoader {
             }
             if ("quads".equals(id)) {
                 try {
-                    Quads q  = interpreteH.interpreteQuads();
+                    Quads q = interpreteH.interpreteQuads();
                     sc.add(q);
                     latest = q;
                     failed = false;
@@ -791,7 +790,6 @@ public class Loader implements SceneLoader {
                 }
                 continue;
             }
-
 
         }
 

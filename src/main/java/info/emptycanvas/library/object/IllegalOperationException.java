@@ -9,6 +9,4 @@ public class IllegalOperationException extends Exception {
     public IllegalOperationException(String maillage_incorrect) {
     }
 
-    
-    
 }

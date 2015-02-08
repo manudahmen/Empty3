@@ -70,15 +70,13 @@ public class InterpreteCamera implements Interprete {
         ib.read(text, pos);
         pos = ib.getPosition();
 
-
         pp = new InterpretePoint3D();
         Point3D lookat = (Point3D) pp.interprete(text, pos);
         pos = pp.getPosition();
 
         double ax;
         double ay;
-        
-        
+
         try {
             ib = new InterpretesBase();
             pattern = new ArrayList<Integer>();
@@ -92,14 +90,13 @@ public class InterpreteCamera implements Interprete {
 
             ax = (Double) a.get(1);
             ay = (Double) a.get(3);
-            
+
             camera = new Camera(cpos, lookat);
             camera.angleXY(ax, ay);
             pos = ib.getPosition();
         } catch (InterpreteException ex) {
             camera = new Camera(cpos, lookat);
         }
-
 
         ib = new InterpretesBase();
         pattern = new ArrayList<Integer>();
@@ -109,7 +106,7 @@ public class InterpreteCamera implements Interprete {
         ib.compile(pattern);
         ib.read(text, pos);
         pos = ib.getPosition();
-        
+
         this.pos = pos;
         return camera;
     }

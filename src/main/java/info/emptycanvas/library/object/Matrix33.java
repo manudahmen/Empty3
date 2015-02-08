@@ -1,9 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package info.emptycanvas.library.object;
 
 import java.io.Serializable;
@@ -19,23 +18,22 @@ import java.io.Serializable;
 public class Matrix33 implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7007460681652570657L;
+     *
+     */
+    private static final long serialVersionUID = 7007460681652570657L;
 
     public static Matrix33 rot(double a, double b) {
         return new Matrix33(
-                new double []
-                {
+                new double[]{
                     Math.cos(a), Math.sin(b), 0,
                     -Math.sin(a), Math.cos(b), 0,
                     0, 0, 1
-                        
+
                 }
-                );
+        );
     }
 
-	private double[] d;
+    private double[] d;
     public static final Matrix33 XYZ;
     public static final Matrix33 YZX;
     public static final Matrix33 ZXY;
@@ -45,7 +43,7 @@ public class Matrix33 implements Serializable {
         XYZ = new Matrix33(new double[]{1, 0, 0, 0, 1, 0, 0, 0, 1});
         YZX = new Matrix33(new double[]{0, 1, 0, 0, 0, 1, 1, 0, 0});
         ZXY = new Matrix33(new double[]{0, 0, 1, 1, 0, 0, 0, 1, 0});
-        I      = new Matrix33(new double[]{1, 0, 0, 0, 1, 0, 0, 0, 1});
+        I = new Matrix33(new double[]{1, 0, 0, 0, 1, 0, 0, 0, 1});
     }
 
     public Matrix33() {
@@ -57,17 +55,15 @@ public class Matrix33 implements Serializable {
     }
 
     public Matrix33(Point3D[] p) {
-    	this();
-    	for(int i=0; i<3; i++)
-    	{
+        this();
+        for (int i = 0; i < 3; i++) {
 
-        	for(int j=0; j<3; j++)
-        	{
-    		
-    		d[j*3+i] = p[i].get(j);
-    		
-        	}
-    	}
+            for (int j = 0; j < 3; j++) {
+
+                d[j * 3 + i] = p[i].get(j);
+
+            }
+        }
     }
 
     public double get(int i, int j) {
@@ -75,10 +71,12 @@ public class Matrix33 implements Serializable {
     }
 
     public double[][] getDoubleArray() {
-        double [][] d2 = new double[3][3];
-        for(int i=0; i<3; i++)
-            for(int j=0; j<3; j++)
-                d2[i][j] = get(i,j);
+        double[][] d2 = new double[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                d2[i][j] = get(i, j);
+            }
+        }
         return d2;
     }
 
@@ -121,8 +119,9 @@ public class Matrix33 implements Serializable {
     }
 
     public void set(int i, Point3D p) {
-        for(int j = 0; j<3; j++)
+        for (int j = 0; j < 3; j++) {
             set(i, j, p.get(j));
+        }
     }
 
     public Matrix33 tild() {
@@ -137,19 +136,20 @@ public class Matrix33 implements Serializable {
 
     @Override
     public String toString() {
-    	String str = "m (\n";
-    	
-    	for(int i=0; i<d.length; i++)
-    		str += (i%3==0?"\n\t":" ")+d[i];
-    	
-    	str += "\n)\n";
-    	return str;
+        String str = "m (\n";
+
+        for (int i = 0; i < d.length; i++) {
+            str += (i % 3 == 0 ? "\n\t" : " ") + d[i];
+        }
+
+        str += "\n)\n";
+        return str;
     }
 
     public Matrix33 uniteH() {
         return this;
     }
-    
+
     public Matrix33 uniteV() {
         return this;
     }

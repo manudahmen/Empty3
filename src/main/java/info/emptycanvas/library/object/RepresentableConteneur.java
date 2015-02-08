@@ -63,7 +63,6 @@ public class RepresentableConteneur extends Representable {
             s += next.toString();
         }
 
-
         s += "\n\n)\n\n";
 
         return s;

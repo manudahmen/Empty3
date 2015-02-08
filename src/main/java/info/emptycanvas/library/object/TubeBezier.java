@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.object;
 
 /**
@@ -13,15 +13,13 @@ package info.emptycanvas.library.object;
  * 10 oct. 2011
  *
  */
-public class TubeBezier extends Representable
-{
+public class TubeBezier extends Representable {
 
-	private Barycentre position;
+    private Barycentre position;
 
-	
-	@Override
-	public void position(Barycentre p) {
-		this.position = p;
-	}
+    @Override
+    public void position(Barycentre p) {
+        this.position = p;
+    }
 
 }

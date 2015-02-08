@@ -1,232 +1,229 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <ibiiztera.it@gmail.com>
-
- ***/
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ *
+ **
+ */
 package info.emptycanvas.library.object;
 
 import java.awt.Color;
 import java.awt.Point;
 
-/***
+/**
+ * *
  * Rendu graphique
- * 
+ *
  * @author Manuel Dahmen
- * 
+ *
  */
 public interface ZBuffer {
-	/**
-	 * Retourne la caméra de la scène virtuelle
-	 * 
-	 * @return camera used for display
-	 */
-	public Camera camera();
 
-	/**
-	 * Fixe une caméra dans la scène virtuelle L'appel est inutile si la
-	 * cameraActive de la scène est définie.
-	 * 
-	 * @param c
-	 */
-	public void camera(Camera c);
+    /**
+     * Retourne la caméra de la scène virtuelle
+     *
+     * @return camera used for display
+     */
+    public Camera camera();
 
-	public Point3D camera(Point3D p);
+    /**
+     * Fixe une caméra dans la scène virtuelle L'appel est inutile si la
+     * cameraActive de la scène est définie.
+     *
+     * @param c
+     */
+    public void camera(Camera c);
 
-	/**
-	 * Coordonnées du point sur écran
-	 * 
-	 * @param p
-	 *            point dans l'espace en 3 dim
-	 * @return point en coordonnées Image
-	 */
-	public Point coordonneesPoint2D(Point3D p);
+    public Point3D camera(Point3D p);
 
-	/***
-	 * ???
-	 * 
-	 * @param p
-	 * @param zdistance
-	 * @return
-	 */
-	public Point3D coordonneesPoint3D(Point p, double zdistance);
+    /**
+     * Coordonnées du point sur écran
+     *
+     * @param p point dans l'espace en 3 dim
+     * @return point en coordonnées Image
+     */
+    public Point coordonneesPoint2D(Point3D p);
 
-	/***
-	 * Définit couleur de fond
-	 * 
-	 * @param couleurFond
-	 */
-	public void couleurDeFond(ITexture couleurFond);
+    /**
+     * *
+     * ???
+     *
+     * @param p
+     * @param zdistance
+     * @return
+     */
+    public Point3D coordonneesPoint3D(Point p, double zdistance);
 
-	/**
-	 * 
-	 * @deprecated
-	 */
-	@Deprecated
-	public void dessinerContours();
+    /**
+     * *
+     * Définit couleur de fond
+     *
+     * @param couleurFond
+     */
+    public void couleurDeFond(ITexture couleurFond);
 
-	/**
-	 * 
-	 * @deprecated
-	 */
-	@Deprecated
-	public void dessinerSilhouette();
+    /**
+     *
+     * @deprecated
+     */
+    @Deprecated
+    public void dessinerContours();
 
-	/**
-	 * Dessine la scène complète
-	 */
-	public void dessinerSilhouette3D();
+    /**
+     *
+     * @deprecated
+     */
+    @Deprecated
+    public void dessinerSilhouette();
 
-	public void dessinerStructure();
+    /**
+     * Dessine la scène complète
+     */
+    public void dessinerSilhouette3D();
 
-	/**
-	 * Distance à la caméra ???
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public double distanceCamera(Point3D p);
+    public void dessinerStructure();
 
-	public Color getColorAt(Point p);
+    /**
+     * Distance à la caméra ???
+     *
+     * @param p
+     * @return
+     */
+    public double distanceCamera(Point3D p);
 
-	/***
-	 * Instancie un zbuffer. Si l'instance demandée (x, y) existe déjà, elle est
-	 * retournée.
-	 * 
-	 * @param x
-	 *            largeur (resx)
-	 * @param y
-	 *            hauteur (resy)
-	 * @return instance
-	 */
-	public ZBuffer getInstance(int x, int y);
+    public Color getColorAt(Point p);
 
-	/***
-	 * Retourne l'objet situé en (x,y)
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public Representable getObjectAt(Point p);
+    /**
+     * *
+     * Instancie un zbuffer. Si l'instance demandée (x, y) existe déjà, elle est
+     * retournée.
+     *
+     * @param x largeur (resx)
+     * @param y hauteur (resy)
+     * @return instance
+     */
+    public ZBuffer getInstance(int x, int y);
 
-	/**
-	 * Retourne l'image, après dessin par dessinerSilhouette3D
-	 * 
-	 * @return image
-	 */
-	public ECBufferedImage image();
+    /**
+     * *
+     * Retourne l'objet situé en (x,y)
+     *
+     * @param p
+     * @return
+     */
+    public Representable getObjectAt(Point p);
 
-	/**
-	 * Verrou
-	 * 
-	 * @return Verrou?
-	 */
-	public boolean isLocked();
+    /**
+     * Retourne l'image, après dessin par dessinerSilhouette3D
+     *
+     * @return image
+     */
+    public ECBufferedImage image();
 
-	public void isobox(boolean isBox);
+    /**
+     * Verrou
+     *
+     * @return Verrou?
+     */
+    public boolean isLocked();
 
-	/**
-	 * Rendu en 3D isométrique
-	 */
-	public void isometrique();
+    public void isobox(boolean isBox);
 
-	/**
-	 * Verouille le zbuffer pendant les calculs.
-	 * 
-	 * @return false si le zbuffer a été préalablement verrouillé. true si
-	 *         verrouillage par appel de cette méthode.
-	 */
-	public boolean lock();
+    /**
+     * Rendu en 3D isométrique
+     */
+    public void isometrique();
 
-	/**
-	 * Rendu en 3D caméra-oeil
-	 */
-	public void perspective();
+    /**
+     * Verouille le zbuffer pendant les calculs.
+     *
+     * @return false si le zbuffer a été préalablement verrouillé. true si
+     * verrouillage par appel de cette méthode.
+     */
+    public boolean lock();
 
-	/**
-	 * Dessine un point
-	 * 
-	 * @param p
-	 *            point
-	 * @param c
-	 *            couleur
-	 */
-	public void plotPoint(Point3D p, Color c);
+    /**
+     * Rendu en 3D caméra-oeil
+     */
+    public void perspective();
 
-	/***
-	 * Résolution X
-	 * 
-	 * @return résolution x
-	 */
-	public int resX();
+    /**
+     * Dessine un point
+     *
+     * @param p point
+     * @param c couleur
+     */
+    public void plotPoint(Point3D p, Color c);
 
-	/**
-	 * Résolution Y
-	 * 
-	 * @return résolution y
-	 */
-	public int resY();
+    /**
+     * *
+     * Résolution X
+     *
+     * @return résolution x
+     */
+    public int resX();
 
-	/**
-	 * Retourne la scène en cours de traitement
-	 * 
-	 * @return scene
-	 */
-	public Scene scene();
+    /**
+     * Résolution Y
+     *
+     * @return résolution y
+     */
+    public int resY();
 
-	/**
-	 * Assigne une nouvelle scène
-	 * 
-	 * @param s
-	 *            scene
-	 */
-	public void scene(Scene s);
+    /**
+     * Retourne la scène en cours de traitement
+     *
+     * @return scene
+     */
+    public Scene scene();
 
-	/**
-	 * Passe une nouvelle image
-	 */
-	public void suivante();
+    /**
+     * Assigne une nouvelle scène
+     *
+     * @param s scene
+     */
+    public void scene(Scene s);
 
-	/**
-	 * Teste le point p
-	 * 
-	 * @param point3D
-	 *            point
-	 */
-	public void testPoint(Point3D point3D);
+    /**
+     * Passe une nouvelle image
+     */
+    public void suivante();
 
-	/**
-	 * Dessine un point
-	 * 
-	 * @param p
-	 *            point
-	 * @param c
-	 *            couleur
-	 */
-	public void testPoint(Point3D p, Color c);
+    /**
+     * Teste le point p
+     *
+     * @param point3D point
+     */
+    public void testPoint(Point3D point3D);
 
-	public void tracerLumineux();
+    /**
+     * Dessine un point
+     *
+     * @param p point
+     * @param c couleur
+     */
+    public void testPoint(Point3D p, Color c);
 
-	/**
-	 * Déverrouille le zbuffer
-	 * 
-	 * @return true si déverrouillage. False si non-verrouillé
-	 */
-	public boolean unlock();
+    public void tracerLumineux();
 
-	/**
-	 * Ajuste le facteur de zoom (cadre) en 3D isométrique
-	 * 
-	 * @param z
-	 */
-	public void zoom(float z);
+    /**
+     * Déverrouille le zbuffer
+     *
+     * @return true si déverrouillage. False si non-verrouillé
+     */
+    public boolean unlock();
 
-	public void backgroundTexture(ITexture tex);
+    /**
+     * Ajuste le facteur de zoom (cadre) en 3D isométrique
+     *
+     * @param z
+     */
+    public void zoom(float z);
 
-	public int largeur();
+    public void backgroundTexture(ITexture tex);
 
-	public int hauteur();
+    public int largeur();
+
+    public int hauteur();
 }

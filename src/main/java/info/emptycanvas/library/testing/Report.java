@@ -9,5 +9,5 @@ package info.emptycanvas.library.testing;
  * @author Manuel DAHMEN
  */
 public interface Report {
-    
+
 }

@@ -1,9 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package info.emptycanvas.library.extra;
 
 import info.emptycanvas.library.object.ECBufferedImage;
@@ -16,14 +15,13 @@ import info.emptycanvas.library.object.PObjet;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-
 /**
  * @author MANUEL DAHMEN
- * 
- *         dev
- * 
- *         27 oct. 2011
- * 
+ *
+ * dev
+ *
+ * 27 oct. 2011
+ *
  */
 public class SimpleSphereAvecTexture extends SimpleSphere {
 

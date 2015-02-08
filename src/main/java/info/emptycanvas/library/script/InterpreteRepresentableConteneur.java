@@ -1,13 +1,11 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <ibiiztera.it@gmail.com>
-
-***/
-
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ *
+ **
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.RepresentableConteneur;
@@ -17,8 +15,8 @@ import java.util.ArrayList;
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class InterpreteRepresentableConteneur implements Interprete
-{
+public class InterpreteRepresentableConteneur implements Interprete {
+
     private String rep;
 
     public InterpreteConstants constant() {
@@ -31,10 +29,7 @@ public class InterpreteRepresentableConteneur implements Interprete
 
     public Object interprete(String text, int pos) throws InterpreteException {
         throw new UnsupportedOperationException();
-        
-               
-        
-        
+
     }
 
     public void setConstant(InterpreteConstants c) {
@@ -44,7 +39,5 @@ public class InterpreteRepresentableConteneur implements Interprete
     public void setRepertoire(String r) {
         this.rep = r;
     }
-    
-    
-    
+
 }

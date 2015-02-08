@@ -1,7 +1,6 @@
 /**
  * *
- * Global license :  *
- * Microsoft Public Licence
+ * Global license : * Microsoft Public Licence
  *
  * author Manuel Dahmen <ibiiztera.it@gmail.com>
  *
@@ -24,14 +23,16 @@ import info.emptycanvas.library.object.Representable;
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class Nurbs extends Representable{
-    public class Entry<E, V>
-    {
+public class Nurbs extends Representable {
+
+    public class Entry<E, V> {
+
         public E key;
         public V value;
     }
-    
-    /***
+
+    /**
+     * *
      * "Knots"
      */
     class Intervalle {
@@ -50,16 +51,17 @@ public class Nurbs extends Representable{
         }
 
         private double get(int i, int j, boolean b, int incr) {
-            return this.T0[((j+(!b?incr:0))) * m + (b?incr:0)];
+            return this.T0[((j + (!b ? incr : 0))) * m + (b ? incr : 0)];
         }
 
         public void set(int i, int j, double v) {
             this.T0[j * m + i] = v;
         }
     }
-    /***
-     * Point3D
-     * Weight associated
+
+    /**
+     * *
+     * Point3D Weight associated
      */
     class Point3DPoids {
 
@@ -91,6 +93,7 @@ public class Nurbs extends Representable{
             throw new ArrayIndexOutOfBoundsException("vecteur" + i);
         }
     }
+
     class Vecteur {
 
         private final int n;
@@ -127,10 +130,9 @@ public class Nurbs extends Representable{
     }
 
     public void creerNurbs() {
-        if (points != null && T != null && poids!=null) {
+        if (points != null && T != null && poids != null) {
             intervalle = new Intervalle(T[0].length, T.length);
             forme = new Point3DPoids(points[0].length, points.length);
-
 
             for (int i = 0; i < intervalle.m; i++) {
                 for (int j = 0; j < intervalle.n; j++) {
@@ -155,19 +157,19 @@ public class Nurbs extends Representable{
     }
 
     public double fonctionNurbs(int i, int j, int k, double t, int xcoord) {
-        boolean invert = xcoord == 1?true:false;
+        boolean invert = xcoord == 1 ? true : false;
         boolean x = true;
         boolean y = false;
         if (k == 0) {
-                return 1;
-        } else if(i+k+1<intervalle.m){
-            double fract1 = f0sur0egal0(t - intervalle.get(i, j, invert^x, 0), intervalle.get(i, j, invert^x, k)-intervalle.get(i, j, invert^x,0));
-            double fract2 = f0sur0egal0(intervalle.get(i, j, invert^x, k+1) - t, intervalle.get(i, j, invert^x, k+1) - intervalle.get(i, j, invert^x, 1));
+            return 1;
+        } else if (i + k + 1 < intervalle.m) {
+            double fract1 = f0sur0egal0(t - intervalle.get(i, j, invert ^ x, 0), intervalle.get(i, j, invert ^ x, k) - intervalle.get(i, j, invert ^ x, 0));
+            double fract2 = f0sur0egal0(intervalle.get(i, j, invert ^ x, k + 1) - t, intervalle.get(i, j, invert ^ x, k + 1) - intervalle.get(i, j, invert ^ x, 1));
 
             return fract1 * fonctionNurbs(i, j, k - 1, t, 0) + fract2 * fonctionNurbs(i + 1, j, k - 1, t, 1);
-        }
-        else 
+        } else {
             return 0;
+        }
     }
 
     public Point3D formule(double t, double s) {
@@ -179,27 +181,26 @@ public class Nurbs extends Representable{
         int p = intervalle.m;
         int q = intervalle.n;
 
-        
-        int a = m - p + 1>=0? (m-p+1<m?m-p+1:m-1):0;
-        int b = n - q + 1>=0? (n-q+1<n?n-q+1:n-1):0;
-        
+        int a = m - p + 1 >= 0 ? (m - p + 1 < m ? m - p + 1 : m - 1) : 0;
+        int b = n - q + 1 >= 0 ? (n - q + 1 < n ? n - q + 1 : n - 1) : 0;
+
         for (int i = 0; i < m - 1; i++) {
-            for (int j = 0; j < n ; j++) {
+            for (int j = 0; j < n; j++) {
                 fract1 = fract1
                         .plus(forme.getPoint3D(i, j)
-                        .mult(forme.getPoids(i, j) 
-                        * fonctionNurbs(i, j, a, t, 0) 
-                        * fonctionNurbs(i, j, b, s, 1)));
+                                .mult(forme.getPoids(i, j)
+                                        * fonctionNurbs(i, j, a, t, 0)
+                                        * fonctionNurbs(i, j, b, s, 1)));
             }
         }
         for (int k = 0; k < m; k++) {
             for (int l = 0; l < n; l++) {
-                fract2 = fract2 
-                        + forme.getPoids(k, l) 
+                fract2 = fract2
+                        + forme.getPoids(k, l)
                         * fonctionNurbs(k, l, a, t, 0) * fonctionNurbs(k, l, b, s, 1);
             }
         }
-        return fract1.mult(1/fract2);
+        return fract1.mult(1 / fract2);
     }
 
     public void setMaillage(Point3D[][] points, double[][] poids) {

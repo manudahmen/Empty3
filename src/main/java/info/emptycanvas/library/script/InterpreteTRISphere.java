@@ -31,97 +31,94 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * 
+ *
  * @author DAHMEN Manuel
- * 
- *         dev
- * 
+ *
+ * dev
+ *
  * @date 23-mars-2012
  */
 public class InterpreteTRISphere implements Interprete {
 
-	private String repertoire;
+    private String repertoire;
 
-	private int pos;
+    private int pos;
 
-	public InterpreteConstants constant() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    public InterpreteConstants constant() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-	public int getPosition() {
-		return pos;
-	}
+    public int getPosition() {
+        return pos;
+    }
 
-	public Object interprete(String text, int pos) throws InterpreteException {
-		Point3D ps = null;
+    public Object interprete(String text, int pos) throws InterpreteException {
+        Point3D ps = null;
 
-		InterpretesBase ib = new InterpretesBase();
-		ArrayList<Integer> pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.LEFTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+        InterpretesBase ib = new InterpretesBase();
+        ArrayList<Integer> pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.LEFTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-		InterpretePoint3D pp = new InterpretePoint3D();
-		ps = (Point3D) pp.interprete(text, pos);
-		pos = pp.getPosition();
+        InterpretePoint3D pp = new InterpretePoint3D();
+        ps = (Point3D) pp.interprete(text, pos);
+        pos = pp.getPosition();
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.DECIMAL);
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		Double r = (Double) ib.read(text, pos).get(1);
-		pos = ib.getPosition();
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.DECIMAL);
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        Double r = (Double) ib.read(text, pos).get(1);
+        pos = ib.getPosition();
 
-		TColor tc = null;
+        TColor tc = null;
 
-		InterpreteTColor tci = new InterpreteTColor();
-		
-		tci.setRepertoire(repertoire);
+        InterpreteTColor tci = new InterpreteTColor();
 
-		
-		
-		tc = (TColor) tci.interprete(text, pos);
-		
-		pos = tci.getPosition();
-		
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.RIGHTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+        tci.setRepertoire(repertoire);
 
-		this.pos = pos;
+        tc = (TColor) tci.interprete(text, pos);
 
-		TRISphere s = new TRISphere(ps, r);
+        pos = tci.getPosition();
 
-		s.texture(tc);
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.RIGHTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-		return s;
-	}
+        this.pos = pos;
 
-	public void setConstant(InterpreteConstants c) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+        TRISphere s = new TRISphere(ps, r);
 
-	@Override
-	public void setRepertoire(String r) {
-		this.repertoire = r;
-	}
-	
-	
+        s.texture(tc);
+
+        return s;
+    }
+
+    public void setConstant(InterpreteConstants c) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setRepertoire(String r) {
+        this.repertoire = r;
+    }
+
 }

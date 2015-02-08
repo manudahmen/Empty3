@@ -1,7 +1,6 @@
 /*
  * 2013 Manuel Dahmen
  */
-
 package info.emptycanvas.library.object;
 
 public class Point2D {
@@ -12,13 +11,12 @@ public class Point2D {
         return xx * xx + xy * xy;
     }
 
-    public static  Point2D plus(Point2D p1, Point2D p2)
-    {
+    public static Point2D plus(Point2D p1, Point2D p2) {
         Point2D ret = new Point2D(p1);
-        
+
         ret.x += p2.x;
         ret.y += p2.y;
-        
+
         return ret;
     }
     private double x;
@@ -63,34 +61,35 @@ public class Point2D {
     public double getY() {
         return y;
     }
-    public Point2D moins(Point2D p)
-    {
-        return new Point2D(x-p.x, y-p.y);
+
+    public Point2D moins(Point2D p) {
+        return new Point2D(x - p.x, y - p.y);
     }
-    public Point2D mult(double d)
-   {
-	return new Point2D(x*d, y*d);
-   }
+
+    public Point2D mult(double d) {
+        return new Point2D(x * d, y * d);
+    }
 
     public double norme() {
-        return Math.sqrt(x*x+y*y);
+        return Math.sqrt(x * x + y * y);
     }
-    
-    public Point2D norme1()
-	{
-	    return this.mult(1/norme());
-	}
-    public Point2D plus(Point2D p)
-    {
-        return new Point2D(x+p.x, y+p.y);
+
+    public Point2D norme1() {
+        return this.mult(1 / norme());
     }
-        public void setLocation(double x, double y) {
-		    this.x = x;
-		    this.y = y;
-		}
-        public void setX(double x) {
-		    this.x = x;
-		}
+
+    public Point2D plus(Point2D p) {
+        return new Point2D(x + p.x, y + p.y);
+    }
+
+    public void setLocation(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
 
     public void setY(double y) {
         this.y = y;

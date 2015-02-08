@@ -6,33 +6,32 @@ import java.awt.Color;
  *
  * @author Manuel Dahmen
  */
-public class ColorTexture implements ITexture
-{
+public class ColorTexture implements ITexture {
+
     private Color color;
-    public ColorTexture()
-    {
+
+    public ColorTexture() {
         color = Color.BLACK;
     }
-    public ColorTexture(Color c)
-    {
+
+    public ColorTexture(Color c) {
         this();
-    	if(c!=null)
+        if (c != null) {
             color = c;
+        }
     }
 
-    public Color color()
-    {
+    public Color color() {
         return color;
     }
-    public void color(Color c)
-    {
+
+    public void color(Color c) {
         color = c;
     }
 
     public int getColorAt(double x, double y) {
         return color.getRGB();
     }
-
 
     public void timeNext() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -41,7 +40,7 @@ public class ColorTexture implements ITexture
     public void timeNext(long milli) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /**
      * Quadrilatère numQuadX = 1, numQuadY = 1, x, y 3----2 ^2y |\ | | 4 |
      * 0--\-1 1 -> 2x

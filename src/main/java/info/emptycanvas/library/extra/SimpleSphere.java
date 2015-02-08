@@ -1,10 +1,9 @@
 
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package info.emptycanvas.library.extra;
 
 import info.emptycanvas.library.object.TColor;
@@ -40,14 +39,12 @@ public class SimpleSphere extends Representable implements TRIGenerable {
 
     Color map[][];
 
-  
-
-
     double[][] zmap;
 
     Point3D[][] pmap;
     public static float DMIN = 0.5f;
     public static float DMAX = 1.5f;
+
     public SimpleSphere(Point3D c, double r, Color col) {
         this.radius = r;
         this.centre = c;
@@ -58,11 +55,13 @@ public class SimpleSphere extends Representable implements TRIGenerable {
      *
      * @see be.ibiiztera.md.pmatrix.pushmatrix.PGenerator#generatePO()
      */
+
     public Point3D CoordPoint(double a, double b) {
         return new Point3D(centre.getX() + Math.cos(a) * Math.cos(b) * radius,
                 centre.getY() + Math.cos(a) * Math.sin(b) * radius,
                 centre.getZ() + Math.sin(a) * radius);
     }
+
     @Override
     public TRIObject generate() {
         TRIObject t = new TRIObject();
@@ -92,7 +91,6 @@ public class SimpleSphere extends Representable implements TRIGenerable {
         return t;
     }
 
-
     public int getNumLatQuad() {
         return numLatQuad;
     }
@@ -106,19 +104,19 @@ public class SimpleSphere extends Representable implements TRIGenerable {
     }
 
     @Override
-	public void position(Barycentre p) {
+    public void position(Barycentre p) {
         throw new UnsupportedOperationException("Not supported yet.");
-	}
+    }
 
     public void setNumLatQuad(int numLatQuad) {
         this.numLatQuad = numLatQuad;
     }
 
-  
     public void setNumLongQuad(int numLongQuad) {
         this.numLongQuad = numLongQuad;
     }
-	@Override
+
+    @Override
     public boolean supporteTexture() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

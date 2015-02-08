@@ -1,10 +1,11 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.object;
 
+import info.emptycanvas.library.ECDim;
 import info.emptycanvas.library.animation.Animation;
 import info.emptycanvas.library.extra.SimpleSphere;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class RandomSpheres extends Animation {
     private Random r = new Random();
 
     public RandomSpheres(Scene s) {
-        super(s, new Dimension(1000,1000));
+        super(s, new ECDim(1000, 1000));
         n = 10;
         ran = new Point3D[n];
         next = new Point3D[n];

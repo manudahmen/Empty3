@@ -1,6 +1,6 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
  */
 package info.emptycanvas.library.script;
@@ -17,95 +17,96 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * 
+ *
  * @author DAHMEN Manuel
- * 
- *         dev
- * 
+ *
+ * dev
+ *
  * @date 23-mars-2012
  */
 public class InterpreteTRIEllipsoide implements Interprete {
-	private String repertoire;
 
-	private int pos;
+    private String repertoire;
 
-	public InterpreteConstants constant() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    private int pos;
 
-	public int getPosition() {
-		return pos;
-	}
+    public InterpreteConstants constant() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-	public Object interprete(String text, int pos) throws InterpreteException {
-		Point3D ps = new Point3D();
+    public int getPosition() {
+        return pos;
+    }
 
-		InterpretesBase ib = new InterpretesBase();
-		ArrayList<Integer> pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.LEFTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+    public Object interprete(String text, int pos) throws InterpreteException {
+        Point3D ps = new Point3D();
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		InterpretePoint3D pp = new InterpretePoint3D();
-		ps = (Point3D) pp.interprete(text, pos);
-		pos = pp.getPosition();
+        InterpretesBase ib = new InterpretesBase();
+        ArrayList<Integer> pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.LEFTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        InterpretePoint3D pp = new InterpretePoint3D();
+        ps = (Point3D) pp.interprete(text, pos);
+        pos = pp.getPosition();
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.DECIMAL);
-		pattern.add(ib.BLANK);
-		pattern.add(ib.DECIMAL);
-		pattern.add(ib.BLANK);
-		pattern.add(ib.DECIMAL);
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ArrayList<Object> os = ib.read(text, pos);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-		double[] r = new double[] { (Double) os.get(1),
-				(Double) os.get(3), (Double) os.get(5) };
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.DECIMAL);
+        pattern.add(ib.BLANK);
+        pattern.add(ib.DECIMAL);
+        pattern.add(ib.BLANK);
+        pattern.add(ib.DECIMAL);
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ArrayList<Object> os = ib.read(text, pos);
 
-		pos = ib.getPosition();
+        double[] r = new double[]{(Double) os.get(1),
+            (Double) os.get(3), (Double) os.get(5)};
 
-		InterpreteTColor pc = new InterpreteTColor();
-		TColor tc = (TColor) pc.interprete(text, pos);
-		pos = pc.getPosition();
+        pos = ib.getPosition();
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.RIGHTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ib.read(text, pos);
-		
-		pos = ib.getPosition();
-		
-		this.pos = pos;
+        InterpreteTColor pc = new InterpreteTColor();
+        TColor tc = (TColor) pc.interprete(text, pos);
+        pos = pc.getPosition();
 
-		TRIEllipsoide e = new TRIEllipsoide(ps, r[0], r[1], r[2]);
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.RIGHTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ib.read(text, pos);
 
-		e.texture(tc);
+        pos = ib.getPosition();
 
-		return e;
-	}
+        this.pos = pos;
 
-	public void setConstant(InterpreteConstants c) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+        TRIEllipsoide e = new TRIEllipsoide(ps, r[0], r[1], r[2]);
 
-	@Override
-	public void setRepertoire(String r) {
-		this.repertoire = r;
-	}
+        e.texture(tc);
+
+        return e;
+    }
+
+    public void setConstant(InterpreteConstants c) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setRepertoire(String r) {
+        this.repertoire = r;
+    }
 }

@@ -16,13 +16,17 @@ import info.emptycanvas.library.object.Point3D;
  */
 public class NurbsSurface extends ParametrizedSurface {
 
-    /***
+    /**
+     * *
      * degreeU degré de la fonction de base B_spline pour U
-     * */
+     *
+     */
     private int degreeU;
-    /***
+    /**
+     * *
      * degreeV degré de la fonction de base B_spline pour V
-     * */
+     *
+     */
     private int degreeV;
 
     @Override
@@ -42,26 +46,25 @@ public class NurbsSurface extends ParametrizedSurface {
     class Intervalle {
 
         /**
-         * Data : tableau à 2 lignes longueur de la première ligne
-         * degreeU + 1 : premiers nombres égaux à a (en particulier a==0)
-         * r points croissant de a à b
-         * degreeU + 1 : derniers nombres égaux à b (en particulier b==1)
-         * deuxième ligne:
-         * degreeV + 1 : premiers nombres égaux à c (en particulier c==0)
-         * r points croissant de c à d
-         * degreeV + 1 : derniers nombres égaux à d (en particulier d==1)
-         * */
+         * Data : tableau à 2 lignes longueur de la première ligne degreeU + 1 :
+         * premiers nombres égaux à a (en particulier a==0) r points croissant
+         * de a à b degreeU + 1 : derniers nombres égaux à b (en particulier
+         * b==1) deuxième ligne: degreeV + 1 : premiers nombres égaux à c (en
+         * particulier c==0) r points croissant de c à d degreeV + 1 : derniers
+         * nombres égaux à d (en particulier d==1)
+         *
+         */
         private final double[][] Data;
         private final int m, n;
 
-        private Intervalle(double[] Tu, double [] Tv) {
-            this.Data = new double[][] {Tu, Tv};
+        private Intervalle(double[] Tu, double[] Tv) {
+            this.Data = new double[][]{Tu, Tv};
             m = Data[0].length;
             n = Data[1].length;
         }
 
         public double get(int i, int j) {
-                return this.Data[i][j];
+            return this.Data[i][j];
         }
 
         public void set(int i, int j, double v) {
@@ -79,7 +82,7 @@ public class NurbsSurface extends ParametrizedSurface {
         private final double[][] poids;
         final int m, n;
 
-        public Point3DPoids(Point3D [][] poins, double [][] poids) {
+        public Point3DPoids(Point3D[][] poins, double[][] poids) {
             this.points = poins;
             this.poids = poids;
             m = points.length;
@@ -116,14 +119,12 @@ public class NurbsSurface extends ParametrizedSurface {
             intervalle = new Intervalle(T[0], T[1]);
             forme = new Point3DPoids(points, poids);
 
-
             for (int i = 0; i < forme.m; i++) {
                 for (int j = 0; j < forme.n; j++) {
                     forme.set(i, j, points[i][j], poids[i][j]);
                 }
             }
-            
-            
+
         }
     }
 
@@ -134,14 +135,18 @@ public class NurbsSurface extends ParametrizedSurface {
             return t1 / t2;
         }
     }
-    /***
+
+    /**
+     * *
      * Méthode non utilisée
-     * */
+     *
+     */
     public int coefficients(int type_coord, double t) {
-        if(t<=intervalle.get(type_coord, 0))
+        if (t <= intervalle.get(type_coord, 0)) {
             return 0;
+        }
         for (int i = 0; i < intervalle.m; i++) {
-            if ((t >= intervalle.get(type_coord, i)) && (t <intervalle.get(type_coord, i + 1) )) {
+            if ((t >= intervalle.get(type_coord, i)) && (t < intervalle.get(type_coord, i + 1))) {
                 return i;
             }
         }
@@ -158,23 +163,22 @@ public class NurbsSurface extends ParametrizedSurface {
     }
 
     public double N(int type_coord, int i, int deg, double t) {
-        if (i >= intervalle.m && type_coord==0 || i>=intervalle.n&&type_coord==1)
+        if (i >= intervalle.m && type_coord == 0 || i >= intervalle.n && type_coord == 1) {
             return 1;
-        if (i<0) {
+        }
+        if (i < 0) {
             return 0;
         }
-        if (deg <=0) {
+        if (deg <= 0) {
             return 1;
         }
         return N(type_coord, i, deg - 1, t)
-                * f0sur0egal0(t-intervalle.get(type_coord, i) , 
-                  intervalle.get(type_coord, i+deg) - intervalle.get(type_coord, i))
+                * f0sur0egal0(t - intervalle.get(type_coord, i),
+                        intervalle.get(type_coord, i + deg) - intervalle.get(type_coord, i))
                 + N(type_coord, i + 1, deg - 1, t)
-                * f0sur0egal0(intervalle.get(type_coord, i + deg+1) - t, 
-                  intervalle.get(type_coord, i+deg+1) - intervalle.get(type_coord, i + 1));
-            }
-    
-
+                * f0sur0egal0(intervalle.get(type_coord, i + deg + 1) - t,
+                        intervalle.get(type_coord, i + deg + 1) - intervalle.get(type_coord, i + 1));
+    }
 
     public long C(int i, int n) {
         return factorielle(n) / factorielle(i) / factorielle(n - i);
@@ -191,6 +195,7 @@ public class NurbsSurface extends ParametrizedSurface {
     public void setDegreU(int deg) {
         this.degreeU = deg;
     }
+
     public void setDegreV(int deg) {
         this.degreeV = deg;
     }
@@ -206,7 +211,7 @@ public class NurbsSurface extends ParametrizedSurface {
         for (int i = 0; i < forme.m; i++) {
             for (int j = 0; j < forme.n; j++) {
                 double sumP = (double) (C(i, forme.m) * C(j, forme.n)) * N(type_coordU, i, degreeU, u) * N(type_coordV, j, degreeV, v);
-                ret = ret.plus(forme.getPoint3D(j,i).mult(sumP));
+                ret = ret.plus(forme.getPoint3D(j, i).mult(sumP));
                 sum += sumP;
             }
         }

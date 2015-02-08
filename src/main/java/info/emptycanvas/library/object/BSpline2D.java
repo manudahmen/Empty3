@@ -1,11 +1,11 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.object;
 
 @Deprecated
-public class BSpline2D extends Representable{
+public class BSpline2D extends Representable {
 
 }

@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import java.awt.Color;
@@ -13,6 +13,7 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.tribase.Tubulaire;
 
 public class InterpreteTubulaire implements Interprete {
+
     private String repertoire;
     private int pos = 0;
 
@@ -60,7 +61,7 @@ public class InterpreteTubulaire implements Interprete {
             ArrayList<Object> os = ib.read(text, pos);
             pos = ib.getPosition();
 
-			double radius = (Double) os.get(1);
+            double radius = (Double) os.get(1);
 
             pc = new InterpreteCouleur();
             Color c = (Color) pc.interprete(text, pos);
@@ -79,7 +80,7 @@ public class InterpreteTubulaire implements Interprete {
 
             Tubulaire t = new Tubulaire();
             t.couleur(c);
-			t.radius(radius);
+            t.radius(radius);
             Iterator<Point3D> it = points.iterator();
             while (it.hasNext()) {
                 t.add(it.next());

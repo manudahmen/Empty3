@@ -1,11 +1,13 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package be.ibiiztera.md.pmatrix.pushmatrix.composants;
 
 public interface MouseInput {
-	public void onBoutonDroit();
-	public void onBoutonGauche();
+
+    public void onBoutonDroit();
+
+    public void onBoutonGauche();
 }

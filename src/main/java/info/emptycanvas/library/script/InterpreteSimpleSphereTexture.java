@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 /**
  *
  */
@@ -34,6 +34,7 @@ import java.util.logging.Logger;
  *
  */
 public class InterpreteSimpleSphereTexture implements Interprete {
+
     private String repertoire;
 
     private int pos;
@@ -46,6 +47,7 @@ public class InterpreteSimpleSphereTexture implements Interprete {
      * (non-Javadoc) @see
      * be.ibiiztera.md.pmatrix.pushmatrix.scripts.Interprete#constant()
      */
+
     @Override
     public InterpreteConstants constant() {
         return null;
@@ -63,7 +65,7 @@ public class InterpreteSimpleSphereTexture implements Interprete {
     @Override
     public Object interprete(String text, int pos) throws InterpreteException {
         try {
-            Point3D c ;
+            Point3D c;
             double r;
             Color col;
 
@@ -92,21 +94,19 @@ public class InterpreteSimpleSphereTexture implements Interprete {
             patt.add(ib.BLANK);
             ib.compile(patt);
 
-
             ib.read(text, pos);
             pos = ib.getPosition();
             r = (Double) ib.get().get(1);
 
-            
             InterpreteNomFichier inf = new InterpreteNomFichier();
-            
-            inf.setRepertoire(repertoire);
-            
-            File f = (File) inf.interprete(text, pos);
-            if(f==null)
-                throw new InterpreteException("Fichier non trouvé");
-            pos = inf.getPosition();
 
+            inf.setRepertoire(repertoire);
+
+            File f = (File) inf.interprete(text, pos);
+            if (f == null) {
+                throw new InterpreteException("Fichier non trouvé");
+            }
+            pos = inf.getPosition();
 
             ib = new InterpretesBase();
             patt = new ArrayList<Integer>();
@@ -117,7 +117,6 @@ public class InterpreteSimpleSphereTexture implements Interprete {
 
             ib.read(text, pos);
             pos = ib.getPosition();
-
 
             this.pos = pos;
             SimpleSphereAvecTexture s = null;

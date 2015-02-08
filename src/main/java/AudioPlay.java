@@ -1,14 +1,12 @@
 
 /**
  * *
- * Global license :  *
- * CC Attribution
+ * Global license : * CC Attribution
  *
  * author Manuel Dahmen <ibiiztera.it@gmail.com>
  *
  **
  */
-
 /**
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
@@ -23,22 +21,22 @@ class AudioPlay {
 
     public static void main(String args[]) throws Exception {
 
- // Take the path of the audio file from command line
+        // Take the path of the audio file from command line
         File f = new File(args[0]);
 
- // Create a Player object that realizes the audio
+        // Create a Player object that realizes the audio
         final Player p = Manager.createRealizedPlayer(f.toURI().toURL());
 
-  // Start the music
+        // Start the music
         p.start();
 
-  // Create a Scanner object for taking input from cmd
+        // Create a Scanner object for taking input from cmd
         Scanner s = new Scanner(System.in);
 
-  // Read a line and store it in st
+        // Read a line and store it in st
         String st = s.nextLine();
 
-   // If user types 's', stop the audio
+        // If user types 's', stop the audio
         if (st.equals("s")) {
 
             p.stop();

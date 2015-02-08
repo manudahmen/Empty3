@@ -1,31 +1,19 @@
-/*
-
-    Vous êtes libre de :
-
-*/
-
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.object.Point2D;
 
-	public class SurfaceCirculaire implements Surface {
-		private int max;
-		private double radius;
+public class SurfaceCirculaire extends Surface {
 
-		public SurfaceCirculaire(double r) {
-			this.radius = r;
-		}
+    private double radius;
 
-		@Override
-		public Point2D getPoint(int i) {
-			return new Point2D(0.5 * Math.cos(Math.PI * 2 * i / max),
-					0.5 * Math.sin(Math.PI * 2 * i / max));
-		}
+    public SurfaceCirculaire(double r) {
+        this.radius = r;
+    }
 
-		@Override
-		public void setMax(int n) {
-			max = n;
-		}
+    @Override
+    public Point2D getPoint(int i) {
+        return new Point2D(Math.cos(Math.PI * 2 * i / max),
+                Math.sin(Math.PI * 2 * i / max));
+    }
 
-		
-	}
+}

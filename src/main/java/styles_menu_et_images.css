@@ -43,10 +43,10 @@ h2.code
 }
 h2.menu_link, h2.menu_link a
 {
-   background: aqua;
-   color: black;
-   padding: 5px;
-   text-align: right;
+    background: aqua;
+    color: black;
+    padding: 5px;
+    text-align: right;
 }
 
 .history {

@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import java.awt.Color;
@@ -12,70 +12,72 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Tetraedre;
 
 public class InterpreteTetraedre implements Interprete {
+
     private String repertoire;
-	    private int pos;
-@Override
-public InterpreteConstants constant() {
-	// TODO Auto-generated method stub
-	return null;
-}
+    private int pos;
 
-	@Override
-	public int getPosition() {
-		return pos;
-	}
+    @Override
+    public InterpreteConstants constant() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Object interprete(String text, int pos) throws InterpreteException {
-		Point3D[] ps = new Point3D[4];
+    @Override
+    public int getPosition() {
+        return pos;
+    }
 
-		InterpretesBase ib = new InterpretesBase();
-		ArrayList<Integer> pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		pattern.add(ib.LEFTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+    @Override
+    public Object interprete(String text, int pos) throws InterpreteException {
+        Point3D[] ps = new Point3D[4];
 
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.BLANK);
-		for (int i = 0; i < 4; i++) {
-			InterpretePoint3D pp = new InterpretePoint3D();
-			ps[i] = (Point3D) pp.interprete(text, pos);
-			pos = pp.getPosition();
+        InterpretesBase ib = new InterpretesBase();
+        ArrayList<Integer> pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        pattern.add(ib.LEFTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-			ib = new InterpretesBase();
-			ib.compile(pattern);
-			ib.read(text, pos);
-			pos = ib.getPosition();
-		}
-		
-		InterpreteCouleur pc = new InterpreteCouleur();
-		Color c = (Color) pc.interprete(text, pos);
-		pos = pc.getPosition();
-		pattern = new ArrayList<Integer>();
-		pattern.add(ib.RIGHTPARENTHESIS);
-		pattern.add(ib.BLANK);
-		ib = new InterpretesBase();
-		ib.compile(pattern);
-		ib.read(text, pos);
-		pos = ib.getPosition();
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.BLANK);
+        for (int i = 0; i < 4; i++) {
+            InterpretePoint3D pp = new InterpretePoint3D();
+            ps[i] = (Point3D) pp.interprete(text, pos);
+            pos = pp.getPosition();
 
-                this.pos = pos;
+            ib = new InterpretesBase();
+            ib.compile(pattern);
+            ib.read(text, pos);
+            pos = ib.getPosition();
+        }
 
-		return new Tetraedre(ps, c);
-	}
+        InterpreteCouleur pc = new InterpreteCouleur();
+        Color c = (Color) pc.interprete(text, pos);
+        pos = pc.getPosition();
+        pattern = new ArrayList<Integer>();
+        pattern.add(ib.RIGHTPARENTHESIS);
+        pattern.add(ib.BLANK);
+        ib = new InterpretesBase();
+        ib.compile(pattern);
+        ib.read(text, pos);
+        pos = ib.getPosition();
 
-	@Override
-	public void setConstant(InterpreteConstants c) {
-		// TODO Auto-generated method stub
+        this.pos = pos;
 
-	}
+        return new Tetraedre(ps, c);
+    }
 
-	@Override
-   public void setRepertoire(String r) {
-	this.repertoire = r;
-   }
+    @Override
+    public void setConstant(InterpreteConstants c) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setRepertoire(String r) {
+        this.repertoire = r;
+    }
 
 }

@@ -1,12 +1,11 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <ibiiztera.it@gmail.com>
-
-***/
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ *
+ **
+ */
 package info.emptycanvas.library.object;
 
 import java.awt.Color;
@@ -24,8 +23,7 @@ import org.monte.media.avi.AVIReader;
  * @author Atelier
  */
 @Deprecated
-public class TColor implements ITexture
-{
+public class TColor implements ITexture {
 
     public static final int TYPE_COULEUR = 0;
     public static final int TYPE_TEXTURE = 1;
@@ -55,19 +53,17 @@ public class TColor implements ITexture
         this.avifile = avifile;
         try {
             reader = new AVIReader(avifile);
-            
+
             reader.nextTrack();
-            
-            track  = 0;
-             Format format =
-                new
-                    Format(VideoFormatKeys.DataClassKey, BufferedImage.class);
-             //track = reader.findTrack(0, format);
-            
-            
-            image = new ECBufferedImage( 
-                    reader.read(track, (BufferedImage)null)
-                );
+
+            track = 0;
+            Format format
+                    = new Format(VideoFormatKeys.DataClassKey, BufferedImage.class);
+            //track = reader.findTrack(0, format);
+
+            image = new ECBufferedImage(
+                    reader.read(track, (BufferedImage) null)
+            );
         } catch (IOException ex) {
             Logger.getLogger(TColor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,22 +98,22 @@ public class TColor implements ITexture
         if (type == TYPE_MOVIE) {
             readNextFrame();
         }
-        int c =  image != null && ((type&(TYPE_TEXTURE|TYPE_MOVIE))>0) ? image
+        int c = image != null && ((type & (TYPE_TEXTURE | TYPE_MOVIE)) > 0) ? image
                 .getRGB((int) (a * image
-                .getWidth()),
-                (int) (b * image
-                .getHeight())) : couleur
+                        .getWidth()),
+                        (int) (b * image
+                        .getHeight())) : couleur
                 .getRGB();
-        if(new Color(c).equals(transparent))
+        if (new Color(c).equals(transparent)) {
             return 0xFFFFFF00;
-        else
+        } else {
             return c;
+        }
     }
 
     public Color getCouleur() {
         return couleur;
     }
-
 
     public ECBufferedImage getImage() {
         return image;
@@ -149,10 +145,11 @@ public class TColor implements ITexture
             yi = image.getHeight() - 1;
         }
         Color c = new Color(image.getRGB(xi, yi));
-        if(c.equals(transparent))
+        if (c.equals(transparent)) {
             return null;
-        else
+        } else {
             return c;
+        }
     }
 
     /**
@@ -194,28 +191,23 @@ public class TColor implements ITexture
         return nomFichier;
     }
 
-    public boolean readNextFrame()
-    {
-        
-        if(type==TYPE_MOVIE)
-        {
+    public boolean readNextFrame() {
+
+        if (type == TYPE_MOVIE) {
             try {
-                while(scene.getGt().getTimeInSeconds()>reader.getReadTime(track).doubleValue() && image!=null)
-                {
-                
+                while (scene.getGt().getTimeInSeconds() > reader.getReadTime(track).doubleValue() && image != null) {
+
                     image = new ECBufferedImage(
-                            reader.read(track, (BufferedImage)null)
-                                    );
-    //                System.out.println("Temps" + scene.getGt().getTimeInSeconds());
+                            reader.read(track, (BufferedImage) null)
+                    );
+                    //                System.out.println("Temps" + scene.getGt().getTimeInSeconds());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(TColor.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -239,7 +231,7 @@ public class TColor implements ITexture
     public void timeNext() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public void timeNext(long milli) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -247,9 +239,9 @@ public class TColor implements ITexture
     @Override
     public String toString() {
         return type == TYPE_COULEUR ? "(" + couleur.getRed() + ", "
-                + couleur.getGreen() + ", " + couleur.getBlue() + ")" :
-                (type== TYPE_TEXTURE?image.toString():
-                avifile.getAbsolutePath());
+                + couleur.getGreen() + ", " + couleur.getBlue() + ")"
+                : (type == TYPE_TEXTURE ? image.toString()
+                        : avifile.getAbsolutePath());
     }
 
     public int type() {

@@ -4,10 +4,12 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Barycentre;
 
 public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
-	private boolean sectionA = true;
-	private boolean sectionB = true;
-	public Chemin chemin;
-	public Surface surface;
+
+    private boolean sectionA = true;
+    private boolean sectionB = true;
+    public Chemin chemin;
+    public Surface surface;
+    private Point3D normaleFixe;
 
     public boolean isSectionA() {
         return sectionA;
@@ -27,10 +29,12 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
 
     public void setChemin(Chemin chemin) {
         this.chemin = chemin;
+        this.chemin.setMax(maxX);
     }
 
     public void setSurface(Surface surface) {
         this.surface = surface;
+        this.surface.setMax(maxY);
     }
 
     public Chemin getChemin() {
@@ -41,50 +45,58 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
         return surface;
     }
 
-	public TRIExtrusionGeneralisee() {
-		setCirculaireY(true);
-		setCirculaireX(false);
+    public TRIExtrusionGeneralisee() {
+        setCirculaireY(true);
+        setCirculaireX(false);
 
-	}
+    }
 
+    public void Chemin(Chemin c) {
+        this.chemin = c;
+    }
 
-	public void Chemin(Chemin c) {
-		this.chemin = c;
-	}
+    @Override
+    public Point3D coordPoint3D(int ichemin, int isurface) {
 
-	@Override
-	public Point3D coordPoint3D(int ichemin, int isurface) {
-		
-		Point3D p3 = null;
+        Point3D Op, T, NX, NY, pO;
 
-		Point3D p = Point3D.O0;
+        Op = chemin.getPoint(ichemin);
 
-		Point3D Op, v, k, T = null;
+        if (ichemin == chemin.getMax() - 1 && sectionB) {
+            return Op;
+        } else if (ichemin == 0 && sectionA) {
+            return Op;
+        }
 
-		Op = chemin.getPoint(ichemin);
+        if (ichemin == chemin.getMax() - 1 && !getCirculaireX()) {
+            T = chemin.tangent(ichemin);
+        } else {
+            T = chemin.tangent(ichemin);
+        }
 
-		if (ichemin == getMaxX() - 1 && sectionB)
-			return Op;
-		else if (ichemin == 0 && sectionA)
-			return Op;
+        /**
+         * Plan normal pour le chemin
+         *
+         */
+        Point3D normale = chemin.normale(ichemin);
+        if ((normale.norme() == 0 || normale.prodVect(T).norme() == 0)) {
+            if (normaleFixe == null) {
+                normaleFixe = T.prodVect(Point3D.r(1));
+            }
+            NX = normaleFixe;
+        } else {
+            NX = normale.norme1();
+        }
 
-		if (ichemin == getMaxX() - 1 && !getCirculaireX())
-			T = chemin.getPoint(ichemin).moins(chemin.getPoint(ichemin - 1))
-					.norme1();
-		else
-			T = chemin.getPoint((ichemin + 1) % getMaxX())
-					.moins(chemin.getPoint(ichemin)).norme1();
+        NY = T.prodVect(NX);
 
-		k = T.prodVect(Point3D.Z).norme1();
+        pO = Op.plus(NX.mult(surface.getPoint(isurface).getX())).plus(
+                NY.mult(surface.getPoint(isurface).getY()));
+        if (this.bc == null) {
+            bc = new Barycentre();
+        }
 
-		v = T.prodVect(k);
+        return bc.calculer(pO);
 
-		Point3D p0 = Op.plus(v.mult(surface.getPoint(isurface).getX())).plus(
-				k.mult(surface.getPoint(isurface).getY()));
-		if (this.bc == null)
-			bc = new Barycentre();
-
-		return bc.calculer(p0);
-
-	}
+    }
 }

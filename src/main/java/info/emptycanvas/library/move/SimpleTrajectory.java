@@ -1,13 +1,11 @@
-/***
-Global license : 
-
-    Microsoft Public Licence
-    
-    author Manuel Dahmen <manuel.dahmen@gmail.com>
-
-***/
-
-
+/**
+ * *
+ * Global license : * Microsoft Public Licence
+ *
+ * author Manuel Dahmen <manuel.dahmen@gmail.com>
+ *
+ **
+ */
 package info.emptycanvas.library.move;
 
 import info.emptycanvas.library.object.POINT3D_RIO;
@@ -19,10 +17,10 @@ import java.util.Collection;
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public class SimpleTrajectory implements Trajectory
-{
+public class SimpleTrajectory implements Trajectory {
+
     private ArrayList<Point3D> liste = new ArrayList<Point3D>();
-            
+
     public boolean hasMorePoints() {
         return !liste.isEmpty();
     }
@@ -42,8 +40,9 @@ public class SimpleTrajectory implements Trajectory
     }
 
     public void addPoints(Point3D[] points) {
-        for(int i=0; i<points.length; i++)
+        for (int i = 0; i < points.length; i++) {
             liste.add(points[i]);
+        }
     }
 
 }

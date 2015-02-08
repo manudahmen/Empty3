@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package be.ibiiztera.md.idgen;
 
 /**
@@ -14,5 +14,6 @@ package be.ibiiztera.md.idgen;
  *
  */
 public class Version {
-	public final static double VERSION = 1.6; 
+
+    public final static double VERSION = 1.6;
 }

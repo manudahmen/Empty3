@@ -1,11 +1,10 @@
 /**
  * *
- * Global license :  *
- * Microsoft Public Licence
+ * Global license : * Microsoft Public Licence
  *
  * author Manuel Dahmen <ibiiztera.it@gmail.com>
  *
-    Creation time 17-sept.-2014
+ * Creation time 17-sept.-2014
  *
  **
  */
@@ -27,7 +26,7 @@ public class SurfaceParametriquePolynomialeBSpline extends ParametrizedSurface {
     public SurfaceParametriquePolynomialeBSpline(double[] U, double[] V, Point3D[][] P, int uDegree, int vDegree) {
         this.U = U;
         this.V = V;
-        this.intervalles = new double [2][];
+        this.intervalles = new double[2][];
         intervalles[0] = U;
         intervalles[1] = U;
         this.P = P;
@@ -38,9 +37,9 @@ public class SurfaceParametriquePolynomialeBSpline extends ParametrizedSurface {
     public Point3D calculerPoint3D(double t) {
         Point3D sum = Point3D.O0;
         for (int i = 0; i < P.length; i++) {
-        for (int j = 0; j < P[0].length; j++) {
-            sum = sum.plus(P[i][j].mult(N(i, uDegree, t, 0)*N(j, vDegree, t, 1)));
-        }
+            for (int j = 0; j < P[0].length; j++) {
+                sum = sum.plus(P[i][j].mult(N(i, uDegree, t, 0) * N(j, vDegree, t, 1)));
+            }
         }
         return sum;
     }
@@ -72,4 +71,4 @@ public class SurfaceParametriquePolynomialeBSpline extends ParametrizedSurface {
         }
     }
 
-    }
+}

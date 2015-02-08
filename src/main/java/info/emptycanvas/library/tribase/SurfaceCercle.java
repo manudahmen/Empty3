@@ -2,30 +2,24 @@ package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.object.Point2D;
 
-public class SurfaceCercle implements Surface {
+public class SurfaceCercle extends Surface {
 
-	private double r;
-	private int n;
+    private double r;
 
-	public SurfaceCercle(double r) {
-		this.r = r;
-	}
-	
-	private double getLength() {
-			return n;
-	}
+    public SurfaceCercle(double r) {
+        this.r = r;
+    }
 
-	@Override
-	public Point2D getPoint(int i) {
-		return new Point2D(
-					Math.cos(2*Math.PI*r/getLength()),
-					Math.sin(2*Math.PI*r/getLength())
-				);
-	}
+    private double getLength() {
+        return 2 * Math.PI * r;
+    }
 
-	@Override
-	public void setMax(int n) {
-		this.n = n;
-	}
+    @Override
+    public Point2D getPoint(int i) {
+        return new Point2D(
+                Math.cos(2 * Math.PI * i * r / getMax()),
+                Math.sin(2 * Math.PI * i * r / getMax())
+        );
+    }
 
 }

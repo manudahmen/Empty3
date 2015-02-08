@@ -1,10 +1,10 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 /**
- * 
+ *
  */
 package info.emptycanvas.library.script;
 
@@ -19,45 +19,45 @@ import java.util.ArrayList;
  *
  */
 public class InterpreteCaractere implements Interprete {
+
     private String repertoire;
+
     @Override
-	public InterpreteConstants constant() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public InterpreteConstants constant() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public int getPosition() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getPosition() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public Object interprete(String text, int pos) throws InterpreteException {
-		InterpretesBase isb = new InterpretesBase();
-		ArrayList<Integer> p = new ArrayList<Integer>();
-		p.add(isb.BLANK);
-		p.add(isb.CARACTERE);
-		p.add(isb.BLANK);
-		isb.compile(p);
-		Character c = null;
-		try
-		{
-			c =(Character) isb.read(text, pos).get(1);
-		} catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		return c;
-	}
+    @Override
+    public Object interprete(String text, int pos) throws InterpreteException {
+        InterpretesBase isb = new InterpretesBase();
+        ArrayList<Integer> p = new ArrayList<Integer>();
+        p.add(isb.BLANK);
+        p.add(isb.CARACTERE);
+        p.add(isb.BLANK);
+        isb.compile(p);
+        Character c = null;
+        try {
+            c = (Character) isb.read(text, pos).get(1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return c;
+    }
 
-	@Override
-	public void setConstant(InterpreteConstants c) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setConstant(InterpreteConstants c) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
+    @Override
     public void setRepertoire(String r) {
         this.repertoire = r;
     }

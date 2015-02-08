@@ -1,14 +1,15 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.Point3D;
 import java.util.ArrayList;
 
 public class InterpreteListePoints implements Interprete {
+
     private String repertoire;
     private int pos = 0;
 

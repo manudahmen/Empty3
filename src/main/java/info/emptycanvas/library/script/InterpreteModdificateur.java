@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.MODHomothetie;
@@ -18,8 +18,10 @@ import java.util.ArrayList;
  * @author manuel
  */
 public class InterpreteModdificateur implements Interprete {
+
     private String repertoire;
     private int pos;
+
     public InterpreteConstants constant() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -27,8 +29,6 @@ public class InterpreteModdificateur implements Interprete {
     public int getPosition() {
         return pos;
     }
-
-
 
     public Object interprete(String text, int pos) throws InterpreteException {
         boolean set_mr = false;
@@ -49,8 +49,7 @@ public class InterpreteModdificateur implements Interprete {
         pattern.add(ib.MULTIPLICATION);
         pattern.add(ib.BLANK);
         ib.compile(pattern);
-        if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-        {
+        if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
             pos = ib.getPosition();
             ib = new InterpretesBase();
             pattern = new ArrayList<Integer>();
@@ -58,14 +57,13 @@ public class InterpreteModdificateur implements Interprete {
             pattern.add(ib.LEFTPARENTHESIS);
             pattern.add(ib.BLANK);
             ib.compile(pattern);
-            if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-            {
+            if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
                 pos = ib.getPosition();
                 InterpretePoint3D pp = new InterpretePoint3D();
-                mh.centre((Point3D)pp.interprete(text, pos));
-                
+                mh.centre((Point3D) pp.interprete(text, pos));
+
                 pos = pp.getPosition();
-                
+
                 ib = new InterpretesBase();
                 pattern = new ArrayList<Integer>();
                 pattern.add(ib.BLANK);
@@ -78,13 +76,10 @@ public class InterpreteModdificateur implements Interprete {
                 ib.read(text, pos);
                 pos = ib.getPosition();
 
-
-                mh.facteur((Double)ib.read(text, pos).get(1));
+                mh.facteur((Double) ib.read(text, pos).get(1));
 
                 set_mh = true;
             }
-
-
 
         }
 
@@ -95,8 +90,7 @@ public class InterpreteModdificateur implements Interprete {
         pattern.add(ib.DIESE);
         pattern.add(ib.BLANK);
         ib.compile(pattern);
-        if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-        {
+        if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
             pos = ib.getPosition();
             ib = new InterpretesBase();
             pattern = new ArrayList<Integer>();
@@ -104,13 +98,12 @@ public class InterpreteModdificateur implements Interprete {
             pattern.add(ib.LEFTPARENTHESIS);
             pattern.add(ib.BLANK);
             ib.compile(pattern);
-            if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-            {
+            if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
                 pos = ib.getPosition();
-                Point3D vAxe [] = new Point3D[3];
-                for(int vecteur = 0; vecteur < 3; vecteur++){
+                Point3D vAxe[] = new Point3D[3];
+                for (int vecteur = 0; vecteur < 3; vecteur++) {
                     InterpretePoint3D pp = new InterpretePoint3D();
-                    vAxe[vecteur] = (Point3D)pp.interprete(text, pos);
+                    vAxe[vecteur] = (Point3D) pp.interprete(text, pos);
 
                     pos = pp.getPosition();
                 }
@@ -118,8 +111,7 @@ public class InterpreteModdificateur implements Interprete {
                 mr.matrice(new Matrix33(vAxe));
 
                 InterpretePoint3D pp = new InterpretePoint3D();
-                mr.centre((Point3D)pp.interprete(text, pos));
-
+                mr.centre((Point3D) pp.interprete(text, pos));
 
                 ib = new InterpretesBase();
                 pattern = new ArrayList<Integer>();
@@ -143,8 +135,7 @@ public class InterpreteModdificateur implements Interprete {
         pattern.add(ib.AROBASE);
         pattern.add(ib.BLANK);
         ib.compile(pattern);
-        if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-        {
+        if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
             pos = ib.getPosition();
             ib = new InterpretesBase();
             pattern = new ArrayList<Integer>();
@@ -152,12 +143,10 @@ public class InterpreteModdificateur implements Interprete {
             pattern.add(ib.LEFTPARENTHESIS);
             pattern.add(ib.BLANK);
             ib.compile(pattern);
-            if(ib.read(text, pos).get(1) instanceof InterpretesBase.CODE)
-            {
+            if (ib.read(text, pos).get(1) instanceof InterpretesBase.CODE) {
                 pos = ib.getPosition();
                 InterpretePoint3D pp = new InterpretePoint3D();
-                mt.translation((Point3D)pp.interprete(text, pos));
-
+                mt.translation((Point3D) pp.interprete(text, pos));
 
                 ib = new InterpretesBase();
                 pattern = new ArrayList<Integer>();
@@ -188,8 +177,4 @@ public class InterpreteModdificateur implements Interprete {
     public void setRepertoire(String r) {
         this.repertoire = r;
     }
-    }
-
-    
-
-
+}

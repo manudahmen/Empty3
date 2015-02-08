@@ -17,7 +17,6 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
  */
-
 package info.emptycanvas.library.script;
 
 /**
@@ -28,5 +27,5 @@ public class VersionNonSupporteeException extends Exception {
 
     public VersionNonSupporteeException() {
     }
-    
+
 }

@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.ColorTexture;
@@ -12,10 +12,12 @@ import info.emptycanvas.library.object.Point3D;
 import java.awt.Color;
 
 public class InterpretePoint3DCouleur implements Interprete {
+
     private String repertoire;
     private InterpreteConstants c;
 
     private int pos;
+
     public InterpretePoint3DCouleur() {
     }
 
@@ -39,7 +41,6 @@ public class InterpretePoint3DCouleur implements Interprete {
         pattern.add(ib.BLANK);
         pattern.add(ib.LEFTPARENTHESIS);
         pattern.add(ib.BLANK);
-
 
         ib.compile(pattern);
         ArrayList<Object> os = ib.read(text, pos);

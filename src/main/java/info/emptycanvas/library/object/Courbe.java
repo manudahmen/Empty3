@@ -1,16 +1,14 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package info.emptycanvas.library.object;
 
 /**
  *
  * @author Manuel DAHMEN
  */
-public interface Courbe 
-{
-    
+public interface Courbe {
+
 }

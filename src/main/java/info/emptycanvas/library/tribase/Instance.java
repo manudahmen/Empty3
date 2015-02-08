@@ -1,84 +1,86 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.tribase;
 
 public class Instance {
-	private class ThreadInstance extends Thread {
-		private boolean started = false;
-		private boolean stopped = false;
-		private boolean paused = false;
-		private boolean killed = false;
 
-		public ThreadInstance(Params params) {
-			instance.setParams(params);
-		}
+    private class ThreadInstance extends Thread {
 
-		public void run() {
-			while (!killed) {
+        private boolean started = false;
+        private boolean stopped = false;
+        private boolean paused = false;
+        private boolean killed = false;
 
-				while (!stopped & started & !paused) {
-					instance.initFrame();
-					instance.computeFrame();
-					instance.showFrame();
-					instance.computeFrame();
-				}
-				try {
-					sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+        public ThreadInstance(Params params) {
+            instance.setParams(params);
+        }
 
-		public void setKilled(boolean killed) {
-			this.killed = killed;
-		}
+        public void run() {
+            while (!killed) {
 
-		public void setPaused(boolean paused) {
-			this.paused = paused;
-		}
+                while (!stopped & started & !paused) {
+                    instance.initFrame();
+                    instance.computeFrame();
+                    instance.showFrame();
+                    instance.computeFrame();
+                }
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		public void setStarted(boolean started) {
-			this.started = started;
-		}
+        public void setKilled(boolean killed) {
+            this.killed = killed;
+        }
 
-		public void setStopped(boolean stopped) {
-			this.stopped = stopped;
-		}
+        public void setPaused(boolean paused) {
+            this.paused = paused;
+        }
 
-	}
-	private BaseGenerator instance;
+        public void setStarted(boolean started) {
+            this.started = started;
+        }
 
-	private ThreadInstance thread;
+        public void setStopped(boolean stopped) {
+            this.stopped = stopped;
+        }
 
-	public Instance(BaseGenerator bg, Params params) {
-		instance = bg;
-		thread = new ThreadInstance(params);
-		thread.start();
-	}
+    }
+    private BaseGenerator instance;
 
-	public void kill() {
-		thread.setStopped(true);
-		thread.setKilled(true);
-	}
+    private ThreadInstance thread;
 
-	public void pauseInstance() {
-		thread.setPaused(true);
-	}
+    public Instance(BaseGenerator bg, Params params) {
+        instance = bg;
+        thread = new ThreadInstance(params);
+        thread.start();
+    }
 
-	public void restartInstance() {
-		thread.setStopped(true);
-		thread.setStarted(true);
-	}
+    public void kill() {
+        thread.setStopped(true);
+        thread.setKilled(true);
+    }
 
-	public void startInstance() {
-		thread.setStarted(true);
-	}
+    public void pauseInstance() {
+        thread.setPaused(true);
+    }
 
-	public void stopInstance() {
-		thread.setStopped(true);
-	}
+    public void restartInstance() {
+        thread.setStopped(true);
+        thread.setStarted(true);
+    }
+
+    public void startInstance() {
+        thread.setStarted(true);
+    }
+
+    public void stopInstance() {
+        thread.setStopped(true);
+    }
 }

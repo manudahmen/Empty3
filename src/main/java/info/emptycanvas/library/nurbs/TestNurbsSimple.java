@@ -20,7 +20,6 @@ import java.awt.Color;
  */
 public class TestNurbsSimple extends TestObjet {
 
-
     @Override
     public void testScene() throws Exception {
         scene().clear();
@@ -34,19 +33,18 @@ public class TestNurbsSimple extends TestObjet {
             {
                 new Point3D(1, -1, 0),
                 new Point3D(1, 1, 0)}
-            }
-                ,
-        new double[][]{
-            {1, 1},
-            {1, 1}
-        });
+        },
+                new double[][]{
+                    {1, 1},
+                    {1, 1}
+                });
 
         n.setDegreU(2);
         n.setDegreV(2);
 
         n.setReseauFonction(new double[][]{
-            {0, 0,1,1},
-            {0, 0,1,1}
+            {0, 0, 1, 1},
+            {0, 0, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
@@ -62,7 +60,7 @@ public class TestNurbsSimple extends TestObjet {
 
         scene().add(n);
         System.out.println(n);
-        
+
         scene().cameraActive(new Camera(Point3D.Z.mult(-2), Point3D.O0));
     }
 
@@ -73,9 +71,9 @@ public class TestNurbsSimple extends TestObjet {
         n.setGenerate(GENERATE_MODEL | GENERATE_IMAGE);
 
         n.setMaxFrames(30);
-        
+
         n.loop(true);
-        
+
         new Thread(n).start();
 
     }

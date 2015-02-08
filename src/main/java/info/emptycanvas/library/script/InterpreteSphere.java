@@ -1,8 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
+ */
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.object.ECBufferedImage;
@@ -20,11 +20,11 @@ import javax.imageio.ImageIO;
  *
  * @author Manuel DAHMEN
  */
-public class InterpreteSphere implements Interprete
-{
+public class InterpreteSphere implements Interprete {
+
     private String repertoire;
-    
-        private int position;
+
+    private int position;
 
     @Override
     public InterpreteConstants constant() {
@@ -40,32 +40,30 @@ public class InterpreteSphere implements Interprete
     public Object interprete(String text, int pos) throws InterpreteException {
         InterpretesBase base = new InterpretesBase();
         InterpretePoint3D point3D = new InterpretePoint3D();
-        InterpreteNomFichier nomFichier  = new InterpreteNomFichier();
+        InterpreteNomFichier nomFichier = new InterpreteNomFichier();
         ArrayList<Integer> pattern = new ArrayList<Integer>();
-        
-        
+
         pattern.add(base.BLANK);
         pattern.add(base.LEFTPARENTHESIS);
         pattern.add(base.BLANK);
         base.compile(pattern);
         base.read(text, pos);
         pos = base.getPosition();
-        
+
         Point3D centre = null;
         centre = (Point3D) point3D.interprete(text, pos);
         pos = point3D.getPosition();
-        
+
         pattern = new ArrayList<Integer>();
         pattern.add(base.BLANK);
         base.compile(pattern);
         base.read(text, pos);
         pos = base.getPosition();
-        
-        
+
         File file = null;
         file = (File) nomFichier.interprete(text, pos);
         pos = nomFichier.getPosition();
-        
+
         pattern = new ArrayList<Integer>();
         pattern.add(base.BLANK);
         pattern.add(base.RIGHTPARENTHESIS);
@@ -73,15 +71,14 @@ public class InterpreteSphere implements Interprete
         base.compile(pattern);
         base.read(text, pos);
         pos = base.getPosition();
-        
-        
+
         this.position = pos;
-        
-        TRISphere sphere =  new TRISphere(centre, pos);
+
+        TRISphere sphere = new TRISphere(centre, pos);
         try {
             sphere.texture(
                     new TColor(new ECBufferedImage(ImageIO.read(file))));
-            
+
             return sphere;
         } catch (IOException ex) {
             Logger.getLogger(InterpreteSphere.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,8 +92,8 @@ public class InterpreteSphere implements Interprete
     }
 
     @Override
-   public void setRepertoire(String r) {
-	this.repertoire = r;
-   }
-    
+    public void setRepertoire(String r) {
+        this.repertoire = r;
+    }
+
 }

@@ -63,7 +63,6 @@ public class InterpretePlan3D implements Interprete {
         is = new InterpreteTColor();
         is.setRepertoire(repertoire);
 
-
         TColor tc = (TColor) is.interprete(text, pos);
         plan.texture(tc);
         pos = is.getPosition();
@@ -76,7 +75,6 @@ public class InterpretePlan3D implements Interprete {
         ib.compile(pattern);
         ib.read(text, pos);
         pos = ib.getPosition();
-
 
         this.position = pos;
         return plan;

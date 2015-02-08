@@ -1,9 +1,8 @@
 /*
 
-    Vous êtes libre de :
+ Vous êtes libre de :
 
-*/
-
+ */
 package info.emptycanvas.library.extra;
 
 import java.awt.Color;
@@ -26,21 +25,21 @@ import info.emptycanvas.library.object.TRIObject;
  *
  */
 /*
-public class TriHoleAnime extends Animation {
-	Polyhedre th ;
-	public TriHoleAnime(Scene s) {
-		super(s);
-	}
+ public class TriHoleAnime extends Animation {
+ Polyhedre th ;
+ public TriHoleAnime(Scene s) {
+ super(s);
+ }
 	
-	private Point3D pcurrent = new Point3D(0,0,0);
-	private void modifier(Polyhedre th2) {
-		Random r = new Random();
-		float fx = (r.nextFloat()-0.5f)*10;
-		float fy = (r.nextFloat()-0.5f)*10;
-		float fz = (r.nextFloat()-0.5f)*10;
-		pcurrent = pcurrent.plus(new Point3D(fx, fy, fz));
-		th2.add(pcurrent);
-	}
+ private Point3D pcurrent = new Point3D(0,0,0);
+ private void modifier(Polyhedre th2) {
+ Random r = new Random();
+ float fx = (r.nextFloat()-0.5f)*10;
+ float fy = (r.nextFloat()-0.5f)*10;
+ float fz = (r.nextFloat()-0.5f)*10;
+ pcurrent = pcurrent.plus(new Point3D(fx, fy, fz));
+ th2.add(pcurrent);
+ }
 
-}
-*/
+ }
+ */
