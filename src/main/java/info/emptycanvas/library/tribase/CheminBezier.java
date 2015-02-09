@@ -16,9 +16,15 @@ public class CheminBezier extends Chemin {
         throw new UnsupportedOperationException("Longueur Bezier non mesurée");
     }
 
-    public Point3D getPoint(int i) {
-        return sd.calculerPoint3D(1.0 * i / getMax());
 
+    @Override
+    public Point3D calculerPoint3D(double t) {
+        return sd.calculerPoint3D(t);
+    }
+
+    @Override
+    public Point3D calculerVitesse3D(double t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
