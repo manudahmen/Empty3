@@ -12,12 +12,12 @@ public class CheminBezier extends Chemin {
         this.sd = sd;
     }
 
-    public int getLength() {
+    public double getLength() {
         throw new UnsupportedOperationException("Longueur Bezier non mesurée");
     }
 
     public Point3D getPoint(int i) {
-        return sd.calculerPoint3D(1.0 * i / n);
+        return sd.calculerPoint3D(1.0 * i / getMax());
 
     }
 

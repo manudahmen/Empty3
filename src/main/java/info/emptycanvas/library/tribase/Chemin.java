@@ -4,7 +4,7 @@ import info.emptycanvas.library.object.Point3D;
 
 public abstract class Chemin {
 
-    private int max;
+    private int max = 100;
 
     /**
      * *
@@ -12,7 +12,7 @@ public abstract class Chemin {
      *
      * @return Mesure de la longueur du chemin
      */
-    public abstract int getLength();
+    public abstract double getLength();
 
     /**
      * Point d'index i sur Max
@@ -49,15 +49,14 @@ public abstract class Chemin {
      */
     public Point3D tangent(int i) {
         if (i < max - 1 && i > 0) {
-            return (getPoint(i).moins(getPoint(i - 1))).norme1();
+            return (getPoint(i).moins(getPoint(i - 1)));
         } else if (i == 0) {
-            return tangent(i + 1).norme1();
+            return tangent(i + 1);
         } else if (i == max - 1) {
-            return tangent(i - 1).norme1();
+            return tangent(i - 1);
         } else if (i == max) {
-            return tangent(i - 2).norme1();
+            return tangent(i - 2);
         }
-
         throw new UnsupportedOperationException("Index non permis: " + i + "." + max);
     }
 
@@ -69,22 +68,27 @@ public abstract class Chemin {
      * @return
      */
     public Point3D normale(int i) {
+        Point3D n = Point3D.O0;
+        
         if (i > 0 && i < max - 1) {
-            if (tangent(i).prodVect(tangent(i - 1)).norme() < 0.001) {
-                return tangent(i).prodVect(Point3D.r(1.0));
-            } else {
-                return tangent(i + 1).moins(tangent(i)).norme1();
-            }
-
+                n = tangent(i + 1).moins(tangent(i));
         } else if (i == 0) {
-            return normale(i + 1).norme1();
+            n= normale(i + 1);
         } else if (i == max - 1) {
-            return normale(i - 1).norme1();
+            n= normale(i - 1);
         }
          else if (i == max) {
-            return normale(i - 2).norme1();
+            n= normale(i - 2);
         }
-        throw new UnsupportedOperationException("Index non permis: " + i + "." + max);
+        else
+         {
+        n= tangent(i).prodVect(Point3D.r(1));
+         }
+        if(n.norme()==0 || Double.isNaN(n.norme()))
+            return Point3D.Z;
+        else
+            return n;
+        //throw new UnsupportedOperationException("Index non permis: " + i + "." + max);
     }
 
    

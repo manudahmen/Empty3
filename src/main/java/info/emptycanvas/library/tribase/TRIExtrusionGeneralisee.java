@@ -29,12 +29,24 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
 
     public void setChemin(Chemin chemin) {
         this.chemin = chemin;
-        this.chemin.setMax(maxX);
+        this.setMaxX(chemin.getMax());
     }
 
     public void setSurface(Surface surface) {
         this.surface = surface;
-        this.surface.setMax(maxY);
+        this.setMaxY(surface.getMax());
+    }
+
+    @Override
+    public void setMaxY(int maxY) {
+        super.setMaxY(maxY); //To change body of generated methods, choose Tools | Templates.
+        surface.setMax(getMaxY());
+    }
+
+    @Override
+    public void setMaxX(int maxX) {
+        super.setMaxX(maxX); //To change body of generated methods, choose Tools | Templates.
+        chemin.setMax(getMaxX());
     }
 
     public Chemin getChemin() {
@@ -51,10 +63,6 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
 
     }
 
-    public void Chemin(Chemin c) {
-        this.chemin = c;
-    }
-
     @Override
     public Point3D coordPoint3D(int ichemin, int isurface) {
 
@@ -68,34 +76,36 @@ public class TRIExtrusionGeneralisee extends TRIObjetGenerateurAbstract {
             return Op;
         }
 
-        if (ichemin == chemin.getMax() - 1 && !getCirculaireX()) {
-            T = chemin.tangent(ichemin);
-        } else {
-            T = chemin.tangent(ichemin);
-        }
-
+        T = chemin.tangent(ichemin);
+        
+    
         /**
          * Plan normal pour le chemin
          *
          */
         Point3D normale = chemin.normale(ichemin);
-        if ((normale.norme() == 0 || normale.prodVect(T).norme() == 0)) {
+        /*if ((normale.norme() < 0.001 || normale.prodVect(T).norme() < 0.001)) {
             if (normaleFixe == null) {
                 normaleFixe = T.prodVect(Point3D.r(1));
             }
-            NX = normaleFixe;
+            NX = normaleFixe.norme1();
         } else {
             NX = normale.norme1();
-        }
-
-        NY = T.prodVect(NX);
-
+        }//*/
+        T = T.norme1();
+        NX = normale.norme1();
+        NY = NX.prodVect(T).norme1();
+/*
+        System.err.println("\nT "+T );
+        System.err.println("NX"+NX);
+        System.err.println("NY"+NY);
+ */      
         pO = Op.plus(NX.mult(surface.getPoint(isurface).getX())).plus(
                 NY.mult(surface.getPoint(isurface).getY()));
         if (this.bc == null) {
             bc = new Barycentre();
         }
-
+        //System.out.println("Maxx maxy" + getMaxX()+" "+getMaxY());
         return bc.calculer(pO);
 
     }

@@ -12,14 +12,18 @@ public class CheminDroite extends Chemin {
     }
 
     @Override
-    public int getLength() {
+    public double getLength() {
         return sd.mesure();
     }
 
     public Point3D getPoint(int i) {
         return sd.getOrigine().plus(
-                sd.getExtremite().moins(sd.getOrigine().mult(1.0 * i / getMax())));
+                sd.getExtremite().moins(sd.getOrigine().mult((1.0 * i) / getMax())));
 
     }
-
+    @Override
+    public Point3D tangent(int i) {
+        return sd.getExtremite().moins(sd.getOrigine()).norme1();
+               
+    }
 }

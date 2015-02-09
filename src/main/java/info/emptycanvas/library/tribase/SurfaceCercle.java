@@ -17,9 +17,10 @@ public class SurfaceCercle extends Surface {
     @Override
     public Point2D getPoint(int i) {
         return new Point2D(
-                Math.cos(2 * Math.PI * i * r / getMax()),
-                Math.sin(2 * Math.PI * i * r / getMax())
-        );
+                Math.cos(2 * Math.PI * i / getMax()),
+                Math.sin(2 * Math.PI * i / getMax())
+        ).mult(r);
+        
     }
 
 }
