@@ -1,8 +1,9 @@
 package info.emptycanvas.library.tribase;
 
+import info.emptycanvas.library.nurbs.ParametrizedCurve;
 import info.emptycanvas.library.object.Point3D;
 
-public abstract class Chemin {
+public abstract class Chemin extends ParametrizedCurve{
 
     private int max = 100;
 
@@ -20,7 +21,10 @@ public abstract class Chemin {
      * @param i index
      * @return Point3D point du chemin discret C
      */
-    public abstract Point3D getPoint(int i);
+    public Point3D getPoint(int i)
+    {
+        return calculerPoint3D(1.0*i/getMax());
+    }
 
     /**
      * *
