@@ -129,6 +129,7 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             Point3D ret = sommet[0].plus(
                     sommet[1].moins(sommet[0]).mult(ratioX)).plus(
                             sommet[2].moins(sommet[1]).mult(ratioY));
+            if(texture()==null) texture = new ColorTexture(new Color(255, 128, 0));
             ret.texture(new ColorTexture(texture.getMaillageTexturedColor(numX, numY,
                     ((numX + ratioX) / maxX), ((numY + ratioY) / maxY))));
 
@@ -138,6 +139,7 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             return ret;
         } else {
             Point3D[] sommet = tris[1].getSommet();
+            if(texture()==null) texture = new ColorTexture(new Color(255, 128, 0));
             Point3D ret = sommet[1].plus(
                     sommet[0].moins(sommet[1]).mult(ratioY)).plus(
                             sommet[2].moins(sommet[0]).mult(ratioX));
