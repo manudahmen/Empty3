@@ -4,7 +4,6 @@
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.object.ImageTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.TRI;
 import info.emptycanvas.library.object.Representable;
@@ -81,7 +80,7 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
      *
      * @param numX num�ro de valeur de x par rapport � maxX
      * @param numY num�ro de valeur de y par rapport � maxY
-     * @param tris_LEFT_NORD TRI[1] = ((x,y),(x+1,y),(x+1,y+1)) TRI[2] =
+     * @param tris TRI[1] = ((x,y),(x+1,y),(x+1,y+1)) TRI[2] =
      * ((x,y),(x,y+1),(x+1,y+1))
      */
     @Override
@@ -120,7 +119,16 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
 
         }
     }
-
+    /***
+     * Method for interpolate cordinates
+     * and textures.
+     * @param tris
+     * @param numX
+     * @param numY
+     * @param ratioX
+     * @param ratioY
+     * @return 
+     */
     @Override
     public Point3D getPoint3D(TRI[] tris, int numX, int numY, double ratioX,
             double ratioY) {
@@ -152,7 +160,10 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             return ret;
         }
     }
-
+    /***
+     * Draws in Image with ZBuffer 2D drawing class
+     * @param z 
+     */
     public void draw(ZBuffer z) {
         Point3D INFINI = new Point3D(0, 0, 10000, new ColorTexture(Color.BLUE));
         TRI[] tris = new TRI[2];
