@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.net.util.URLUtil;
 
 /**
  *
@@ -39,6 +38,10 @@ public class VideoTexture extends MediaListenerAdapter implements ITexture {
 
         @Override
         public void testScene() throws Exception {
+        }
+
+        @Override
+        public void finit() {
             videoTexture.nextFrame();
         }
 

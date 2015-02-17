@@ -89,4 +89,12 @@ public class TestNurbs2 extends TestObjet {
         new Thread(n).start();
 
     }
+
+    @Override
+    public void finit() {
+    }
+
+    @Override
+    public void ginit() {
+    }
 }

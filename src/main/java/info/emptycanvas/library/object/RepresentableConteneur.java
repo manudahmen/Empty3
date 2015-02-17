@@ -4,17 +4,11 @@
  */
 package info.emptycanvas.library.object;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.MODObjet;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.TRIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *

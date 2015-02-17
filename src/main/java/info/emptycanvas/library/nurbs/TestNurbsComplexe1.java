@@ -108,4 +108,8 @@ public class TestNurbsComplexe1 extends TestObjet {
         new Thread(n).start();
 
     }
+
+    @Override
+    public void finit() {
+    }
 }

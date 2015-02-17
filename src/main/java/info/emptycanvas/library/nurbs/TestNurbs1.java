@@ -14,7 +14,6 @@ import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.testing.TestObjet;
 import java.awt.Color;
-//import nurbs.Axes;
 
 /**
  *
@@ -76,5 +75,13 @@ public class TestNurbs1 extends TestObjet {
         n.loop(false);
         n.setGenerate(GENERATE_MODEL | GENERATE_IMAGE);
         new Thread(n).start();
+    }
+
+    @Override
+    public void finit() {
+    }
+
+    @Override
+    public void ginit() {
     }
 }

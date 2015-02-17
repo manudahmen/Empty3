@@ -19,32 +19,38 @@ import java.util.logging.Logger;
  */
 public class TestCollection {
 
-    private ArrayList<TestObjet> tests = new ArrayList<TestObjet>();
+    private final ArrayList<TestObjet> tests = new ArrayList<TestObjet>();
     private boolean dr;
 
-    public void add(File fichier) {
-        try {
-            TestObjet to = new TestObjet();
-            to.scene(new Loader().load(fichier, to.scene()));
-            add(to);
-        } catch (VersionNonSupporteeException ex) {
-            Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExtensionFichierIncorrecteException ex) {
-            Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void add(final File fichier) {
+            TestObjet to = new TestObjet(){
+
+                @Override
+                public void finit() {
+                }
+
+                @Override
+                public void ginit() {
+                    try {
+                        new Loader().load(fichier, scene());
+                    } catch (VersionNonSupporteeException ex) {
+                        Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExtensionFichierIncorrecteException ex) {
+                        Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                @Override
+                public void testScene() throws Exception {
+                }
+            };
+                    add(to);
+      
     }
 
     public void add(File[] fichiers) {
-        for (int i = 0; i < fichiers.length; i++) {
-            try {
-                TestObjet to = new TestObjet();
-                to.scene(new Loader().load(fichiers[i], to.scene()));
-                add(to);
-            } catch (VersionNonSupporteeException ex) {
-                Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ExtensionFichierIncorrecteException ex) {
-                Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        for (File fichier : fichiers) {
+            add(fichier);
         }
     }
 

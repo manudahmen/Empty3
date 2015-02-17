@@ -140,6 +140,11 @@
             <id>xuggle repo</id>
             <url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
         </repository>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -229,6 +234,11 @@
             <groupId>io.humble</groupId>
             <artifactId>humble-video-noarch</artifactId>
             <version>0.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
         </dependency>
     </dependencies>
     

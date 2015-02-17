@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -46,7 +47,7 @@ import org.monte.media.math.Rational;
  *
  * @author Manuel DAHMEN
  */
-public class TestObjet implements Test, Runnable {
+public abstract class TestObjet implements Test, Runnable {
 
     public File getSubfolder() {
         return directory;
@@ -218,8 +219,7 @@ public class TestObjet implements Test, Runnable {
                 false);
     }
 
-    public void finit() {
-    }
+    public abstract void finit();
 
     public int frame() {
         return frame;
@@ -285,8 +285,7 @@ public class TestObjet implements Test, Runnable {
         return "";
     }
 
-    public void ginit() {
-    }
+    public abstract void ginit();
 
     private void init() {
         if (initialise) {
@@ -343,13 +342,11 @@ public class TestObjet implements Test, Runnable {
 
         binaryExtension = bundle1.getString("binaryExtension");
 
-        sousdossier = DateFormat.getDateTimeInstance().format(new Date())
-                .replace(':', '-').replace('.', '-');
+        sousdossier = "FICHIERS_"+dateForFilename(new Date());
 
         while (new File(this.dir.getAbsolutePath() + File.separator
                 + sousdossier).exists()) {
-            sousdossier = DateFormat.getDateTimeInstance().format(new Date())
-                    .replace(':', '-').replace('.', '-');
+            sousdossier = "FICHIERS_"+dateForFilename(new Date());
         }
 
         directory = new File(this.dir.getAbsolutePath() + File.separator
@@ -359,7 +356,11 @@ public class TestObjet implements Test, Runnable {
         new File(directory.getAbsolutePath() + File.separator + "DROITE").mkdir();
         initialise = true;
     }
-
+    private DateFormat dateForFilename(Date date)
+    {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        return df;
+    }
     public void isometrique(boolean isISO) {
         isometrique = isISO;
     }
@@ -553,7 +554,7 @@ public class TestObjet implements Test, Runnable {
         zip = new ZipWriter();
 
         File avif = new File(this.dir.getAbsolutePath() + File.separator
-                + sousdossier + "_film.AVI");
+                + sousdossier + this.getClass().getName()+ "_monfilm.AVI");
 
         AVIWriter aw = null;
         int track = -1;
@@ -857,13 +858,12 @@ public class TestObjet implements Test, Runnable {
     }
 
     /**
-     * Definir la scene scene().add(*)
+     * Definir la scene scene().add(<<Representable>>)
      *
      * @throws java.lang.Exception
      */
     @Override
-    public void testScene() throws Exception {
-    }
+    public abstract void testScene() throws Exception;
 
     @Override
     public void testScene(File f) throws Exception {
