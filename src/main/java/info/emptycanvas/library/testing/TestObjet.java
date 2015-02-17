@@ -52,6 +52,10 @@ public class TestObjet implements Test, Runnable {
         return directory;
     }
 
+    void startNewMovie() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public class ImageContainer {
 
         private BufferedImage biic;
@@ -76,7 +80,10 @@ public class TestObjet implements Test, Runnable {
     public static final int GENERATE_IMAGE = 1;
     public static final int GENERATE_MODEL = 2;
     public static final int GENERATE_OPENGL = 4;
+    public static final int GENERATE_MOVIE = 8;
+
     private int generate = GENERATE_IMAGE;
+    
     private int version = 1;
     private String template = "";
     private String type = "png";
