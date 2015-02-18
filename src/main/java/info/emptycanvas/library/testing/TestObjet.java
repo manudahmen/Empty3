@@ -4,7 +4,6 @@
 package info.emptycanvas.library.testing;
 
 import info.emptycanvas.library.object.ECBufferedImage;
-import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.ZBufferImpl;
 import info.emptycanvas.library.object.Camera;
@@ -341,11 +340,6 @@ public abstract class TestObjet implements Test, Runnable {
 
         sousdossier = "FICHIERS_"+dateForFilename(new Date());
 
-        while (new File(this.dir.getAbsolutePath() + File.separator
-                + sousdossier).exists()) {
-            sousdossier = "FICHIERS_"+dateForFilename(new Date());
-        }
-
         directory = new File(this.dir.getAbsolutePath() + File.separator
                 + sousdossier);
         directory.mkdirs();
@@ -353,10 +347,10 @@ public abstract class TestObjet implements Test, Runnable {
         new File(directory.getAbsolutePath() + File.separator + "DROITE").mkdir();
         initialise = true;
     }
-    private DateFormat dateForFilename(Date date)
+    private String dateForFilename(Date date)
     {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        return df;
+        return df.format(date);
     }
     public void isometrique(boolean isISO) {
         isometrique = isISO;
@@ -800,9 +794,8 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-    public void setCouleurFond(TColor tColor) {
+    public void setCouleurFond(ITexture tColor) {
         this.couleurFond = tColor;
-
     }
 
     public boolean setDynParameter(TestInstance.Parameter parameter) {
