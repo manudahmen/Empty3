@@ -23,29 +23,23 @@ public class TestCollection {
     private boolean dr;
 
     public void add(final File fichier) {
-            TestObjet to = new TestObjet(){
+        TestObjet to = new TestObjetStub() {
 
-                @Override
-                public void finit() {
-                }
 
-                @Override
-                public void ginit() {
-                    try {
+            @Override
+            public void ginit() {
+                try {
                         new Loader().load(fichier, scene());
                     } catch (VersionNonSupporteeException ex) {
                         Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ExtensionFichierIncorrecteException ex) {
                         Logger.getLogger(TestCollection.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+            }
 
-                @Override
-                public void testScene() throws Exception {
-                }
-            };
-                    add(to);
-      
+        };
+        add(to);
+
     }
 
     public void add(File[] fichiers) {

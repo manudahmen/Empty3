@@ -4,7 +4,7 @@ import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.MediaListenerAdapter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
-import info.emptycanvas.library.testing.TestObjet;
+import info.emptycanvas.library.testing.TestObjetStub;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class VideoTexture extends MediaListenerAdapter implements ITexture {
 
-    static class sTestObjet extends TestObjet {
+    static class sTestObjet extends TestObjetStub {
 
         TRI tri = null;
         VideoTexture videoTexture;
@@ -123,7 +123,7 @@ public class VideoTexture extends MediaListenerAdapter implements ITexture {
     }
 
     public static void testing() {
-        TestObjet to;
+        TestObjetStub to;
         to = new sTestObjet();
         to.setMaxFrames(2000);
         to.setResx(400);

@@ -149,10 +149,7 @@ public abstract class TestObjet implements Test, Runnable {
         }
     }
 
-    public void afterRender() {
-        System.gc();
-
-    }
+    public abstract void afterRenderFrame();
 
     @Override
     public String applyTemplate(String template, Properties properties) {

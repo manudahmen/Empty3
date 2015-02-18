@@ -11,14 +11,14 @@ package info.emptycanvas.library.nurbs;
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.testing.TestObjet;
+import info.emptycanvas.library.testing.TestObjetStub;
 import java.awt.Color;
 
 /**
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class TestNurbsSimple extends TestObjet {
+public class TestNurbsSimple extends TestObjetStub {
 
     @Override
     public void testScene() throws Exception {

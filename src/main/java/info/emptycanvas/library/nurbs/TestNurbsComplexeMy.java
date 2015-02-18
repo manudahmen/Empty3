@@ -12,14 +12,14 @@ import info.emptycanvas.library.move.Trajectoires;
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.testing.TestObjet;
+import info.emptycanvas.library.testing.TestObjetStub;
 import java.awt.Color;
 
 /**
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class TestNurbsComplexeMy extends TestObjet {
+public class TestNurbsComplexeMy extends TestObjetStub {
 
     private final double[][] longpc = new double[4][4];
     private final double[][] latpc = new double[4][4];
