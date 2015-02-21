@@ -10,6 +10,7 @@ import info.emptycanvas.library.extra.SimpleSphereAvecTexture;
 import info.emptycanvas.library.extra.CollineModele2;
 import info.emptycanvas.library.extra.CollineModele1;
 import info.emptycanvas.library.extra.SimpleSphere;
+import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Tetraedre;
 import info.emptycanvas.library.object.TRI;
@@ -30,12 +31,10 @@ import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.BezierCubique2D;
 import info.emptycanvas.library.object.BSpline;
 import info.emptycanvas.library.object.LumierePoint;
-import be.ibiiztera.md.pmatrix.pushmatrix.base.Nurbs;
 import info.emptycanvas.library.tribase.Plan3D;
 import info.emptycanvas.library.tribase.TRIEllipsoide;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.tribase.Tubulaire;
-import info.emptycanvas.library.object.RepresentableConteneur;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -495,10 +494,10 @@ public class InterpreteFacade {
     public void interpreteMODTranslation(Representable r) {
     }
 
-    Nurbs interpreteNurbs() throws InterpreteException {
-        Nurbs n = null;
+    public NurbsSurface interpreteNurbs() throws InterpreteException {
+        NurbsSurface n = null;
         InterpreteNurbs iq = new InterpreteNurbs();
-        n = (Nurbs) iq.interprete(text, pos);
+        n = (NurbsSurface) iq.interprete(text, pos);
         return n;
     }
 

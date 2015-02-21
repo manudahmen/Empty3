@@ -23,6 +23,7 @@ import info.emptycanvas.library.extra.AttracteurEtrange;
 import info.emptycanvas.library.extra.Tourbillon;
 import info.emptycanvas.library.extra.SimpleSphereAvecTexture;
 import info.emptycanvas.library.extra.SimpleSphere;
+import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.tribase.Tubulaire;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.tribase.TRIEllipsoide;
@@ -57,8 +58,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import be.ibiiztera.md.pmatrix.pushmatrix.base.Nurbs;
-import be.ibiiztera.md.pmatrix.pushmatrix.ui.ModeleIO;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import java.io.*;
 
@@ -695,7 +694,7 @@ public class Loader implements SceneLoader {
             }
             if ("nurbs".equals(id)) {
                 try {
-                    Nurbs n = interpreteH.interpreteNurbs();
+                    NurbsSurface n = interpreteH.interpreteNurbs();
                     sc.add(n);
                     latest = n;
                     failed = false;

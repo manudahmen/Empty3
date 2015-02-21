@@ -7,16 +7,13 @@
  */
 package info.emptycanvas.library.object;
 
-import be.ibiiztera.md.pmatrix.pushmatrix.base.Nurbs;
 import info.emptycanvas.library.extra.SimpleSphere;
-import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 import info.emptycanvas.library.nurbs.ParametrizedCurve;
 import info.emptycanvas.library.nurbs.ParametrizedSurface;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Iterator;
 import javax.imageio.ImageIO;
 

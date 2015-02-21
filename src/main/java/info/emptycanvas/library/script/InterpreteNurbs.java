@@ -8,9 +8,9 @@
  */
 package info.emptycanvas.library.script;
 
+import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.TColor;
-import be.ibiiztera.md.pmatrix.pushmatrix.base.Nurbs;
 import java.util.ArrayList;
 
 /**
@@ -31,7 +31,7 @@ public class InterpreteNurbs implements Interprete {
     }
 
     public Object interprete(String text, int pos) throws InterpreteException {
-        Nurbs nurbs = new Nurbs();
+        NurbsSurface nurbs = new NurbsSurface();
 
         /**
          * ( m n (
