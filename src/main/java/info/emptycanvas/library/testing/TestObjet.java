@@ -491,7 +491,7 @@ public abstract class TestObjet implements Test, Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        str.setMessage("ERROR EXCEPTION");
     }
 
     public void reportPause(boolean phase) {
