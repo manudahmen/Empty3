@@ -17,16 +17,16 @@ import java.util.ArrayList;
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
 public class AnalyseurEquation {
-
-    private boolean isNombre(String expr) {
+    int pos = 0;
+    private int isNombre(String expr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private boolean isVariable(String expr) {
+    private int isVariable(String expr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private boolean isOperateur(String expr) {
+    private int isOperateur(String expr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -144,15 +144,15 @@ public class AnalyseurEquation {
         }
         
     }
-    public class Parenthese extends OperateurUnaire
+    public class ParentheseOuvrante extends OperateurUnaire
     {
 
-        public Parenthese(Symbole operandeA) {
+        public ParentheseOuvrante(Symbole operandeA) {
             super(operandeA);
         }
 
         public String getRepr() {
-            return "()";
+            return "(";
         }
 
         public double evaluer() {
@@ -160,10 +160,26 @@ public class AnalyseurEquation {
         }
         
     }
-    public class Mult extends OperateurBinaire
+    public class ParentheseFermante extends OperateurUnaire
     {
 
-        public Mult(Symbole operandeA, Symbole operandeB) {
+        public ParentheseFermante(Symbole operandeA) {
+            super(operandeA);
+        }
+
+        public String getRepr() {
+            return ")";
+        }
+
+        public double evaluer() {
+            throw new UnsupportedOperationException("");        }
+        
+    }
+    
+    public class MultOp extends OperateurBinaire
+    {
+
+        public MultOp(Symbole operandeA, Symbole operandeB) {
             super(operandeA, operandeB);
         }
         public String getRepr() {
@@ -175,10 +191,10 @@ public class AnalyseurEquation {
         }
         
     }
-    public class Div extends OperateurBinaire
+    public class DivOp extends OperateurBinaire
     {
 
-        public Div(Symbole operandeA, Symbole operandeB) {
+        public DivOp(Symbole operandeA, Symbole operandeB) {
             super(operandeA, operandeB);
         }
         public String getRepr() {
@@ -191,7 +207,7 @@ public class AnalyseurEquation {
         
     }
     private ArrayList<Symbole> pile = new ArrayList<Symbole>();
-    /*
+    
     
     public Symbole topOf;
 
@@ -207,39 +223,54 @@ public class AnalyseurEquation {
         
         if(expression.substring(0,1).equals("="))
         {
-            analyseExpression(trim(expression.substring(1)));
+            analyseLexicale(trim(expression.substring(1)));
             
         }
         
     }
 
-    private Symbole analyseExpression(String expr, ArrayList<Symbole> pile) 
+    private void analyseLexicale(String expr) 
     {
+        while(expr!=null&&!"".equals(expr))
+        {
+        int pos = 0;
         if(expr.startsWith("-"))
         {
-            return  new MoinsOpU(analyseExpression(trim(expr.substring(1))), new ArrayList<Symbole>());
+            pile.add(new MoinsOpU(null));
+            pos = 1;
         }
         else if(expr.startsWith("+"))
         {
-            return new PlusOpU(analyseExpression(trim(expr.substring(1))));
+            pile.add(new PlusOpU(null));
+            pos = 1;
         }else if(expr.startsWith("("))
         {
-            return new Parenthese(analyseExpression(expr.substring(0, matching(0, expr))));
-        }else if(isNombre(expr))
+            pile.add(new ParentheseOuvrante(null));
+            pos = 1;
+        }else if(expr.startsWith(")"))
+        {
+            pile.add(new ParentheseFermante(null));
+            pos = 1;
+        }else if((pos=isNombre(expr))>=0)
         {
             pile.add(nombre(expr));
-            analyserEx
+            pos = 1;
         }
-         else if(isVariable(expr))
+         else if((pos=isVariable(expr))>0)
         {
             pile.add(variable(expr));
+            pos = 1;
         }
-        else if(isOperateur(expr))
+        else if((pos=isOperateur(expr))>0)
         {
             pile.add(operateur(expr));
+            pos = 1;
+        }
+            expr = expr.substring(pos).trim();
         }
         
     }
+    
     public int matching(int pos0, String exp)
     {
          int level = 1;
@@ -259,20 +290,21 @@ public class AnalyseurEquation {
         return substring.trim();
     }
     private Symbole variable(String trim) {
-        if(trim(trim).matches("[a-z"));
+        if(trim(trim).matches("[a-z]"))
+            return new Variable(""+trim.charAt(0), 0);
         return null;
         
     }
 
     private Symbole operateur(String trim) {
-            char v = operateur(trim);
-            if(v=='+')
+        char v = trim.charAt(0);
+        if(v=='+')
             {
                 pile.add(new PlusOp(null, null));
             }
             if(v=='-')
             {
-                pile.add(new MoindOp(null, null));
+                pile.add(new MoinsOp(null, null));
             }
             if(v=='/')
             {
@@ -288,5 +320,5 @@ public class AnalyseurEquation {
     private Symbole nombre(String trim) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-*/
+
     }
