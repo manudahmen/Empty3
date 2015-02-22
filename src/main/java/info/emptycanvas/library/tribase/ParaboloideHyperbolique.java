@@ -17,12 +17,17 @@ import info.emptycanvas.library.object.Point3D;
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public class ParaboloideHyperboloique extends ParametrizedSurface {
+public class ParaboloideHyperbolique extends ParametrizedSurface {
     private double a;
     private double b;
     private double h;
-
-    public ParaboloideHyperboloique(double a, double b, double h) {
+    {
+        start1 = -1;
+        start2 = -1;
+        end1 = 1;
+        end2 = 1;
+    }
+    public ParaboloideHyperbolique(double a, double b, double h) {
         this.a = a;
         this.b = b;
         this.h = h;
@@ -30,7 +35,7 @@ public class ParaboloideHyperboloique extends ParametrizedSurface {
 
     @Override
     public Point3D calculerPoint3D(double u, double v) {
-        return new Point3D(a/2+(u+v), b/2*(u-v), h*u*v);
+        return new Point3D(a/2*(u+v), b/2*(u-v), h*u*v);
     }
 
     @Override

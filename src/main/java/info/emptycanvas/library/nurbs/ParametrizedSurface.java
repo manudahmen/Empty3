@@ -9,7 +9,6 @@
 package info.emptycanvas.library.nurbs;
 
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 
 /**
