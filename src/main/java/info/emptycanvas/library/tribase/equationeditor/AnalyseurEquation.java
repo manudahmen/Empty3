@@ -213,7 +213,7 @@ public class AnalyseurEquation {
 
     private String varNameLetter;
     
-    public void analyse(String expression)
+    public ArrayList<Symbole> analyse(String expression)
     {
         expression = expression.trim().toLowerCase();
         
@@ -226,7 +226,7 @@ public class AnalyseurEquation {
             analyseLexicale(trim(expression.substring(1)));
             
         }
-        
+        return pile;
     }
 
     private void analyseLexicale(String expr) 
@@ -318,7 +318,16 @@ public class AnalyseurEquation {
     }
 
     private Symbole nombre(String trim) {
+        // Update pos field
+        // return symbol
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Symbole constructionArbre(ArrayList<Symbole> liste)
+    {
+        return null;
     }
+
+}
+
+
