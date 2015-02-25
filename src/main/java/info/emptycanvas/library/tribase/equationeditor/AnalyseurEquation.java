@@ -10,7 +10,11 @@ Global license :
 
 package info.emptycanvas.library.tribase.equationeditor;
 
+import info.emptycanvas.library.script.InterpreteException;
+import info.emptycanvas.library.script.InterpretesBase;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,15 +23,33 @@ import java.util.ArrayList;
 public class AnalyseurEquation {
     int pos = 0;
     private int isNombre(String expr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        InterpretesBase ib = new InterpretesBase();
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        a.add(ib.DECIMAL);
+        ib.compile(a);
+        try {
+            ib.read(expr, pos);
+            return ib.getPosition();
+        } catch (InterpreteException ex) {
+            Logger.getLogger(AnalyseurEquation.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 
     private int isVariable(String expr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(expr.charAt(0)<'z'&&expr.charAt(0)>'a')
+            return 1;
+        else return 0;        
     }
 
     private int isOperateur(String expr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char op = expr.charAt(0);
+        if("+-/*".contains(""+ op))
+        {
+            return 1;
+        }
+        else
+            return 0;
     }
 
     public interface Symbole
@@ -213,7 +235,7 @@ public class AnalyseurEquation {
 
     private String varNameLetter;
     
-    public ArrayList<Symbole> analyse(String expression)
+    public ArrayList<Symbole> analyse(String expression) throws EquationLexicalException
     {
         expression = expression.trim().toLowerCase();
         
@@ -229,11 +251,10 @@ public class AnalyseurEquation {
         return pile;
     }
 
-    private void analyseLexicale(String expr) 
+    private void analyseLexicale(String expr) throws EquationLexicalException 
     {
         while(expr!=null&&!"".equals(expr))
         {
-        int pos = 0;
         if(expr.startsWith("-"))
         {
             pile.add(new MoinsOpU(null));
@@ -251,12 +272,11 @@ public class AnalyseurEquation {
         {
             pile.add(new ParentheseFermante(null));
             pos = 1;
-        }else if((pos=isNombre(expr))>=0)
+        }else if(isNombre(expr)>0)
         {
-            pile.add(nombre(expr));
-            pos = 1;
+                pile.add(nombre(expr));
         }
-         else if((pos=isVariable(expr))>0)
+         else if(isVariable(expr)>0)
         {
             pile.add(variable(expr));
             pos = 1;
@@ -317,14 +337,27 @@ public class AnalyseurEquation {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Symbole nombre(String trim) {
-        // Update pos field
-        // return symbol
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Symbole nombre(String expr) throws EquationLexicalException {
+        InterpretesBase ib = new InterpretesBase();
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        a.add(ib.DECIMAL);
+        ib.compile(a);
+        try {
+            ArrayList<Object> read = ib.read(expr, pos);
+            pos = ib.getPosition();
+            return new Variable("DNumber", (Double) read.get(0));
+        } catch (InterpreteException ex) {
+            Logger.getLogger(AnalyseurEquation.class.getName()).log(Level.SEVERE, null, ex);
+            throw new EquationLexicalException("Not a number");
+        }
+        
     }
 
     public Symbole constructionArbre(ArrayList<Symbole> liste)
     {
+        // Boucle.
+        // Remplacer parenthese par opérateur unaire Plus
+
         return null;
     }
 
