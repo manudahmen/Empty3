@@ -20,10 +20,11 @@ public class AnalyseurEquationJep {
     private final JEP myParser;
     private String strParser;
 
-    public AnalyseurEquationJep() {
+    public AnalyseurEquationJep(String eq) {
         myParser = new org.nfunk.jep.JEP();
        myParser.addStandardFunctions();
        myParser.addStandardConstants();
+       strParser = eq;
     }
    public void parse(String parse)
    {
@@ -44,8 +45,7 @@ public class AnalyseurEquationJep {
    }
     public static void main(String[] args) {
         
-    AnalyseurEquationJep anlayseurEquationJep = new AnalyseurEquationJep();
-    anlayseurEquationJep.parse("a*x+b*b");
+    AnalyseurEquationJep anlayseurEquationJep = new AnalyseurEquationJep("a*x+b*b");
 
     anlayseurEquationJep.setContant("a", 1);
     anlayseurEquationJep.setContant("b", 2);
