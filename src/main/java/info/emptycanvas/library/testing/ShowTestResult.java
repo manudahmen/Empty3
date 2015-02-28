@@ -528,9 +528,9 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         String sx = "0", sy = "0", sz = "0";
-        sx = (String) jTableEquations.getCellEditor(0, 1).getCellEditorValue();
-        sy = (String) jTableEquations.getCellEditor(0, 2).getCellEditorValue();
-        sz = (String) jTableEquations.getCellEditor(0, 3).getCellEditorValue();
+        sx = (String) jTableEquations.getCellEditor(1, 1).getCellEditorValue();
+        sy = (String) jTableEquations.getCellEditor(2, 2).getCellEditorValue();
+        sz = (String) jTableEquations.getCellEditor(3, 3).getCellEditorValue();
         TRIObjetSurfaceEquationParametrique eq =
                 new TRIObjetSurfaceEquationParametrique(
                         new AnalyseurEquationJep(sx), 
