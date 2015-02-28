@@ -48,12 +48,62 @@ import org.monte.media.math.Rational;
  */
 public abstract class TestObjet implements Test, Runnable {
 
+    private File avif;
+    private AVIWriter aw;
+    private String filmName;
+    private int idxFilm;
+
+    public int getIdxFilm() {
+        return idxFilm;
+    }
+
     public File getSubfolder() {
         return directory;
     }
 
     void startNewMovie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((generate & GENERATE_MOVIE) > 0 && false) {
+
+            try {
+                aw.finish();
+                aw.close();
+
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+            }
+        }
+
+        idxFilm++;
+        avif = new File(this.dir.getAbsolutePath() + File.separator
+                + sousdossier + this.getClass().getName() + "__" + filmName + idxFilm + ".AVI");
+
+        aw = null;
+        int track = -1;
+        try {
+            aw = new AVIWriter(avif);
+
+            Properties properties = new Properties();
+            // TODO ADD PROPERTIES
+            Format format = new Format(
+                    FormatKeys.MediaTypeKey, MediaType.VIDEO, FormatKeys.EncodingKey,
+                    VideoFormatKeys.ENCODING_AVI_MJPG, FormatKeys.FrameRateKey,
+                    new Rational(25, 1), VideoFormatKeys.WidthKey, resx,
+                    VideoFormatKeys.HeightKey, resy, VideoFormatKeys.DepthKey,
+                    24);
+
+            track = aw.addTrack(format);
+            // new Format(properties));
+
+        } catch (IOException e2) {
+            // TODO Auto-generated catch block
+            e2.printStackTrace();
+            reportException(e2);
+            return;
+        }
+    }
+
+    private boolean unterminable() {
+        return true;
     }
 
     public class ImageContainer {
@@ -82,8 +132,8 @@ public abstract class TestObjet implements Test, Runnable {
     public static final int GENERATE_OPENGL = 4;
     public static final int GENERATE_MOVIE = 8;
 
-    private int generate = GENERATE_IMAGE|GENERATE_MOVIE;
-    
+    private int generate = 0;
+
     private int version = 1;
     private String template = "";
     private String type = "png";
@@ -338,7 +388,7 @@ public abstract class TestObjet implements Test, Runnable {
 
         binaryExtension = bundle1.getString("binaryExtension");
 
-        sousdossier = "FICHIERS_"+dateForFilename(new Date());
+        sousdossier = "FICHIERS_" + dateForFilename(new Date());
 
         directory = new File(this.dir.getAbsolutePath() + File.separator
                 + sousdossier);
@@ -347,11 +397,12 @@ public abstract class TestObjet implements Test, Runnable {
         new File(directory.getAbsolutePath() + File.separator + "DROITE").mkdir();
         initialise = true;
     }
-    private String dateForFilename(Date date)
-    {
+
+    private String dateForFilename(Date date) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         return df.format(date);
     }
+
     public void isometrique(boolean isISO) {
         isometrique = isISO;
     }
@@ -533,7 +584,9 @@ public abstract class TestObjet implements Test, Runnable {
         if ((generate & GENERATE_OPENGL) > 0) {
             throw new UnsupportedOperationException("No class for OpenGL here");
         }
-
+        if ((generate & GENERATE_MOVIE) > 0) {
+            startNewMovie();
+        }
         serid();
 
         this.biic = this.new ImageContainer();
@@ -543,33 +596,6 @@ public abstract class TestObjet implements Test, Runnable {
         File zipf = new File(this.dir.getAbsolutePath() + File.separator
                 + sousdossier + File.separator + filename + ".ZIP");
         zip = new ZipWriter();
-
-        File avif = new File(this.dir.getAbsolutePath() + File.separator
-                + sousdossier + this.getClass().getName()+ "_monfilm.AVI");
-
-        AVIWriter aw = null;
-        int track = -1;
-        try {
-            aw = new AVIWriter(avif);
-
-            Properties properties = new Properties();
-            // TODO ADD PROPERTIES
-            Format format = new Format(
-                    FormatKeys.MediaTypeKey, MediaType.VIDEO, FormatKeys.EncodingKey,
-                    VideoFormatKeys.ENCODING_AVI_MJPG, FormatKeys.FrameRateKey,
-                    new Rational(25, 1), VideoFormatKeys.WidthKey, resx,
-                    VideoFormatKeys.HeightKey, resy, VideoFormatKeys.DepthKey,
-                    24);
-
-            track = aw.addTrack(format);
-            // new Format(properties));
-
-        } catch (IOException e2) {
-            // TODO Auto-generated catch block
-            e2.printStackTrace();
-            reportException(e2);
-            return;
-        }
 
         try {
             zip.init(zipf);
@@ -591,7 +617,7 @@ public abstract class TestObjet implements Test, Runnable {
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
 
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", System.currentTimeMillis());
-        while (nextFrame() && !stop) {
+        while ((nextFrame() && !stop) | unterminable()) {
 
             pauseActive = true;
             while (isPause()) {
@@ -641,13 +667,14 @@ public abstract class TestObjet implements Test, Runnable {
                         ri = z.image();
 
                         ecrireImage(ri, type, file);
-                        try {
-                            aw.write(0, ri, 1);
-                        } catch (IOException e) {
-                            reportException(e);
-                            return;
+                        if ((generate & GENERATE_MOVIE) > 0 && true) {
+                            try {
+                                aw.write(0, ri, 1);
+                            } catch (IOException e) {
+                                reportException(e);
+                                return;
+                            }
                         }
-
                     } else if (D3() && z instanceof ZBuffer3D
                             && scene().cameraActive() instanceof Camera3D) {
 
@@ -664,13 +691,15 @@ public abstract class TestObjet implements Test, Runnable {
                         z.dessinerSilhouette3D();
 
                         ri = ((ZBufferImpl) z).image();
-                        try {
-                            aw.write(0, ri, 1);
-                        } catch (IOException e) {
-                            reportException(e);
-                            return;
-                        }
+                        if ((generate & GENERATE_MOVIE) > 0 && true) {
 
+                            try {
+                                aw.write(0, ri, 1);
+                            } catch (IOException e) {
+                                reportException(e);
+                                return;
+                            }
+                        }
                         ecrireImage(ri, type, file);
 
                     }
@@ -679,61 +708,63 @@ public abstract class TestObjet implements Test, Runnable {
                     biic.setStr("" + frame);
 
                 } catch (Exception ex) {
-
-                    Logger.getLogger(this.getClass().getCanonicalName()).warning("Error generating frame");
-                    ex.printStackTrace();
-                }
-            }
-
-            if (isSaveBMood()) {
-                try {
-                    File foutm = new File(this.dir.getAbsolutePath()
-                            + File.separator + filename + ".bmood");
-                    new Loader().saveBin(foutm, scene);
-                } catch (VersionNonSupporteeException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
-                            null, ex);
-                    reportException(ex);
-                } catch (ExtensionFichierIncorrecteException ex) {
                     Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
                             null, ex);
                     reportException(ex);
                 }
+                if (isSaveBMood()) {
+                    try {
+                        File foutm = new File(this.dir.getAbsolutePath()
+                                + File.separator + filename + ".bmood");
+                        new Loader().saveBin(foutm, scene);
+                    } catch (VersionNonSupporteeException ex) {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+                                null, ex);
+                        reportException(ex);
+                    } catch (ExtensionFichierIncorrecteException ex) {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+                                null, ex);
+                        reportException(ex);
+                    }
 
-            }
-            if ((generate & GENERATE_MODEL) > 0) {
-                try {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "Start generating model");
-                    exportFrame("export-stl", "export-" + frame + ".STL");
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "End generating model");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if ((generate & GENERATE_MODEL) > 0) {
+                    try {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "Start generating model");
+                        exportFrame("export-stl", "export-" + frame + ".STL");
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "End generating model");
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
 
+                afterRender();
+
+                Logger.getLogger(getClass().getCanonicalName()).info("" + frame);
             }
-
-            afterRender();
-
-            Logger.getLogger(getClass().getCanonicalName()).info("" + frame);
         }
-
-        try {
-            zip.end();
-        } catch (IOException e) {
-            reportException(e);
+        if (zip != null) {
+            try {
+                zip.end();
+            } catch (IOException e) {
+                //reportException(e);
+            }
         }
+        if ((generate & GENERATE_MOVIE) > 0 && true) {
 
-        try {
-            aw.finish();
-            aw.close();;
+            try {
+                aw.finish();
+                aw.close();
 
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+            }
         }
         String cmd;
-        if (loop()) {
+        if (loop() && avif != null) {
             try {
                 cmd = avif.getCanonicalPath();
                 Runtime runtime = Runtime.getRuntime();
@@ -758,6 +789,31 @@ public abstract class TestObjet implements Test, Runnable {
         }
 
         Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + System.currentTimeMillis());
+        /*
+         if (str != null) {
+         try {
+         str.dispose();
+         str.stopThreads();
+         str = null;
+         } catch (NullPointerException ex) {
+         Logger.getLogger(this.getClass().getName()).warning("Can't stop thread");
+
+         }
+         }
+         */ Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + System.currentTimeMillis());
+
+    }
+
+    public void saveBMood(boolean b) {
+        saveTxt = b;
+    }
+
+    @Override
+    public Scene scene() {
+        return scene;
+    }
+
+    public void closeView() {
 
         if (str != null) {
             try {
@@ -769,16 +825,6 @@ public abstract class TestObjet implements Test, Runnable {
 
             }
         }
-        Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + System.currentTimeMillis());
-    }
-
-    public void saveBMood(boolean b) {
-        saveTxt = b;
-    }
-
-    @Override
-    public Scene scene() {
-        return scene;
     }
 
     public void scene(Scene load) {
@@ -886,7 +932,7 @@ public abstract class TestObjet implements Test, Runnable {
     public String getFolder() {
         return dir.getAbsolutePath();
     }
-    
+
     public static void main(String[] args) {
         TestObjet gui = new TestObjetStub();
         gui.loop(true);

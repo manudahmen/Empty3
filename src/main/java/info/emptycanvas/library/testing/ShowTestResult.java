@@ -326,6 +326,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         jSplitPane2.setRightComponent(jPanel3);
 
         jCheckBoxOGL.setText("Open GL");
+        jCheckBoxOGL.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"))); // NOI18N
         jCheckBoxOGL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxOGLActionPerformed(evt);
@@ -333,22 +334,23 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         });
 
         jCheckBoxModeles.setText("Modèles");
+        jCheckBoxModeles.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"))); // NOI18N
         jCheckBoxModeles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxModelesActionPerformed(evt);
             }
         });
 
-        jCheckBoxFilmRec.setSelected(true);
         jCheckBoxFilmRec.setText("Enregistrer film");
+        jCheckBoxFilmRec.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"))); // NOI18N
         jCheckBoxFilmRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxFilmRecActionPerformed(evt);
             }
         });
 
-        jCheckBoxImagesRec.setSelected(true);
         jCheckBoxImagesRec.setText("Enregistrer images");
+        jCheckBoxImagesRec.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"))); // NOI18N
         jCheckBoxImagesRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxImagesRecActionPerformed(evt);
@@ -427,10 +429,11 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBoxModeles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxFilmRec)
-                    .addComponent(jButtonDemarrerNouveauFilm)
-                    .addComponent(jTextField2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField2)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jCheckBoxFilmRec)
+                        .addComponent(jButtonDemarrerNouveauFilm)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxImagesRec)

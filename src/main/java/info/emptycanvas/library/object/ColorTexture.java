@@ -6,7 +6,7 @@ import java.awt.Color;
  *
  * @author Manuel Dahmen
  */
-public class ColorTexture implements ITexture {
+public class ColorTexture extends ITexture {
 
     private Color color;
 

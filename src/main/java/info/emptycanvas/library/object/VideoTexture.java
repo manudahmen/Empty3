@@ -1,7 +1,6 @@
 package info.emptycanvas.library.object;
 
 import com.xuggle.mediatool.IMediaReader;
-import com.xuggle.mediatool.MediaListenerAdapter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import info.emptycanvas.library.testing.TestObjetStub;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author manu
  */
-public class VideoTexture extends MediaListenerAdapter implements ITexture {
+public class VideoTexture extends ITexture {
 
     static class sTestObjet extends TestObjetStub {
 

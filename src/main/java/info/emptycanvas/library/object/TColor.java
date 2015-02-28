@@ -23,7 +23,7 @@ import org.monte.media.avi.AVIReader;
  * @author Atelier
  */
 @Deprecated
-public class TColor implements ITexture {
+public class TColor extends ITexture {
 
     public static final int TYPE_COULEUR = 0;
     public static final int TYPE_TEXTURE = 1;

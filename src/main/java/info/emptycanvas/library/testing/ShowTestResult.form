@@ -296,10 +296,12 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jCheckBoxModeles" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jCheckBoxFilmRec" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonDemarrerNouveauFilm" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jCheckBoxFilmRec" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonDemarrerNouveauFilm" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -319,6 +321,9 @@
                 <Component class="javax.swing.JCheckBox" name="jCheckBoxOGL">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Open GL"/>
+                    <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxOGLActionPerformed"/>
@@ -327,6 +332,9 @@
                 <Component class="javax.swing.JCheckBox" name="jCheckBoxModeles">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Mod&#xe8;les"/>
+                    <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxModelesActionPerformed"/>
@@ -334,8 +342,10 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jCheckBoxFilmRec">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Enregistrer film"/>
+                    <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxFilmRecActionPerformed"/>
@@ -343,8 +353,10 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jCheckBoxImagesRec">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Enregistrer images"/>
+                    <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/info/emptycanvas/library/testing/RESULT_SUCCESS.jpg"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxImagesRecActionPerformed"/>

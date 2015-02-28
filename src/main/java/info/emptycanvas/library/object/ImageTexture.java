@@ -20,7 +20,7 @@ import org.monte.media.avi.AVIReader;
  *
  * @author manu
  */
-public class ImageTexture implements ITexture {
+public class ImageTexture extends ITexture {
 
     private ECBufferedImage image;
 
