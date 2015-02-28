@@ -17,6 +17,9 @@ import javax.swing.JFrame;
 
 import info.emptycanvas.library.object.ECBufferedImage;
 import info.emptycanvas.library.testing.TestObjet.ImageContainer;
+import info.emptycanvas.library.tribase.equationeditor.AnalyseurEquationJep;
+import info.emptycanvas.library.tribase.equationeditor.TRIObjetSurfaceEquationParametrique;
+import javax.swing.table.TableCellEditor;
 
 /**
  *
@@ -36,13 +39,12 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonDemarrerNouveauFilm;
     private javax.swing.JCheckBox jCheckBoxFilmRec;
     private javax.swing.JCheckBox jCheckBoxImagesRec;
     private javax.swing.JCheckBox jCheckBoxModeles;
     private javax.swing.JCheckBox jCheckBoxOGL;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFrame;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -59,7 +61,6 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
     private javax.swing.JTextArea jTextAreaMessage;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextFieldEditEquation;
     // End of variables declaration//GEN-END:variables
 	private TestObjet testRef;
 
@@ -207,13 +208,10 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         jButtonDemarrerNouveauFilm = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableEquations = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldEditEquation = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
@@ -370,21 +368,25 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
 
         jTableEquations.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"x", "u"},
+                {"y", "v"},
+                {"z", "0"},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "variable", "formula"
             }
         ));
         jTableEquations.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTableEquations);
 
-        jLabel1.setText("Formula");
-
-        jButton4.setText("Go");
+        jButton5.setText("Créer");
+        jButton5.setToolTipText("");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -394,30 +396,28 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jCheckBoxOGL)
-                            .addComponent(jCheckBoxModeles)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBoxFilmRec)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jCheckBoxOGL)
+                                    .addComponent(jCheckBoxModeles)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxFilmRec)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxImagesRec)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField1)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBoxImagesRec)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDemarrerNouveauFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldEditEquation, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 26, 26)))
-                .addGap(468, 468, 468))
+                                .addComponent(jButtonDemarrerNouveauFilm, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGap(26, 26, 26)))
+                        .addGap(468, 468, 468))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,20 +429,17 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxFilmRec)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDemarrerNouveauFilm))
+                    .addComponent(jButtonDemarrerNouveauFilm)
+                    .addComponent(jTextField2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxImagesRec)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldEditEquation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addGap(61, 61, 61))
         );
 
         jSplitPane2.setLeftComponent(jPanel2);
@@ -528,6 +525,18 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         jTextAreaMessage.setText(gimballs.toString());
         // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_jSliderXYZPropertyChange
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String sx = "0", sy = "0", sz = "0";
+        sx = (String) jTableEquations.getCellEditor(0, 1).getCellEditorValue();
+        sy = (String) jTableEquations.getCellEditor(0, 2).getCellEditorValue();
+        sz = (String) jTableEquations.getCellEditor(0, 3).getCellEditorValue();
+        TRIObjetSurfaceEquationParametrique eq =
+                new TRIObjetSurfaceEquationParametrique(
+                        new AnalyseurEquationJep(sx), 
+                new AnalyseurEquationJep(sy), new AnalyseurEquationJep(sz));
+        testRef.scene().add(eq);
+    }//GEN-LAST:event_jButton5ActionPerformed
     public double valuePC(int v) {
         double vv = 2 * Math.PI / 100 * v;
         return vv;

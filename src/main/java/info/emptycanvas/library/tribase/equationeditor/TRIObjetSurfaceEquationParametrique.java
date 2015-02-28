@@ -17,7 +17,7 @@ import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public abstract class TRIObjetSurfaceEquationParametrique 
+public class TRIObjetSurfaceEquationParametrique 
 extends TRIObjetGenerateurAbstract{
         AnalyseurEquationJep sx;
        AnalyseurEquationJep sy;

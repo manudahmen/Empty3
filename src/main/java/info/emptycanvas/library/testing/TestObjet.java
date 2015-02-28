@@ -13,6 +13,7 @@ import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.ZBuffer;
 import info.emptycanvas.library.object.ZBufferFactory;
 import info.emptycanvas.library.export.STLExport;
+import info.emptycanvas.library.nurbs.TestNurbs1;
 import info.emptycanvas.library.object.ITexture;
 import info.emptycanvas.library.script.ExtensionFichierIncorrecteException;
 import info.emptycanvas.library.script.Loader;
@@ -82,7 +83,7 @@ public abstract class TestObjet implements Test, Runnable {
     public static final int GENERATE_OPENGL = 4;
     public static final int GENERATE_MOVIE = 8;
 
-    private int generate = GENERATE_IMAGE;
+    private int generate = GENERATE_IMAGE|GENERATE_MOVIE;
     
     private int version = 1;
     private String template = "";
@@ -885,5 +886,36 @@ public abstract class TestObjet implements Test, Runnable {
 
     public String getFolder() {
         return dir.getAbsolutePath();
+    }
+    
+    public static void main(String[] args) {
+        TestObjet gui = new TestObjet() {
+
+            @Override
+            public void afterRenderFrame() {
+                
+            }
+
+            @Override
+            public void finit() {
+                
+            }
+
+            @Override
+            public void ginit() {
+                loop(true);
+                setMaxFrames(2000);
+            }
+
+            @Override
+            public void testScene() throws Exception {
+
+            }
+
+            public void afterRender() {
+            
+            }
+        };
+        new Thread(gui).start();
     }
 }
