@@ -1,5 +1,5 @@
 /*
- * 2013 Manuel Dahmen
+ * 2013-2015 Manuel Dahmen
  */
 package info.emptycanvas.library.testing;
 
@@ -632,7 +632,7 @@ public abstract class TestObjet implements Test, Runnable {
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
 
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", System.currentTimeMillis());
-        while ((nextFrame() && !stop) | unterminable()) {
+        while (nextFrame() || (unterminable() && !stop)) {
 
             pauseActive = true;
             while (isPause()) {
