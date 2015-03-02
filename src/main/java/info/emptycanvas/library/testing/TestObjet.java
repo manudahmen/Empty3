@@ -50,6 +50,7 @@ public abstract class TestObjet implements Test, Runnable {
 
     private File avif;
     private AVIWriter aw;
+    private boolean aviOpen = false;
     private String filmName;
     private int idxFilm;
 
@@ -62,15 +63,16 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     void startNewMovie() {
-        if ((generate & GENERATE_MOVIE) > 0 && false) {
-
-            try {
-                aw.finish();
-                aw.close();
-
-            } catch (IOException e) {
-                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
-            }
+        if ((generate & GENERATE_MOVIE) > 0) {
+            if(isAviOpen())
+                try {   
+                    aw.finish();
+                    aw.close();
+                    aw = null;
+                    aviOpen = false;
+                } catch (IOException e) {
+                    Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+                }
         }
 
         idxFilm++;
@@ -94,8 +96,12 @@ public abstract class TestObjet implements Test, Runnable {
             track = aw.addTrack(format);
             // new Format(properties));
 
+            aviOpen = true;
+            
+            
         } catch (IOException e2) {
-            // TODO Auto-generated catch block
+            aviOpen = false;
+            
             e2.printStackTrace();
             reportException(e2);
             return;
@@ -104,6 +110,14 @@ public abstract class TestObjet implements Test, Runnable {
 
     private boolean unterminable() {
         return true;
+    }
+
+    public boolean isAviOpen() {
+        return aviOpen;
+    }
+
+    public void setAviOpen(boolean aviOpen) {
+        this.aviOpen = aviOpen;
     }
 
     public class ImageContainer {
@@ -146,7 +160,7 @@ public abstract class TestObjet implements Test, Runnable {
     private File dir = null;
     protected Scene scene;
     protected String description = "";
-    private Camera c = new Camera(new Point3D(0, 0, -10), Point3D.O0);
+    protected Camera c;
     private ECBufferedImage ri;
     private String filename = "frame";
     private String fileExtension = "jpg";
@@ -185,7 +199,7 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean stop = false;
 
     public TestObjet() {
-        init();
+         init();
     }
 
     public TestObjet(ArrayList<TestInstance.Parameter> params) {
@@ -337,7 +351,8 @@ public abstract class TestObjet implements Test, Runnable {
         if (initialise) {
             return;
         }
-        ResourceBundle bundle1 = ResourceBundle
+        c = new Camera(new Point3D(0, 0, -10), Point3D.O0);
+               ResourceBundle bundle1 = ResourceBundle
                 .getBundle("info/emptycanvas/library/testing/Bundle");
 
         File dirl = null;
@@ -691,7 +706,7 @@ public abstract class TestObjet implements Test, Runnable {
                         z.dessinerSilhouette3D();
 
                         ri = ((ZBufferImpl) z).image();
-                        if ((generate & GENERATE_MOVIE) > 0 && true) {
+                        if ((generate & GENERATE_MOVIE) > 0 && isAviOpen()) {
 
                             try {
                                 aw.write(0, ri, 1);
@@ -699,6 +714,12 @@ public abstract class TestObjet implements Test, Runnable {
                                 reportException(e);
                                 return;
                             }
+                        }
+                        else
+                        {
+                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+                                "No file open for avi writing");
+                            
                         }
                         ecrireImage(ri, type, file);
 
