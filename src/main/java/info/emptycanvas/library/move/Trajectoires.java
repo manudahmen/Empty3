@@ -20,7 +20,7 @@ public class Trajectoires {
         return new Point3D(
                 Math.cos(longpc * 2 * Math.PI) * Math.cos(-Math.PI / 2 + Math.PI * latpc),
                 Math.cos(longpc * 2 * Math.PI) * Math.sin(-Math.PI / 2 + Math.PI * latpc),
-                Math.sin(longpc * 2 * Math.PI)
+                Math.sin(latpc * 2 * Math.PI)
         ).mult(radius);
 
     }

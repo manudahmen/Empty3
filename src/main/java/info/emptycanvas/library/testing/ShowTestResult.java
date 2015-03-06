@@ -19,7 +19,6 @@ import info.emptycanvas.library.object.ECBufferedImage;
 import info.emptycanvas.library.testing.TestObjet.ImageContainer;
 import info.emptycanvas.library.tribase.equationeditor.AnalyseurEquationJep;
 import info.emptycanvas.library.tribase.equationeditor.TRIObjetSurfaceEquationParametrique;
-import javax.swing.table.TableCellEditor;
 
 /**
  *
@@ -570,8 +569,18 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
 
     public void setTestObjet(TestObjet testObjet) {
         this.testRef = testObjet;
+        
+        
+        jCheckBoxImagesRec.setSelected(
+                testRef.getGenerate(testRef.GENERATE_IMAGE));
+        jCheckBoxFilmRec.setSelected(
+                testRef.getGenerate(testRef.GENERATE_MOVIE));
+        jCheckBoxModeles.setSelected(
+                testRef.getGenerate(testRef.GENERATE_MODEL));
+        //jCheckBoxOpenGl.setSelected(
+        //toggleTestOption(testRef.GENERATE_OPENGL, testRef.getGenerate(testRef.GENERATE_IMAGE));
         setTitle(testObjet.getClass().getCanonicalName());
-
+        
     }
 
     void stopThreads() {
