@@ -64,8 +64,8 @@ public abstract class TestObjet implements Test, Runnable {
 
     void startNewMovie() {
         if ((generate & GENERATE_MOVIE) > 0) {
-            if(isAviOpen())
-                try {   
+            if (isAviOpen()) {
+                try {
                     aw.finish();
                     aw.close();
                     aw = null;
@@ -73,6 +73,7 @@ public abstract class TestObjet implements Test, Runnable {
                 } catch (IOException e) {
                     Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
                 }
+            }
         }
 
         idxFilm++;
@@ -97,11 +98,10 @@ public abstract class TestObjet implements Test, Runnable {
             // new Format(properties));
 
             aviOpen = true;
-            
-            
+
         } catch (IOException e2) {
             aviOpen = false;
-            
+
             e2.printStackTrace();
             reportException(e2);
             return;
@@ -145,6 +145,7 @@ public abstract class TestObjet implements Test, Runnable {
             this.str = str;
         }
     }
+    public static final int GENERATE_NOTHING = 0;
     public static final int GENERATE_IMAGE = 1;
     public static final int GENERATE_MODEL = 2;
     public static final int GENERATE_OPENGL = 4;
@@ -203,7 +204,7 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean stop = false;
 
     public TestObjet() {
-         init();
+        init();
     }
 
     public TestObjet(ArrayList<TestInstance.Parameter> params) {
@@ -356,7 +357,7 @@ public abstract class TestObjet implements Test, Runnable {
             return;
         }
         c = new Camera(new Point3D(0, 0, -10), Point3D.O0);
-               ResourceBundle bundle1 = ResourceBundle
+        ResourceBundle bundle1 = ResourceBundle
                 .getBundle("info/emptycanvas/library/testing/Bundle");
 
         File dirl = null;
@@ -718,12 +719,10 @@ public abstract class TestObjet implements Test, Runnable {
                                 reportException(e);
                                 return;
                             }
-                        }
-                        else
-                        {
-                        Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
-                                "No file open for avi writing");
-                            
+                        } else {
+                            Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+                                    "No file open for avi writing");
+
                         }
                         ecrireImage(ri, type, file);
 
@@ -915,6 +914,22 @@ public abstract class TestObjet implements Test, Runnable {
 
     public void STOP() {
         stop = true;
+        setGenerate(GENERATE_NOTHING);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+
+        }
+        if (isAviOpen()) {
+            try {
+                aw.finish();
+                aw.close();
+                aw = null;
+                aviOpen = false;
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+            }
+        }
 
     }
 

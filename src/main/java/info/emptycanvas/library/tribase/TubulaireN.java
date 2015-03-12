@@ -34,7 +34,7 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
     private double diam = 3.0f;
     private float TAN_FCT = 0.00005f;
     private float NORM_FCT = 0.0005f;
-    public float PERCENT = 0.05f;
+    public  double PERCENT = 0.05f;
     private int N_TOURS = 40;
     private TRIObject tris = null;
     private Barycentre position;
@@ -159,7 +159,7 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
     }
 
     public void nbrAnneaux(int n) {
-        this.PERCENT = 1.0f;
+        this.PERCENT = 1.0/n;
     }
 
     public void nbrRotations(int r) {

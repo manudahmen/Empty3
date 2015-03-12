@@ -211,6 +211,11 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
@@ -453,7 +458,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1675, Short.MAX_VALUE)
+                .addComponent(jSplitPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -538,6 +543,10 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                 new AnalyseurEquationJep(sy), new AnalyseurEquationJep(sz));
         testRef.scene().add(eq);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        testRef.STOP();
+    }//GEN-LAST:event_formWindowClosing
     public double valuePC(int v) {
         double vv = 2 * Math.PI / 100 * v;
         return vv;
