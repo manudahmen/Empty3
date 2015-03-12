@@ -637,7 +637,7 @@ public abstract class TestObjet implements Test, Runnable {
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
 
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", System.currentTimeMillis());
-        while ((nextFrame() || (unterminable()) && !stop)) {
+        while ((nextFrame() || unterminable()) && !stop) {
 
             pauseActive = true;
             while (isPause()) {
