@@ -37,7 +37,7 @@ public class SurfaceParametriquePolynomialeBezier extends ParametrizedSurface {
         Point3D sum = Point3D.O0;
         for (int i = 0; i < power1; i++) {
             for (int j = 0; j < power2; j++) {
-                sum = sum.plus(coefficients[i][j].mult(B(i, power1, u) * B(j, power2, v)));
+                sum = sum.plus(coefficients[i][j].mult(B(i, power1-1, u) * B(j, power2-1, v)));
             }
         }
         return sum;

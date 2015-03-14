@@ -15,8 +15,6 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.TRI;
 import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.CouleurOutils;
-import info.emptycanvas.library.object.Barycentre;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.PObjet;
@@ -27,16 +25,15 @@ import java.util.Iterator;
 
 public class TubulaireN extends Representable implements TRIGenerable, TRIConteneur {
 
-    private ArrayList<Point3D> points;
+    private final ArrayList<Point3D> points;
     //private double ratio;
     private CourbeParametriquePolynomialeBezier beziers;
     private double diam = 3.0f;
-    private float TAN_FCT = 0.00005f;
-    private float NORM_FCT = 0.0005f;
+    private final float TAN_FCT = 0.00005f;
+    private final float NORM_FCT = 0.0005f;
     public  double PERCENT = 0.05f;
     private int N_TOURS = 40;
     private TRIObject tris = null;
-    private Barycentre position;
 
     public TubulaireN() {
         this.points = new ArrayList<Point3D>();
