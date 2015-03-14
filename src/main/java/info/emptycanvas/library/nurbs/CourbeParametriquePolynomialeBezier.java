@@ -30,8 +30,9 @@ public class CourbeParametriquePolynomialeBezier extends CourbeParametriquePolyn
     @Override
     public Point3D calculerPoint3D(double t) {
         Point3D sum = Point3D.O0;
+        int N = coefficients.length;
         for (int i = 0; i < coefficients.length; i++) {
-            sum = sum.plus(coefficients[i].mult(B(i, power, t)));
+            sum = sum.plus(coefficients[i].mult(B(i, N-1, t)));
         }
         return sum;
     }

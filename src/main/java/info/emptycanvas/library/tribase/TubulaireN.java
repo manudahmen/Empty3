@@ -17,6 +17,7 @@ import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIObject;
 import info.emptycanvas.library.object.CouleurOutils;
 import info.emptycanvas.library.object.Barycentre;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.PObjet;
 
@@ -26,8 +27,6 @@ import java.util.Iterator;
 
 public class TubulaireN extends Representable implements TRIGenerable, TRIConteneur {
 
-    private Color couleur = Color.BLUE;
-    private String id;
     private ArrayList<Point3D> points;
     //private double ratio;
     private CourbeParametriquePolynomialeBezier beziers;
@@ -41,8 +40,6 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
 
     public TubulaireN() {
         this.points = new ArrayList<Point3D>();
-        //this.ratio = 1.0;
-
     }
 
     public boolean add(Point3D e) {
@@ -87,17 +84,13 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
         points.clear();
     }
 
-    public void couleur(Color c) {
-        this.couleur = c;
-
-    }
-
     public void diam(float diam) {
         this.diam = diam;
     }
 
     @Override
     public TRIObject generate() {
+        Color color = new Color(texture().getColorAt(0.5, 0.5));
         if (tris == null) {
             tris = new TRIObject();
 
@@ -109,13 +102,11 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
             for (double t = 0; t < length; t += PERCENT) {
                 ArrayList<Point3D> tour1 = vectPerp(t);
                 for (int i = 3; i < tour1.size() - 1; i++) {
-                    TRI t1 = new TRI(tour0.get(i), tour1.get(i), tour1.get(i + 1), couleur);
-                    TRI t2 = new TRI(tour0.get(i), tour0.get(i + 1), tour1.get(i + 1), couleur);
-                    t1.setCouleur(CouleurOutils.couleurFactio(couleur, Color.white, t1, new Point3D(0, 0, 1), false));
-                    t2.setCouleur(CouleurOutils.couleurFactio(couleur, Color.white, t1, new Point3D(0, 0, 1), false));
-                    t1.setCouleur(CouleurOutils.couleurFactio(couleur, Color.white, t1, new Point3D(0, 0, 1), false));
-                    t1.setCouleur(couleur);
-                    t2.setCouleur(couleur);
+                    TRI t1 = new TRI(tour0.get(i), tour1.get(i), tour1.get(i + 1), texture());
+                    t1.texture(new ColorTexture(CouleurOutils.couleurFactio(color, Color.white, t1, new Point3D(0, 0, 1), false)));
+                    TRI t2 = new TRI(tour0.get(i), tour0.get(i + 1), tour1.get(i + 1), texture());
+                    t2.texture(new ColorTexture(CouleurOutils.couleurFactio(color, Color.white, t2, new Point3D(0, 0, 1), false)));
+
                     tris.add(t1);
                     tris.add(t2);
                 }
@@ -129,8 +120,6 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
     public void generateWire() {
         System.out.println("WIRE SIZE " + points.size());
 
-        for (int i = 0; i < points.size() - 3; i += 4) {
-        }
         Object[] toArray = points.toArray();
         Point3D[] arr = new Point3D[toArray.length];
         int i = 0;
@@ -181,17 +170,10 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
         while (it.hasNext()) {
             s += "\n\t" + it.next().toString();
         }
-        s += "\n\n)\n\t" + diam + "\n\t" + toStringColor() + "\n)\n";
+        s += "\n\n)\n\t" + diam + "\n\t" + texture().toString() + "\n)\n";
         return s;
     }
 
-    /*public void ratio(double r) {
-     ratio = r;
-     }*/
-    protected String toStringColor() {
-        return "(" + couleur.getRed() + ", " + couleur.getGreen() + ", "
-                + couleur.getBlue() + ")";
-    }
 
     private ArrayList<Point3D> vectPerp(double t) {
         ArrayList<Point3D> vecteurs = new ArrayList<Point3D>();
