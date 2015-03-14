@@ -1,10 +1,12 @@
 package info.emptycanvas.library.object;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class ECBufferedImage extends BufferedImage {
 
@@ -13,6 +15,12 @@ public class ECBufferedImage extends BufferedImage {
      */
     private static final long serialVersionUID = 2739941470855574089L;
 
+    public static ECBufferedImage getFromFile(File url) throws IOException {
+        return new ECBufferedImage( ImageIO.read(url));
+    }
+    public static ECBufferedImage getFromPackage(String  resource) throws IOException {
+        return new ECBufferedImage(ImageIO.read(new Object().getClass().getResourceAsStream(resource)));
+    }
     public static ECBufferedImage getFromURL(URL url) {
         ECBufferedImage ecbi = null;
         try {

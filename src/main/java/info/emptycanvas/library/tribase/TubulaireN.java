@@ -96,16 +96,17 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
 
             generateWire();
 
-            int length = 1;
+            double length = 1;
 
             ArrayList<Point3D> tour0 = vectPerp(0);
             for (double t = 0; t < length; t += PERCENT) {
                 ArrayList<Point3D> tour1 = vectPerp(t);
                 for (int i = 3; i < tour1.size() - 1; i++) {
+                    double s = 1.0*(i-3)/tour1.size();
                     TRI t1 = new TRI(tour0.get(i), tour1.get(i), tour1.get(i + 1), texture());
-                    t1.texture(new ColorTexture(CouleurOutils.couleurFactio(color, Color.white, t1, new Point3D(0, 0, 1), false)));
+                    t1.texture(new ColorTexture(new Color(texture().getColorAt(t, s))));
                     TRI t2 = new TRI(tour0.get(i), tour0.get(i + 1), tour1.get(i + 1), texture());
-                    t2.texture(new ColorTexture(CouleurOutils.couleurFactio(color, Color.white, t2, new Point3D(0, 0, 1), false)));
+                    t2.texture(new ColorTexture(new Color(texture().getColorAt(t, s))));
 
                     tris.add(t1);
                     tris.add(t2);
