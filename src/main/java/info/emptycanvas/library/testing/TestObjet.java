@@ -53,6 +53,7 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean aviOpen = false;
     private String filmName;
     private int idxFilm;
+    private boolean unterminable = true;
 
     public int getIdxFilm() {
         return idxFilm;
@@ -109,7 +110,7 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     private boolean unterminable() {
-        return true;
+        return unterminable;
     }
 
     public boolean isAviOpen() {
@@ -973,6 +974,9 @@ public abstract class TestObjet implements Test, Runnable {
         return dir.getAbsolutePath();
     }
 
+    public void unterminable(boolean b) {
+        unterminable = b;
+    }
     public static void main(String[] args) {
         TestObjet gui = new TestObjetStub();
         gui.loop(true);

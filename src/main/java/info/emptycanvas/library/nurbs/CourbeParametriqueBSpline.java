@@ -5,7 +5,7 @@
  * author Manuel Dahmen <ibiiztera.it@gmail.com>
  *
  * Creation time 19-sept.-2014
- *
+ *  BAD UGLY COMME TA MERE
  **
  */
 package info.emptycanvas.library.nurbs;
@@ -51,12 +51,19 @@ public class CourbeParametriqueBSpline extends ParametrizedCurve {
             } else {
                 return 0;
             }
-        } else {
+        } else if(i>=0&& i+degree+1<intervalles.length)
+        {
             return (t - intervalles[i]) / (intervalles[i + degree] - intervalles[i])
                     * N(i, degree - 1, t)
                     + (intervalles[i + degree + 1] - t) / (intervalles[i + degree + 1] - intervalles[i + 1])
                     * N(i + 1, degree - 1, t);
         }
+        else if(i<0)
+            return 0;
+        else if(i+degree+1>=intervalles.length)
+            return 1;
+        else
+            return 0;
     }
 
 }
