@@ -4,9 +4,9 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.ibiiztera</groupId>
+    <groupId>info.emptycanvas</groupId>
     <artifactId>emptycanvas</artifactId>
-    <version>34</version>
+    <version>35</version>
     <packaging>jar</packaging>
     <name>Empty3</name>
     <description>3D rendering engine. Plus modelling.</description>

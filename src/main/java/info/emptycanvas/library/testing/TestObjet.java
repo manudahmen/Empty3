@@ -54,103 +54,14 @@ public abstract class TestObjet implements Test, Runnable {
     private String filmName;
     private int idxFilm;
     private boolean unterminable = true;
-
-    public int getIdxFilm() {
-        return idxFilm;
-    }
-
-    public File getSubfolder() {
-        return directory;
-    }
-
-    void startNewMovie() {
-        if ((generate & GENERATE_MOVIE) > 0) {
-            if (isAviOpen()) {
-                try {
-                    aw.finish();
-                    aw.close();
-                    aw = null;
-                    aviOpen = false;
-                } catch (IOException e) {
-                    Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
-                }
-            }
-        }
-
-        idxFilm++;
-        avif = new File(this.dir.getAbsolutePath() + File.separator
-                + sousdossier + this.getClass().getName() + "__" + filmName + idxFilm + ".AVI");
-
-        aw = null;
-        int track = -1;
-        try {
-            aw = new AVIWriter(avif);
-
-            Properties properties = new Properties();
-            // TODO ADD PROPERTIES
-            Format format = new Format(
-                    FormatKeys.MediaTypeKey, MediaType.VIDEO, FormatKeys.EncodingKey,
-                    VideoFormatKeys.ENCODING_AVI_MJPG, FormatKeys.FrameRateKey,
-                    new Rational(25, 1), VideoFormatKeys.WidthKey, resx,
-                    VideoFormatKeys.HeightKey, resy, VideoFormatKeys.DepthKey,
-                    24);
-
-            track = aw.addTrack(format);
-            // new Format(properties));
-
-            aviOpen = true;
-
-        } catch (IOException e2) {
-            aviOpen = false;
-
-            e2.printStackTrace();
-            reportException(e2);
-            return;
-        }
-    }
-
-    private boolean unterminable() {
-        return unterminable;
-    }
-
-    public boolean isAviOpen() {
-        return aviOpen;
-    }
-
-    public void setAviOpen(boolean aviOpen) {
-        this.aviOpen = aviOpen;
-    }
-
-    boolean getGenerate(int GENERATE) {
-        return (generate & GENERATE) > 0;
-    }
-
-    public class ImageContainer {
-
-        private BufferedImage biic;
-        private String str = "";
-
-        public BufferedImage getImage() {
-            return biic;
-        }
-
-        public String getStr() {
-            return str;
-        }
-
-        public void setImage(BufferedImage biic1) {
-            biic = biic1;
-        }
-
-        public void setStr(String str) {
-            this.str = str;
-        }
-    }
+    private long timeStart;
+    private long lastInfoEllapsedMillis;
     public static final int GENERATE_NOTHING = 0;
     public static final int GENERATE_IMAGE = 1;
     public static final int GENERATE_MODEL = 2;
     public static final int GENERATE_OPENGL = 4;
     public static final int GENERATE_MOVIE = 8;
+    public static final int GENERATE_NO_IMAGE_FILE_WRITING = 16;
 
     private int generate = 0;
 
@@ -204,6 +115,106 @@ public abstract class TestObjet implements Test, Runnable {
 
     private boolean stop = false;
 
+    public int getIdxFilm() {
+        return idxFilm;
+    }
+
+    public File getSubfolder() {
+        return directory;
+    }
+
+    void startNewMovie() {
+        if ((generate & GENERATE_MOVIE) > 0) {
+            if (isAviOpen()) {
+                try {
+                    aw.finish();
+                    aw.close();
+                    aw = null;
+                    aviOpen = false;
+                } catch (IOException e) {
+                    Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+                }
+            }
+        }
+
+        idxFilm++;
+        avif = new File(this.dir.getAbsolutePath() + File.separator
+                + sousdossier + this.getClass().getName() + "__" + filmName + idxFilm + ".AVI");
+
+        aw = null;
+        int track = -1;
+        try {
+            aw = new AVIWriter(avif);
+
+            Properties properties = new Properties();
+            // TODO ADD PROPERTIES
+            Format format = new Format(
+                    FormatKeys.MediaTypeKey, MediaType.VIDEO, FormatKeys.EncodingKey,
+                    VideoFormatKeys.ENCODING_AVI_MJPG, FormatKeys.FrameRateKey,
+                    new Rational(25, 1), VideoFormatKeys.WidthKey, resx,
+                    VideoFormatKeys.HeightKey, resy, VideoFormatKeys.DepthKey,
+                    24);
+
+            track = aw.addTrack(format);
+            // new Format(properties));
+
+            aviOpen = true;
+
+        } catch (IOException e2) {
+            aviOpen = false;
+
+            e2.printStackTrace();
+            reportException(e2);
+            return;
+        }
+    }
+
+    private boolean unterminable() {
+        return unterminable;
+    }
+
+    public boolean isAviOpen() {
+        return aviOpen;
+    }
+
+    public void setAviOpen(boolean aviOpen) {
+        this.aviOpen = aviOpen;
+    }
+
+    boolean getGenerate(int GENERATE) {
+        return (generate & GENERATE) > 0;
+    }
+    private String runtimeInfoSucc() {
+        System.nanoTime();
+        
+        long displayLastIntervalTimeInterval = (System.nanoTime() -  lastInfoEllapsedMillis);
+        long displayPartialTimeInterval = (lastInfoEllapsedMillis - timeStart);
+        lastInfoEllapsedMillis = System.nanoTime();
+        return "Dernier intervalle de temps : "+(displayLastIntervalTimeInterval*1E-9)+ "\nTemps total partiel : " + (displayPartialTimeInterval*1E-9);
+    }
+
+    public class ImageContainer {
+
+        private BufferedImage biic;
+        private String str = "";
+
+        public BufferedImage getImage() {
+            return biic;
+        }
+
+        public String getStr() {
+            return str;
+        }
+
+        public void setImage(BufferedImage biic1) {
+            biic = biic1;
+        }
+
+        public void setStr(String str) {
+            this.str = str;
+        }
+    }
+ 
     public TestObjet() {
         init();
     }
@@ -602,6 +613,8 @@ public abstract class TestObjet implements Test, Runnable {
     @Override
     public void run() {
 
+        timeStart = System.nanoTime();
+        lastInfoEllapsedMillis = System.nanoTime();
         if ((generate & GENERATE_OPENGL) > 0) {
             throw new UnsupportedOperationException("No class for OpenGL here");
         }
@@ -637,7 +650,7 @@ public abstract class TestObjet implements Test, Runnable {
         Logger.getLogger(getClass().getCanonicalName()).info(directory().getAbsolutePath());
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
 
-        Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", System.currentTimeMillis());
+        Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", runtimeInfoSucc());
         while ((nextFrame() || unterminable()) && !stop) {
 
             pauseActive = true;
@@ -687,7 +700,11 @@ public abstract class TestObjet implements Test, Runnable {
 
                         ri = z.image();
 
-                        ecrireImage(ri, type, file);
+                        
+                        if(((generate & GENERATE_IMAGE) > 0) && !((generate & GENERATE_NO_IMAGE_FILE_WRITING) > 0) )
+                        {
+                            ecrireImage(ri, type, file);
+                        }
                         if ((generate & GENERATE_MOVIE) > 0 && true) {
                             try {
                                 aw.write(0, ri, 1);
@@ -768,7 +785,7 @@ public abstract class TestObjet implements Test, Runnable {
 
                 afterRender();
 
-                Logger.getLogger(getClass().getCanonicalName()).info("" + frame);
+                Logger.getLogger(getClass().getCanonicalName()).info(frame()+"\n"+runtimeInfoSucc());
             }
         }
         if (zip != null) {
@@ -785,7 +802,7 @@ public abstract class TestObjet implements Test, Runnable {
                 aw.close();
 
             } catch (IOException e) {
-                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
             }
         }
         String cmd;
@@ -813,7 +830,7 @@ public abstract class TestObjet implements Test, Runnable {
             }
         }
 
-        Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + System.currentTimeMillis());
+        Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + runtimeInfoSucc());
         /*
          if (str != null) {
          try {
@@ -825,7 +842,7 @@ public abstract class TestObjet implements Test, Runnable {
 
          }
          }
-         */ Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + System.currentTimeMillis());
+         */ Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + runtimeInfoSucc());
 
     }
 
@@ -928,7 +945,7 @@ public abstract class TestObjet implements Test, Runnable {
                 aw = null;
                 aviOpen = false;
             } catch (IOException e) {
-                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + System.currentTimeMillis());
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
             }
         }
 
