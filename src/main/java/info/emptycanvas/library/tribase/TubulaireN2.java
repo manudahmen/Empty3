@@ -17,7 +17,6 @@ import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIObject;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.PObjet;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -28,11 +27,10 @@ public class TubulaireN2<T extends ParametrizedCurve>
 
     private final ArrayList<Point3D> points;
     //private double ratio;
-    private T surve;
-    private double diam = 3.0f;
+    private final T surve;
+    private double diam = 1.0f;
     private final float TAN_FCT = 0.00005f;
     private final float NORM_FCT = 0.0005f;
-    public  double PERCENT = 0.05f;
     private int N_TOURS = 40;
     private TRIObject tris = null;
 
@@ -70,7 +68,7 @@ public class TubulaireN2<T extends ParametrizedCurve>
             return null;
         }
     }
-
+/*
     private PObjet calculPoints(IFct1D3D funct, double value, double angle) {
         return null;
     }
@@ -82,8 +80,8 @@ public class TubulaireN2<T extends ParametrizedCurve>
     private void clear() {
         points.clear();
     }
-
-    public void diam(float diam) {
+*/
+    public void diam(double diam) {
         this.diam = diam;
     }
 
@@ -98,7 +96,7 @@ public class TubulaireN2<T extends ParametrizedCurve>
             double length = 1;
 
             ArrayList<Point3D> tour0 = vectPerp(0);
-            for (double t = 0; t < length; t += PERCENT) {
+            for (double t = 0; t < length; t += surve.incr) {
                 ArrayList<Point3D> tour1 = vectPerp(t);
                 for (int i = 3; i < tour1.size() - 1; i++) {
                     double s = 1.0*(i-3)/tour1.size();
@@ -121,12 +119,12 @@ public class TubulaireN2<T extends ParametrizedCurve>
         System.out.println("WIRE SIZE " + points.size());
 
         Object[] toArray = points.toArray();
-        Point3D[] arr = new Point3D[toArray.length];
+        //Point3D[] arr = new Point3D[toArray.length];
         int i = 0;
         for (Object o : toArray) {
             if (o != null && o instanceof Point3D) {
                 Point3D p = (Point3D) o;
-                arr[i] = p;
+                //arr[i] = p;
                 i++;
             }
 
@@ -148,7 +146,7 @@ public class TubulaireN2<T extends ParametrizedCurve>
     }
 
     public void nbrAnneaux(int n) {
-        this.PERCENT = 1.0/n;
+        surve.incr = 1.0/n;
     }
 
     public void nbrRotations(int r) {
