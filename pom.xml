@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>info.emptycanvas</groupId>
-    <artifactId>emptycanvas</artifactId>
+    <artifactId>empty3</artifactId>
     <version>35</version>
     <packaging>jar</packaging>
     <name>Empty3</name>
