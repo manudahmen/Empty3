@@ -1,156 +1,74 @@
 /**
  * *
- * Global license : * Microsoft Public Licence
+ * Global license : * GNU GPL v3
  *
- * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ * author Manuel Dahmen <manuel.dahmen@gmail.com>
  *
- * Creation time 05-nov.-2014
+ * Creation time 2015-03-25
  *
  **
  */
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.nurbs.ParametrizedCurve;
+import info.emptycanvas.library.nurbs.ParametrizedSurface;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.object.Representable;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TubulaireN2<T extends ParametrizedCurve>
-    extends Representable implements TRIGenerable, TRIConteneur {
+    extends ParametrizedSurface {
+    public static double TAN_FCT_INCR = 0.00005;
+    public static double NORM_FCT_INCR = 0.0005;
 
-    private final ArrayList<Point3D> points;
-    //private double ratio;
-    private final T surve;
-    private double diam = 1.0f;
-    private final float TAN_FCT = 0.00005f;
-    private final float NORM_FCT = 0.0005f;
+    private int last_X = -1;
+    
+    private T surve;
+
+    private double diam = 1.0;
     private int N_TOURS = 40;
+    
     private TRIObject tris = null;
 
     public TubulaireN2(T surve)  {
         this.surve = surve;
-        this.points = new ArrayList<Point3D>();
     }
-
-    public boolean add(Point3D e) {
-        return points.add(e);
-    }
-
-    public void addPoint(Point3D p) {
-        points.add(p);
+    public TubulaireN2()  {
     }
 
     public Point3D calculerNormale(double t) {
-        //if (t < 1.0 - NORM_FCT) {
-
-            return calculerTangente(t + NORM_FCT).moins(calculerTangente(t));
-        //} else {
-        //    return Point3D.INFINI;
-        //}
-    }
-
-    public Point3D calculerPoint(double t) {
-        return surve.calculerPoint3D(t);
+        return calculerTangente(t + NORM_FCT_INCR).moins(calculerTangente(t));
     }
 
     public Point3D calculerTangente(double t) {
-        //if (t < 1.0 - TAN_FCT) {
-
-            return calculerPoint(t + TAN_FCT).moins(calculerPoint(t));
-        //} else {
-        //    return Point3D.INFINI;
-        //}
+        return surve.calculerPoint3D(t + TAN_FCT_INCR).moins(surve.calculerPoint3D(t));
     }
-/*
-    private PObjet calculPoints(IFct1D3D funct, double value, double angle) {
-        return null;
-    }
-
-    private Point3D cerclePerp(Point3D vect, double angle) {
-        return null;
-    }
-
-    private void clear() {
-        points.clear();
-    }
-*/
     public void diam(double diam) {
         this.diam = diam;
     }
 
-    @Override
     public TRIObject generate() {
         Color color = new Color(texture().getColorAt(0.5, 0.5));
         if (tris == null) {
             tris = new TRIObject();
 
-            generateWire();
 
             double length = 1;
 
-            ArrayList<Point3D> tour0 = vectPerp(0);
-            for (double t = 0; t < length; t += surve.incr) {
-                ArrayList<Point3D> tour1 = vectPerp(t);
-                for (int i = 3; i < tour1.size() - 1; i++) {
-                    double s = 1.0*(i-3)/tour1.size();
-                    TRI t1 = new TRI(tour0.get(i), tour1.get(i), tour1.get(i + 1), texture());
-                    t1.texture(new ColorTexture(new Color(texture().getColorAt(t, s))));
-                    TRI t2 = new TRI(tour0.get(i), tour0.get(i + 1), tour1.get(i + 1), texture());
-                    t2.texture(new ColorTexture(new Color(texture().getColorAt(t, s))));
-
-                    tris.add(t1);
-                    tris.add(t2);
-                }
-
-                tour0 = tour1;
-            }
         }
         return tris;
     }
 
-    public void generateWire() {
-        System.out.println("WIRE SIZE " + points.size());
-
-        Object[] toArray = points.toArray();
-        //Point3D[] arr = new Point3D[toArray.length];
-        int i = 0;
-        for (Object o : toArray) {
-            if (o != null && o instanceof Point3D) {
-                Point3D p = (Point3D) o;
-                //arr[i] = p;
-                i++;
-            }
-
-        }
-        
-
-    }
-
-    @Override
-    public Representable getObj() {
-        generate();
-        return tris;
-    }
-
-    @Override
-    public Iterable<TRI> iterable() {
-        generate();
-        return tris.getTriangles();
-    }
 
     public void nbrAnneaux(int n) {
         surve.incr = 1.0/n;
+        setMaxX(n);
     }
 
     public void nbrRotations(int r) {
         this.N_TOURS = r;
+        setMaxY(r);
     }
 
     public void radius(double d) {
@@ -163,20 +81,17 @@ public class TubulaireN2<T extends ParametrizedCurve>
 
     @Override
     public String toString() {
-        String s = "tubulaire (\n\t(";
-        Iterator<Point3D> it = points.iterator();
-        while (it.hasNext()) {
-            s += "\n\t" + it.next().toString();
-        }
+        String s = "tubulaireN2 (\n\t("
+            +surve.toString();
         s += "\n\n)\n\t" + diam + "\n\t" + texture().toString() + "\n)\n";
         return s;
     }
 
 
-    private ArrayList<Point3D> vectPerp(double t) {
-        ArrayList<Point3D> vecteurs = new ArrayList<Point3D>();
+    private Point3D [] vectPerp(double t) {
+        Point3D [] vecteurs = new Point3D[3];
 
-        Point3D p = calculerPoint(t);
+        Point3D p = surve.calculerPoint3D(t);
         Point3D tangente = calculerTangente(t);
 
         Point3D ref1 = new Point3D(0, 0, 1);
@@ -199,18 +114,30 @@ public class TubulaireN2<T extends ParametrizedCurve>
 
             px = px.norme1();
             py = py.norme1();
-            //System.out.println("px.py: " +px.prodScalaire(py)+"px.tg: "+px.prodScalaire(tangente)+"py.tg "+py.prodScalaire(tangente));
-            vecteurs.add(px);
-            vecteurs.add(py);
-            vecteurs.add(tangente);
-
-            for (int i = 0; i < N_TOURS + 1; i++) {
-                double angle = 2.0f * Math.PI * i / N_TOURS;
-                vecteurs.add(p.plus(px.mult(Math.cos(angle) * diam)).plus(
-                        py.mult(Math.sin(angle) * diam)));
-            }
+           
+            vecteurs[0] = tangente;
+            vecteurs[1] = px;
+            vecteurs[2] = py;
+            
         }
         return vecteurs;
+    }
+
+    public void curve(T surve) {
+        this.surve = surve;
+    }
+
+    @Override
+    public Point3D calculerPoint3D(double u, double v) {
+        Point3D [] vectPerp = vectPerp(u);
+        return surve.calculerPoint3D(u).plus(
+                vectPerp[1].mult(Math.cos(2*Math.PI*v)).plus(
+                vectPerp[2].mult(Math.sin(2*Math.PI*v))));
+    }
+
+    @Override
+    public Point3D calculerVitesse3D(double u, double v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
