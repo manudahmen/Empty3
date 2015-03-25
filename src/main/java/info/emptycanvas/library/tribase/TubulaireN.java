@@ -1,10 +1,10 @@
 /**
  * *
- * Global license : * Microsoft Public Licence
+ * Global license : * GNU GPL v3
  *
- * author Manuel Dahmen <ibiiztera.it@gmail.com>
+ * author Manuel Dahmen <manuel.dahmen@gmail.com>
  *
- * Creation time 05-nov.-2014
+ * Creation time 2015-03-25
  *
  **
  */
@@ -199,7 +199,7 @@ public class TubulaireN extends Representable implements TRIGenerable, TRIConten
 
             px = px.norme1();
             py = py.norme1();
-            //System.out.println("px.py: " +px.prodScalaire(py)+"px.tg: "+px.prodScalaire(tangente)+"py.tg "+py.prodScalaire(tangente));
+           
             vecteurs.add(px);
             vecteurs.add(py);
             vecteurs.add(tangente);

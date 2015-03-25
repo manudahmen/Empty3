@@ -1,32 +1,29 @@
-/*
-
- Vous êtes libre de :
-
+/**
+ * *
+ * Global license : * GNU GPL v3
+ *
+ * author Manuel Dahmen <manuel.dahmen@gmail.com>
+ *
+ * Creation time 2015-03-25
+ *
+ **
  */
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.ZBufferImpl;
 import info.emptycanvas.library.object.TRI;
 import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.BezierCubique;
 import info.emptycanvas.library.object.TRIObject;
 import info.emptycanvas.library.object.CouleurOutils;
-import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.Barycentre;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.PObjet;
-import info.emptycanvas.library.object.ZBuffer;
 
 import java.awt.Color;
-import java.awt.image.RenderedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.imageio.ImageIO;
-
-import info.emptycanvas.library.script.Loader;
 
 public class Tubulaire extends Representable implements TRIGenerable, TRIConteneur {
 
