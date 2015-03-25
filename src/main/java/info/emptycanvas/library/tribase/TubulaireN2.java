@@ -48,12 +48,12 @@ public class TubulaireN2<T extends ParametrizedCurve>
     }
 
     public Point3D calculerNormale(double t) {
-        if (t < 1.0 - NORM_FCT) {
+        //if (t < 1.0 - NORM_FCT) {
 
             return calculerTangente(t + NORM_FCT).moins(calculerTangente(t));
-        } else {
-            return null;
-        }
+        //} else {
+        //    return Point3D.INFINI;
+        //}
     }
 
     public Point3D calculerPoint(double t) {
@@ -61,12 +61,12 @@ public class TubulaireN2<T extends ParametrizedCurve>
     }
 
     public Point3D calculerTangente(double t) {
-        if (t < 1.0 - TAN_FCT) {
+        //if (t < 1.0 - TAN_FCT) {
 
             return calculerPoint(t + TAN_FCT).moins(calculerPoint(t));
-        } else {
-            return null;
-        }
+        //} else {
+        //    return Point3D.INFINI;
+        //}
     }
 /*
     private PObjet calculPoints(IFct1D3D funct, double value, double angle) {
