@@ -9,6 +9,6 @@ package info.emptycanvas.library.texturing;
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public class TextureOp4D {
+public abstract class TextureOp4D {
     
 }

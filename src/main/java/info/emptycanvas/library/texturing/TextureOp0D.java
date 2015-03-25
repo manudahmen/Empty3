@@ -5,11 +5,13 @@
  */
 package info.emptycanvas.library.texturing;
 
+import info.emptycanvas.library.object.ColorTexture;
+
 /**
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public class TextureOp0D extends TextureOp
+public abstract class TextureOp0D extends TextureOp
 {
-    
+    public abstract ColorTexture reverseVideo(final ColorTexture c);
 }

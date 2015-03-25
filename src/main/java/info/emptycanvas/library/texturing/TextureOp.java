@@ -5,10 +5,13 @@
  */
 package info.emptycanvas.library.texturing;
 
+import java.awt.Color;
+
 /**
  *
  * @author Manuel Dahmen <manuel.dahmen@gmail.com>
  */
-public class TextureOp {
-    
+public abstract class TextureOp {
+    public abstract Color reverseVideo(Color c);
+   
 }
