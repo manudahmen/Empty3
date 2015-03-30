@@ -1528,7 +1528,7 @@ public class ZBufferImpl implements ZBuffer {
         this.angleX = angleXRad;
         this.angleY = angleYRad;
     }
-
+    @Deprecated
     public void setColoration(boolean a) {
         this.colorationActive = a;
     }
