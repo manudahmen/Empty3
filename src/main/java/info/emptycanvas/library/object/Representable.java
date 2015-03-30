@@ -7,7 +7,9 @@ import java.awt.Color;
 import java.io.Serializable;
 
 public class Representable implements Serializable {
-    
+    protected double NFAST = 100;
+    protected ITexture CFAST = new ColorTexture(Color.GRAY);
+
     
     public static final ITexture orange_yellow = new ColorTexture(new Color(255, 128, 0));
     protected Barycentre bc = new Barycentre();
@@ -81,5 +83,17 @@ public class Representable implements Serializable {
 
     public Representable strictCopyOf() throws CloneNotSupportedException {
         return (Representable) this.clone();
+    }
+    /***
+     * DOn't call ZBuffer dessiine methods here: it would loop.
+     * @param z ZBuffer use plot or dessine(P) or tracerTriangle(TRI, Itexture)
+     */
+    public void drawStructureDrawFast(ZBuffer z)
+    {
+        throw new UnsupportedOperationException("No genral method for drawing objects");
+    }
+    public boolean ISdrawStructureDrawFastIMPLEMENTED(ZBuffer z)
+    {
+        return false;
     }
 }

@@ -19,6 +19,8 @@
  */
 package info.emptycanvas.library.object;
 
+import java.awt.Color;
+
 /**
  * *
  *
@@ -371,4 +373,17 @@ public class Point3D extends Representable {
     private Point3D norme(double d) {
         return this.norme1().mult(d);
     }
+
+    @Override
+    public boolean ISdrawStructureDrawFastIMPLEMENTED(ZBuffer z) {
+        return super.ISdrawStructureDrawFastIMPLEMENTED(z); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void drawStructureDrawFast(ZBuffer z) {
+        
+        z.testPoint(this, new Color(CFAST.getColorAt(0.5, 0.5)));
+        
+    }
+    
 }

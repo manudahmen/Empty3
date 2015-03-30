@@ -114,6 +114,7 @@ public abstract class TestObjet implements Test, Runnable {
     private ZipWriter zip;
 
     private boolean stop = false;
+    private ZBuffer z;
 
     public int getIdxFilm() {
         return idxFilm;
@@ -640,7 +641,7 @@ public abstract class TestObjet implements Test, Runnable {
         }
         ginit();
 
-        ZBuffer z = ZBufferFactory.instance(resx, resy, D3);
+        z = ZBufferFactory.instance(resx, resy, D3);
 
         if (scene().texture() != null) {
             z.backgroundTexture(scene().texture());
@@ -1000,4 +1001,10 @@ public abstract class TestObjet implements Test, Runnable {
         gui.setMaxFrames(2000);
         new Thread(gui).start();
     }
+
+    public ZBuffer getZ() {
+        return z;
+    }
+    
+    
 }

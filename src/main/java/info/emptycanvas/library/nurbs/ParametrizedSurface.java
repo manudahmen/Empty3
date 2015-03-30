@@ -8,8 +8,13 @@
  */
 package info.emptycanvas.library.nurbs;
 
+import info.emptycanvas.library.object.ColorTexture;
+import info.emptycanvas.library.object.ITexture;
 import info.emptycanvas.library.object.Point3D;
+import info.emptycanvas.library.object.SegmentDroite;
+import info.emptycanvas.library.object.ZBuffer;
 import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
+import java.awt.Color;
 
 /**
  *
@@ -21,6 +26,8 @@ public abstract class ParametrizedSurface extends TRIObjetGenerateurAbstract {
     protected double end1 = 1, end2 = 1;
     public double incr1 = 0.1;
     public double incr2 = 0.1;
+    private double NFAST = 100;
+    private ITexture CFAST = new ColorTexture(Color.GRAY);
 
     public abstract Point3D calculerPoint3D(double u, double v);
 
@@ -91,4 +98,30 @@ public abstract class ParametrizedSurface extends TRIObjetGenerateurAbstract {
         this.incr1 = incr1;
     }
 
+    @Override
+    public void drawStructureDrawFast(ZBuffer z) {
+        System.out.println("Drawn structure ffaast START");
+        double incrU = 1.0/NFAST;
+        double incrV = 1.0/NFAST;
+        for (double u = 0; u < 1.0; u += incrU) {
+            for (double v = 0; v < 1.0; v += incrV) {
+                double[][] uvincr = new double[][]{
+                    {u, v},
+                    {u + incrU, v},
+                    {u + incrU, v + incrV},
+                    {u, v + incrV}
+                };
+                for (int i = 0; i < 3; i++) {
+
+                    SegmentDroite sd = new SegmentDroite(
+                            calculerPoint3D(uvincr[i][0], uvincr[i][1]),
+                            calculerPoint3D(uvincr[(i + 1) % 3][0], uvincr[(i + 1) % 3][0]), CFAST);
+                    if (sd.ISdrawStructureDrawFastIMPLEMENTED(z)) {
+                        sd.drawStructureDrawFast(z);
+                    }
+                }
+            }
+        }
+        System.out.println("Drawn structure ffaast END");
+    }
 }

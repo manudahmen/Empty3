@@ -6,6 +6,7 @@
 package info.emptycanvas.library.object;
 
 import info.emptycanvas.library.lighting.Infini;
+import info.emptycanvas.library.nurbs.ParametrizedCurve;
 import java.awt.Color;
 
 /**
@@ -16,7 +17,7 @@ import java.awt.Color;
  * 15 oct. 2011
  *
  */
-public class SegmentDroite extends Representable {
+public class SegmentDroite extends ParametrizedCurve {
 
     /**
      *
@@ -182,6 +183,10 @@ public class SegmentDroite extends Representable {
 
     public int mesure() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public Point3D calculerVitesse3D(double t) {
+        return getExtremite().moins(origine).norme1();
     }
 
 }
