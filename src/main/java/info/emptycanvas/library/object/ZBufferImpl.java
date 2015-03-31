@@ -1117,36 +1117,11 @@ public class ZBufferImpl implements ZBuffer {
                 interactionCourant = to;
 
                 to.draw(this);
-
-                /*
-                 * for(int i=0; i<to.getMaxX(); i++) for(int j=0;
-                 * j<to.getMaxY(); j++) { TRI[] tris = new TRI[2]; to.getTris(i,
-                 * j, tris); dessinerSilhouette3D(tris[0]);
-                 * dessinerSilhouette3D(tris[1]); } //to.draw(this);
-                 */
             } else if (r instanceof PGeneratorZ) {
                 PGeneratorZ p = (PGeneratorZ) r;
                 p.generate(this);
                 p.dessine(this);
-            } /*else if (r instanceof NurbsSurface) {
-             NurbsSurface n = (NurbsSurface) r;
-             double INCR = 0.01;
-             for (double i = 0; i < 1; i += INCR) {
-             for (double j = 0; j < 1; j += INCR) {
-             Point3D p1 = n.calculerNurbs(j, i);
-             Point3D p2 = n.calculerNurbs(j, i + INCR);
-             Point3D p3 = n.calculerNurbs(j + INCR, i);
-             Point3D p4 = n.calculerNurbs(j + INCR, i + INCR);
-             TRI[] tris = new TRI[2];
-             tris[0] = new TRI(p1, p2, p3, n.texture());
-             tris[1] = new TRI(p4,
-             p3, p1,
-             n.texture());
-             dessinerSilhouette3D(tris[0]);
-             dessinerSilhouette3D(tris[1]);
-             }
-             }
-             }*/ else if (r instanceof ParametrizedCurve) {
+            } else if (r instanceof ParametrizedCurve) {
                 // System.out.println("Curve");
                 ParametrizedCurve n = (ParametrizedCurve) r;
                 interactionCourant = n;
@@ -1164,8 +1139,6 @@ public class ZBufferImpl implements ZBuffer {
                 // System.out.println("Surface");
                 ParametrizedSurface n = (ParametrizedSurface) r;
                 interactionCourant = n;
-                double incr1 = 1.0 / n.getIncrU();
-                double incr2 = 1.0 / n.getIncrV();
                 for (double i = n.getStartU(); i <= n.getEndU() - n.getIncrU(); i += n.getIncrU()) {
                     for (double j = n.getStartU(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
                         double u = i;

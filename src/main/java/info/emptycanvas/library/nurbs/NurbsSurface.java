@@ -145,28 +145,41 @@ public class NurbsSurface extends ParametrizedSurface {
         if (t <= intervalle.get(type_coord, 0)) {
             return 0;
         }
-        for (int i = 0; i < intervalle.m; i++) {
+        for (int i = 0; i < (type_coord==0?intervalle.m:intervalle.n); i++) {
             if ((t >= intervalle.get(type_coord, i)) && (t < intervalle.get(type_coord, i + 1))) {
                 return i;
             }
         }
         return 1;
     }
+    public boolean estDansLIntervalle(int type_coord, double t, int borneInf) {
+        if(borneInf<0)
+            return false;
+        if(borneInf>=(type_coord==0?intervalle.m:intervalle.n)-1)
+            return false;
+        for(int i=0; i<(type_coord==0?intervalle.m:intervalle.n)-1; i++)
+        {
+            if(intervalle.get(type_coord, i)>=t && intervalle.get(type_coord, i+1)<=t)
+                return true;
+        }
+        return false;
+    }
 
     public void setMaillage(Point3D[][] points, double[][] poids) {
         this.points = points;
         this.poids = poids;
     }
-
+    /***
+     * 
+     * @param T Ligne 0: intervalle u Ligne 1: intervalle v
+     */
     public void setReseauFonction(double[][] T) {
         this.T = T;
     }
 
     public double N(int type_coord, int i, int deg, double t) {
-        if (i >= intervalle.m && type_coord == 0 || i >= intervalle.n && type_coord == 1) {
-            return 1;
-        }
-        if (i < 0) {
+        if(!estDansLIntervalle(type_coord, t, i))
+        {
             return 0;
         }
         if (deg <= 0) {
@@ -201,17 +214,12 @@ public class NurbsSurface extends ParametrizedSurface {
     }
 
     public Point3D calculerNurbs(double u, double v) {
-        int lengthPu = forme.m;
-        int lengthPv = forme.m;
-        int largeurTu = degreeU;
-        int largeurTv = degreeV;
-
         double sum = 0;
         Point3D ret = Point3D.O0;
         for (int i = 0; i < forme.m; i++) {
             for (int j = 0; j < forme.n; j++) {
                 double sumP = (double) (C(i, forme.m) * C(j, forme.n)) * N(type_coordU, i, degreeU, u) * N(type_coordV, j, degreeV, v);
-                ret = ret.plus(forme.getPoint3D(j, i).mult(sumP));
+                ret = ret.plus(forme.getPoint3D(i, j).mult(sumP));
                 sum += sumP;
             }
         }
@@ -221,8 +229,8 @@ public class NurbsSurface extends ParametrizedSurface {
     @Override
     public String toString() {
         String s = "nurbs ( \n";
-        for (int i = 0; i < intervalle.m; i++) {
-            for (int j = 0; j < intervalle.n; j++) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < (i==0?intervalle.m:intervalle.n); j++) {
                 s += "knot [" + i + "][" + j + "] = " + intervalle.get(i, j) + "; \n\t";
             }
         }

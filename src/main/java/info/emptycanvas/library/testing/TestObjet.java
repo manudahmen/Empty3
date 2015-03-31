@@ -654,7 +654,7 @@ public abstract class TestObjet implements Test, Runnable {
 
         Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", runtimeInfoSucc());
         while ((nextFrame() || unterminable()) && !stop) {
-
+            try{
             pauseActive = true;
             while (isPause()) {
                 try {
@@ -702,7 +702,7 @@ public abstract class TestObjet implements Test, Runnable {
                         ri = z.image();
 
                         if (((generate & GENERATE_IMAGE) > 0) && !((generate & GENERATE_NO_IMAGE_FILE_WRITING) > 0)) {
-                            
+
                             ecrireImage(ri, type, file);
                         }
                         if ((generate & GENERATE_MOVIE) > 0 && true) {
@@ -781,8 +781,16 @@ public abstract class TestObjet implements Test, Runnable {
                     Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, "Other exception in generating model", ex);
+                    ex.printStackTrace();
                 }
 
+            }
+            }
+            catch(ArrayIndexOutOfBoundsException ex)
+            {
+                ex.printStackTrace();
             }
         }
 
@@ -790,55 +798,52 @@ public abstract class TestObjet implements Test, Runnable {
 
         Logger.getLogger(getClass().getCanonicalName()).info(frame() + "\n" + runtimeInfoSucc());
 
-    Logger.getLogger(getClass().getCanonicalName()).info("Fin de la création des image et/u des modèles" + "\n" + runtimeInfoSucc());
-    if (zip!= null) {
+        Logger.getLogger(getClass().getCanonicalName()).info("Fin de la création des image et/u des modèles" + "\n" + runtimeInfoSucc());
+        if (zip != null) {
             try {
-            zip.end();
-        } catch (IOException e) {
-            //reportException(e);
+                zip.end();
+            } catch (IOException e) {
+                //reportException(e);
+            }
         }
-    }
-    if ((generate & GENERATE_MOVIE) > 0 && true) {
+        if ((generate & GENERATE_MOVIE) > 0 && true) {
 
             try {
-            aw.finish();
-            aw.close();
+                aw.finish();
+                aw.close();
 
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+            }
         }
-    }
-    String cmd;
+        String cmd;
 
-    if (loop() && avif != null) {
+        if (loop() && avif != null) {
             try {
-            cmd = avif.getCanonicalPath();
-            Runtime runtime = Runtime.getRuntime();
-            if (runtime != null) {
+                cmd = avif.getCanonicalPath();
+                Runtime runtime = Runtime.getRuntime();
+                if (runtime != null) {
+                    runtime.exec("start \"" + cmd + "\"");
+                    OutputStream outputStream = runtime.exec(cmd).getOutputStream();
+                    System.out.print(outputStream);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (file.exists()) {
+            try {
+                cmd = file.getCanonicalPath();
+                Runtime runtime = Runtime.getRuntime();
                 runtime.exec("start \"" + cmd + "\"");
                 OutputStream outputStream = runtime.exec(cmd).getOutputStream();
                 System.out.print(outputStream);
+            } catch (IOException ex) {
+                Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
-    else if (file.exists () 
-        ) {
-            try {
-            cmd = file.getCanonicalPath();
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("start \"" + cmd + "\"");
-            OutputStream outputStream = runtime.exec(cmd).getOutputStream();
-            System.out.print(outputStream);
-        } catch (IOException ex) {
-            Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    Logger.getLogger (getClass().getCanonicalName()).info("End movie       " + runtimeInfoSucc());
-     Logger.getLogger (getClass().getCanonicalName()).info("Quit run method " + runtimeInfoSucc());
+        Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + runtimeInfoSucc());
+        Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + runtimeInfoSucc());
 
     }
 
@@ -847,7 +852,7 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     @Override
-        public Scene scene() {
+    public Scene scene() {
         return scene;
     }
 
@@ -953,34 +958,25 @@ public abstract class TestObjet implements Test, Runnable {
      * @throws java.lang.Exception
      */
     @Override
-        public abstract void testScene() throws Exception;
+    public abstract void testScene() throws Exception;
 
     @Override
-        public void testScene(File f) throws Exception {
+    public void testScene(File f) throws Exception {
         if (f.getAbsolutePath().toLowerCase().endsWith("mood")
                 || f.getAbsolutePath().toLowerCase().endsWith("moo")
                 || f.getAbsolutePath().toLowerCase().endsWith("bmood")
                 || f.getAbsolutePath().toLowerCase().endsWith("bmoo")) {
             try {
                 new Loader().load(f, scene);
-            
 
-
-
-} catch (VersionNonSupporteeException ex) {
-                Logger.getLogger(TestObjet.class  
-
-.getName()).log(Level.SEVERE,
-                        null, ex);
-            } 
-
-
-
-catch (ExtensionFichierIncorrecteException ex) {
-                Logger.getLogger(TestObjet.class  
-
-.getName()).log(Level.SEVERE,
-                        null, ex);
+            } catch (VersionNonSupporteeException ex) {
+                Logger.getLogger(TestObjet.class
+                        .getName()).log(Level.SEVERE,
+                                null, ex);
+            } catch (ExtensionFichierIncorrecteException ex) {
+                Logger.getLogger(TestObjet.class
+                        .getName()).log(Level.SEVERE,
+                                null, ex);
             }
         } else {
             System.err.println("Erreur: extension incorrecte");

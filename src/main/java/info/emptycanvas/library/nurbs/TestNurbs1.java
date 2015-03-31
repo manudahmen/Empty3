@@ -43,12 +43,12 @@ public class TestNurbs1 extends TestObjetStub {
             {1, 1, 1}
         });
 
-        n.setDegreU(3);
-        n.setDegreV(3);
+        n.setDegreU(5);
+        n.setDegreV(5);
 
         n.setReseauFonction(new double[][]{
-            {0, 0, 0, 1, 1, 1},
-            {0, 0, 0, 1, 1, 1}
+            {0, 0, 0, 0.5, 1, 1, 1},
+            {0, 0, 0, 0.5, 1, 1, 1}
         });
 
         n.texture(new ColorTexture(Color.WHITE));
