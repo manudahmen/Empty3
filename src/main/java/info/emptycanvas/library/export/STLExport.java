@@ -1,3 +1,13 @@
+/**
+ * *
+ * Global license : * GNU GPL v3
+ *
+ * author Manuel Dahmen <manuel.dahmen@gmail.com>
+ *
+ * Creation time 25-oct.-2015 SURFACE D'ÉLASTICITÉ DE FRESNEL Fresnel's
+ * elasticity surface, Fresnelsche Elastizitätfläche
+ * http://www.mathcurve.com/surfaces/elasticite/elasticite.shtml *
+ */
 package info.emptycanvas.library.export;
 
 import java.io.File;

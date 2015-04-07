@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import info.emptycanvas.library.object.ECBufferedImage;
-import info.emptycanvas.library.testing.TestObjet.ImageContainer;
+import info.emptycanvas.library.testing.ImageContainer;
 import info.emptycanvas.library.tribase.equationeditor.AnalyseurEquationJep;
 import info.emptycanvas.library.tribase.equationeditor.TRIObjetSurfaceEquationParametrique;
 
@@ -572,7 +572,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         }
     }
 
-    public void setImageContainer(TestObjet.ImageContainer ic) {
+    public void setImageContainer(ImageContainer ic) {
         this.biic = ic;
     }
 

@@ -195,27 +195,7 @@ public abstract class TestObjet implements Test, Runnable {
         return "Dernier intervalle de temps : " + (displayLastIntervalTimeInterval * 1E-9) + "\nTemps total partiel : " + (displayPartialTimeInterval * 1E-9);
     }
 
-    public class ImageContainer {
-
-        private BufferedImage biic;
-        private String str = "";
-
-        public BufferedImage getImage() {
-            return biic;
-        }
-
-        public String getStr() {
-            return str;
-        }
-
-        public void setImage(BufferedImage biic1) {
-            biic = biic1;
-        }
-
-        public void setStr(String str) {
-            this.str = str;
-        }
-    }
+    
 
     public TestObjet() {
         init();
@@ -625,7 +605,7 @@ public abstract class TestObjet implements Test, Runnable {
         }
         serid();
 
-        this.biic = this.new ImageContainer();
+        this.biic = new ImageContainer();
 
         publishResult();
 

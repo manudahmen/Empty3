@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Animation {
 
-    protected AnimationCreationTime time;
+    protected AnimationTime time;
 
     protected ECDim resolution;
 
@@ -55,11 +55,11 @@ public class Animation {
         return scene;
     }
 
-    public AnimationCreationTime getTime() {
+    public AnimationTime getTime() {
         return time;
     }
 
     public void setDuration(double duration) {
-        time = new AnimationCreationTime(duration);
+        time = new AnimationTime(duration);
     }
 }

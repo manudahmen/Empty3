@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Scene extends Representable implements Serializable {
 
@@ -18,7 +19,7 @@ public class Scene extends Representable implements Serializable {
      *
      */
     private static final long serialVersionUID = 704663993754304044L;
-    public static final String VERSION = "19";
+    public static final String VERSION = "36";
     private String id;
     private ArrayList<Representable> objets = new ArrayList<Representable>();
     private ArrayList<Animation> animations = new ArrayList<Animation>();
@@ -30,6 +31,9 @@ public class Scene extends Representable implements Serializable {
     private Camera cameraActive;
     private Lumiere lumiereActive;
     private String DESCRIPTION;
+    private Time time;
+    private List<Move> moves;
+    
     // FOR LOADER
     private Representable dernierAjout;
 
@@ -293,4 +297,15 @@ public class Scene extends Representable implements Serializable {
     public boolean updateTime() {
         return false;
     }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public List<Move> getMoves() {
+        return moves;
+    }
+    
+    
+    
 }

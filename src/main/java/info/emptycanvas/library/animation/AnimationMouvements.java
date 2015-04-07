@@ -34,7 +34,7 @@ public class AnimationMouvements {
         this.fonction = fp;
     }
 
-    public void updateObject(AnimationCreationTime time) {
+    public void updateObject(AnimationTime time) {
 
     }
 }

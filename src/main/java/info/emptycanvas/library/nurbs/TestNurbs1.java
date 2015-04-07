@@ -10,7 +10,6 @@ package info.emptycanvas.library.nurbs;
 
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.nurbs.NurbsSurface;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.testing.TestObjetStub;
 import java.awt.Color;
