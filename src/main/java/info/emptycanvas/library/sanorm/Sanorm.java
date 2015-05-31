@@ -33,10 +33,59 @@
  */
 package info.emptycanvas.library.sanorm;
 
+import info.emptycanvas.library.nurbs.ParametrizedCurve;
+import info.emptycanvas.library.object.Point3D;
+import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
+
 /**
  *
- * @author Se7en
+ * @author Dahmen Manuel :: 
+ * 2. Extrusion 3D.
  */
-public class Sanorm {
+public class Sanorm extends TRIObjetGenerateurAbstract {
+    ParametrizedCurve curveBase;
+    ParametrizedCurve curveRepeat;
+
+    public Sanorm(ParametrizedCurve curveBase, ParametrizedCurve curveRepeat) {
+        this.curveBase = curveBase;
+        this.curveRepeat = curveRepeat;
+    }
+
+    
+    public Point3D dansRepereCourbe(double t, Point3D p)
+    {
+        
+        return null;
+    }
+    public Sanorm() {
+    }
+
+    public ParametrizedCurve getCurveBase() {
+        return curveBase;
+    }
+
+    public ParametrizedCurve getCurveRepeat() {
+        return curveRepeat;
+    }
+
+    public void setCurveBase(ParametrizedCurve curveBase) {
+        this.curveBase = curveBase;
+    }
+
+    public void setCurveRepeat(ParametrizedCurve curveRepeat) {
+        this.curveRepeat = curveRepeat;
+    }
+    
+    public static void main(String[] args) {
+        
+    }
+
+    @Override
+    public Point3D coordPoint3D(int x, int y) {
+        double u = 1.0*x/getMaxX();
+        double v = 1.0*y/getMaxY();
+        
+        return dansRepereCourbe(u, curveRepeat.calculerPoint3D(v));
+    }
     
 }

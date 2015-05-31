@@ -67,7 +67,7 @@ public abstract class TestObjet implements Test, Runnable {
 
     private int version = 1;
     private String template = "";
-    private String type = "png";
+    private String type = "JPEG";
     private String filenameZIP = "tests";
     private String fileextZIP = "diapo";
     private File file = null;
@@ -80,7 +80,7 @@ public abstract class TestObjet implements Test, Runnable {
     protected Camera c;
     private ECBufferedImage ri;
     private String filename = "frame";
-    private String fileExtension = "jpg";
+    private String fileExtension = "JPG";
     private boolean publish = true;
     private boolean isometrique = false;
     private boolean loop = false;

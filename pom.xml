@@ -6,7 +6,7 @@
     <!-- please build montemedia first -->
     <groupId>info.emptycanvas</groupId>
     <artifactId>empty3</artifactId>
-    <version>36</version>
+    <version>38</version>
     <packaging>jar</packaging>
     <name>Empty3</name>
     <description>3D rendering engine. Plus modelling.</description>

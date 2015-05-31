@@ -14,9 +14,9 @@ public abstract class Surface extends ParametrizedCurve {
      * @param i index
      * @return Point3D point du chemin discret C
      */
-    public Point2D getPoint(int i) {
+    public Point3D getPoint(int i) {
         Point3D p = calculerPoint3D(1.0 * i / getMax());
-        return new Point2D(p.get(0), p.get(1));
+        return new Point3D(p.get(0), p.get(1), p.get(2));
     }
 
     public void setMax(int max) {
