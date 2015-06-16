@@ -166,6 +166,9 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
     }
     /***
      * Draws in Image with ZBuffer 2D drawing class
+     * 
+     * Ce serait mieux de calculer les points avec
+     * des couleurs.. Bien oui c'est encore TODO
      * @param z 
      */
     public void draw(ZBuffer z) {

@@ -45,15 +45,18 @@ import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 public class Sanorm extends TRIObjetGenerateurAbstract {
     ParametrizedCurve curveBase;
     ParametrizedCurve curveRepeat;
-
+    double intervalleApproxTgt = 0.00001;
+        
     public Sanorm(ParametrizedCurve curveBase, ParametrizedCurve curveRepeat) {
         this.curveBase = curveBase;
         this.curveRepeat = curveRepeat;
     }
 
     
-    public Point3D dansRepereCourbe(double t, Point3D p)
+    public Point3D dansRepereDeCourbe(double t, Point3D p)
     {
+        // Tangente : 
+        
         
         return null;
     }
@@ -85,7 +88,7 @@ public class Sanorm extends TRIObjetGenerateurAbstract {
         double u = 1.0*x/getMaxX();
         double v = 1.0*y/getMaxY();
         
-        return dansRepereCourbe(u, curveRepeat.calculerPoint3D(v));
+        return dansRepereDeCourbe(u, curveRepeat.calculerPoint3D(v));
     }
     
 }
