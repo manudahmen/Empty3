@@ -94,18 +94,17 @@ public class E3MathWaw {
             System.out.println("Degré est supérieur à 1: pas d'implémentation actuelle");
         }
         Point3D p;
-        try {
+        /*try {*/
 
-            p = c.calculerVitesse3D(t);
+           // p = c.calculerVitesse3D(t);
 
-            return p;
-
-        } catch (Exception ex) {
+ 
+        /*} catch (Exception ex) {*/
             Point3D p1 = c.calculerPoint3D(t);
             Point3D p2 = c.calculerPoint3D(t + approxTangente);
 
             p = (p2.moins(p1)).norme1();
-        }
+        /*}*/
 
         return p;
     }
