@@ -19,6 +19,8 @@
  */
 package info.emptycanvas.library.object;
 
+import info.emptycanvas.library.math.E3MathWaw;
+
 /**
  *
  * @author Atelier
@@ -52,6 +54,9 @@ public class Camera extends CameraBox {
 
     public void calculerMatrice() {
         if (!imposerMatrice) {
+            E3MathWaw e3MathWaw = new E3MathWaw();
+            
+            
             Point3D verticale = Point3D.Y;
             if (getLookat().moins(getCamera()).prodVect(verticale).norme() < 0.01) {
                 verticale = Point3D.Z;

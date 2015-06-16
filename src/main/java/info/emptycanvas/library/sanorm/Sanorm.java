@@ -33,6 +33,8 @@
  */
 package info.emptycanvas.library.sanorm;
 
+import info.emptycanvas.library.math.E3MathWaw;
+import info.emptycanvas.library.math.E3MathWaw.Repere;
 import info.emptycanvas.library.nurbs.ParametrizedCurve;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
@@ -55,10 +57,13 @@ public class Sanorm extends TRIObjetGenerateurAbstract {
     
     public Point3D dansRepereDeCourbe(double t, Point3D p)
     {
-        // Tangente : 
+        E3MathWaw w = new E3MathWaw();
         
+        Point3D[] pts = w.calculRepere(curveBase, t);
         
-        return null;
+        E3MathWaw.Repere r= w.new Repere(pts);
+                
+        return r.transform(p);
     }
     public Sanorm() {
     }
