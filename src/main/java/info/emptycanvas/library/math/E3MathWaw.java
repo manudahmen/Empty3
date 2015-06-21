@@ -103,7 +103,7 @@ public class E3MathWaw {
             Point3D p1 = c.calculerPoint3D(t);
             Point3D p2 = c.calculerPoint3D(t + approxTangente);
 
-            p = (p2.moins(p1)).norme1();
+            p = (p2.moins(p1));
         /*}*/
 
         return p;
@@ -145,7 +145,7 @@ public class E3MathWaw {
             Point3D p1 = tangente(c, t, degre);
             Point3D p2 = c.calculerPoint3D(t + approxNormale);
 
-            p = (p2.moins(p1)).norme1();
+            p = (p2.moins(p1));
         }
 
         return p;
