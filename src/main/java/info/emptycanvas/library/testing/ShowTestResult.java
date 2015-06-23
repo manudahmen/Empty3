@@ -19,6 +19,8 @@ import info.emptycanvas.library.object.ECBufferedImage;
 import info.emptycanvas.library.testing.ImageContainer;
 import info.emptycanvas.library.tribase.equationeditor.AnalyseurEquationJep;
 import info.emptycanvas.library.tribase.equationeditor.TRIObjetSurfaceEquationParametrique;
+import java.io.PrintStream;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -76,6 +78,18 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         jPanel1.setSize(jPanel1.getWidth(), 200);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+// Now create a new TextAreaOutputStream to write to our JTextArea control and wrap a
+// PrintStream around it to support the println/printf methods.
+        PrintStream out = new PrintStream(new TextAreaOutputStream(jTextAreaMessage));
+
+// redirect standard output stream to the TextAreaOutputStream
+        System.setOut(out);
+
+// redirect standard error stream to the TextAreaOutputStream
+        System.setErr(out);
+
+// now test the mechanism
+        System.out.println("Hello World");
 
     }
 
@@ -153,7 +167,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                     }
                     //Graphics gg = jPanel4.getGraphics();
                     //gimballs.draw(gg, new Rectangle(jPanel4.getWidth()-30, jPanel4.getHeight()-30, jPanel4.getWidth()-1,jPanel4.getHeight()-1));
-                    
+
                 }
             }
         }
@@ -537,10 +551,10 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         sx = (String) jTableEquations.getCellEditor(0, 1).getCellEditorValue();
         sy = (String) jTableEquations.getCellEditor(1, 1).getCellEditorValue();
         sz = (String) jTableEquations.getCellEditor(2, 1).getCellEditorValue();
-        TRIObjetSurfaceEquationParametrique eq =
-                new TRIObjetSurfaceEquationParametrique(
-                        new AnalyseurEquationJep(sx), 
-                new AnalyseurEquationJep(sy), new AnalyseurEquationJep(sz));
+        TRIObjetSurfaceEquationParametrique eq
+                = new TRIObjetSurfaceEquationParametrique(
+                        new AnalyseurEquationJep(sx),
+                        new AnalyseurEquationJep(sy), new AnalyseurEquationJep(sz));
         testRef.scene().add(eq);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -578,8 +592,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
 
     public void setTestObjet(TestObjet testObjet) {
         this.testRef = testObjet;
-        
-        
+
         jCheckBoxImagesRec.setSelected(
                 testRef.getGenerate(testRef.GENERATE_IMAGE));
         jCheckBoxFilmRec.setSelected(
@@ -589,7 +602,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
         //jCheckBoxOpenGl.setSelected(
         //toggleTestOption(testRef.GENERATE_OPENGL, testRef.getGenerate(testRef.GENERATE_IMAGE));
         setTitle(testObjet.getClass().getCanonicalName());
-        
+
     }
 
     void stopThreads() {
@@ -599,4 +612,5 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
     void setMessage(String message) {
         jTextAreaMessage.setText(jTextAreaMessage.getText() + "\n" + message);
     }
+
 }
