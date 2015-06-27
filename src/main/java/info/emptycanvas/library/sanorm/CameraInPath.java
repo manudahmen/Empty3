@@ -10,7 +10,7 @@ import info.emptycanvas.library.object.Point3D;
  *
  * @author Se7en
  */
-public class TestCourbeCameraEnChemin extends Camera
+public class CameraInPath extends Camera
 {
     private double temps01;
 
@@ -24,7 +24,7 @@ public class TestCourbeCameraEnChemin extends Camera
      
     
     ParametrizedCurve courbe;
-    public TestCourbeCameraEnChemin(ParametrizedCurve maCourbe) {
+    public CameraInPath(ParametrizedCurve maCourbe) {
         courbe = maCourbe;
     }
 
