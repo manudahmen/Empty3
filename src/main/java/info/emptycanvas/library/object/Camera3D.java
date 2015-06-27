@@ -69,9 +69,9 @@ public class Camera3D extends Camera {
          Point3D offsetDroite = cDroite.camera.prodVect(Point3D.Y).norme1()
          .mult(-d * Math.atan(angle3D));
          */
-        cGauche.camera = cGauche.camera
+        cGauche.eye = cGauche.eye
                 .plus(Point3D.X.mult(-dist3D / 2));
-        cDroite.camera = cDroite.camera
+        cDroite.eye = cDroite.eye
                 .plus(Point3D.X.mult(dist3D / 2));
 
         calculerNouveauPoint();
@@ -122,14 +122,14 @@ public class Camera3D extends Camera {
     }
 
     private void restore() {
-        cGauche.camera = this.ccg;
-        cDroite.camera = this.ccd;
+        cGauche.eye = this.ccg;
+        cDroite.eye = this.ccd;
 
     }
 
     private void store() {
-        this.ccg = cGauche.camera;
-        this.ccd = cDroite.camera;
+        this.ccg = cGauche.eye;
+        this.ccd = cDroite.eye;
 
     }
 

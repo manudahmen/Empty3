@@ -46,7 +46,7 @@ public class TestCourbeCameraEnChemin extends Camera
             Point3D[] calculRepere = e3.calculRepere(courbe, temps01);
             
             
-            camera =  calculRepere[0];
+            eye =  calculRepere[0];
             Point3D v1;
             
             lookat = v1 = calculRepere[1];

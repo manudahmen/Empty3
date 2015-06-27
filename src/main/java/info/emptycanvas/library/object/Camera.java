@@ -32,7 +32,7 @@ public class Camera extends CameraBox {
 
     public static Camera PARDEFAULT = new Camera();
 
-    protected Point3D camera;
+    protected Point3D eye;
     protected Point3D lookat;
 
     protected boolean imposerMatrice = false;
@@ -41,27 +41,27 @@ public class Camera extends CameraBox {
     private Barycentre position;
 
     public Camera() {
-        this.camera = new Point3D(0, 0, -100);
+        this.eye = new Point3D(0, 0, -100);
         this.lookat = Point3D.O0;
     }
 
     public Camera(Point3D camera, Point3D lookat) {
-        this.camera = camera;
+        this.eye = camera;
         this.lookat = lookat;
     }
 
     public void calculerMatrice() {
         if (!imposerMatrice) {
             Point3D verticale = Point3D.Y;
-            if (getLookat().moins(getCamera()).prodVect(verticale).norme() < 0.01) {
+            if (getLookat().moins(getEye()).prodVect(verticale).norme() < 0.01) {
                 verticale = Point3D.Z;
             }
-            if (getLookat().moins(getCamera()).prodVect(verticale).norme() < 0.01) {
+            if (getLookat().moins(getEye()).prodVect(verticale).norme() < 0.01) {
                 verticale = Point3D.X;
             }
             Matrix33 m = new Matrix33();
 
-            Point3D v1 = getLookat().moins(camera).norme1();
+            Point3D v1 = getLookat().moins(eye).norme1();
             for (int j = 0; j < 3; j++) {
                 m.set(j, 2, v1.get(j));
             }
@@ -78,7 +78,7 @@ public class Camera extends CameraBox {
     }
 
     public Point3D calculerPointDansRepere(Point3D p) {
-        Point3D p2 = matrice.mult(p.moins(getCamera()));
+        Point3D p2 = matrice.mult(p.moins(getEye()));
         p2.texture(p.texture());
         return p2;
     }
@@ -88,11 +88,11 @@ public class Camera extends CameraBox {
      * @return
      */
     public Point3D eye() {
-        return getCamera();
+        return getEye();
     }
 
-    public Point3D getCamera() {
-        return calculerPoint(camera);
+    public Point3D getEye() {
+        return calculerPoint(eye);
     }
 
     public Point3D getLookat() {
@@ -113,21 +113,30 @@ public class Camera extends CameraBox {
         return null;
     }
 
+    /**
+     *
+     * @return Position elements
+     */
+    @Override
     public Barycentre position() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Barycentre position1 = new Barycentre();
+        position1.position = getEye();
+        position1.rotation = matrice;
+        position.agrandissement = 1.0; // Pas encore défini;
+        return position1;
     }
 
     @Override
     public void position(Barycentre p) {
         this.position = p;
 
-        camera = position.calculer(camera);
+        eye = position.calculer(eye);
         lookat = position.calculer(lookat);
         calculerMatrice();
     }
 
-    public void setCamera(Point3D camera) {
-        this.camera = camera;
+    public void setEye(Point3D eye) {
+        this.eye = eye;
     }
 
     public void setLookat(Point3D lookat) {
@@ -150,7 +159,7 @@ public class Camera extends CameraBox {
 
     @Override
     public String toString() {
-        return "camera (\n\t" + camera.toString() + "\n\t" + lookat.toString()
+        return "camera (\n\t" + eye.toString() + "\n\t" + lookat.toString()
                 + "\n\t)";
     }
 
