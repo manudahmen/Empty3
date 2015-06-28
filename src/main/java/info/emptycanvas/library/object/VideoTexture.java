@@ -18,7 +18,42 @@ import java.util.logging.Logger;
  * @author manu
  */
 public class VideoTexture extends ITexture {
+    private ECBufferedImage image1;
+    class MapTextImage
+    {
+        private int maxX;
+        private int maxY;
+        private int [] arrayColors;
+        private boolean [] arrayIsPresent;
+        private final BufferedImage mtImage;
+        protected int addsToMapIfNotPresentAndReturns(int x, int y)
+        {
+            if(arrayColors==null)
+            {
+                arrayColors = new int[x*y];
+                arrayIsPresent = new boolean[x*y];
+            }
+            if(!arrayIsPresent[y*maxX+x])
+            {
+                arrayColors[y*maxX+x] =mtImage.getRGB(x, y);
+                arrayIsPresent[y*maxX+x] = true;
+            }
+            
+            return arrayColors[y*maxX+x];
+                    
+        }
+        public MapTextImage(BufferedImage bi)
+        { 
+            mtImage = bi;
+        }
 
+        private int getRGB(int xi, int yi) {
+            
+            return addsToMapIfNotPresentAndReturns(xi, yi);
+        }
+    }
+    
+    MapTextImage mtImage;
     static class sTestObjet extends TestObjetStub {
 
         TRI tri = null;
@@ -49,16 +84,17 @@ public class VideoTexture extends ITexture {
     public class VideoPipe extends Thread {
 
         private boolean verrou;
-        private ArrayList<ECBufferedImage> images = new ArrayList<ECBufferedImage>(300);
+        private ArrayList<ECBufferedImage> mtImages = new ArrayList<ECBufferedImage>(300);
         private boolean fin;
 
         int compte = 0;
+        private Object images;
 
         public void add(final ECBufferedImage bi) {
 
             if (bi != null) {
-                images.add(bi);
-                System.out.println("Texture vidéos: images.c = " + compte++);
+                mtImages.add(bi);
+                System.out.println("Texture vidéos: mtImages.c = " + compte++);
             }
         }
 
@@ -75,14 +111,14 @@ public class VideoTexture extends ITexture {
         }
 
         public void finTraitementFilm() {
-            // image = null;
+            // mtImage = null;
         }
 
         private synchronized ECBufferedImage imageSuivante() throws EOFilmException {
-            if (!images.isEmpty()) {
-                ECBufferedImage ret = images.get(0);
+            if (!mtImages.isEmpty()) {
+                ECBufferedImage ret = mtImages.get(0);
 
-                images.remove(0);
+                mtImages.remove(0);
 
                 reprendre();
 
@@ -131,7 +167,6 @@ public class VideoTexture extends ITexture {
 
         new Thread(to).start();
     }
-    private ECBufferedImage image;
     private VideoPipe vp;
 
     private final Object e = null;
@@ -188,7 +223,7 @@ public class VideoTexture extends ITexture {
         new Thread() {
             public void run() {
                 while (reader.readPacket() == null) {
-                    while (vp.images.size() > maxBuffSize) {
+                    while (vp.mtImages.size() > maxBuffSize) {
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
@@ -203,29 +238,29 @@ public class VideoTexture extends ITexture {
     }
 
     public Color couleur(double rx, double ry) {
-        int x = (int) (rx * image.getWidth());
-        int y = (int) (ry * image.getHeight());
+        int x = (int) (rx * mtImage.maxX);
+        int y = (int) (ry * mtImage.maxY);
         if (x < 0) {
             x = 0;
         }
         if (y < 0) {
             y = 0;
         }
-        if (x >= image.getWidth()) {
-            x = image.getWidth() - 1;
+        if (x >= mtImage.maxX) {
+            x = mtImage.maxX - 1;
         }
-        if (y >= image.getHeight()) {
-            y = image.getHeight() - 1;
+        if (y >= mtImage.maxY) {
+            y = mtImage.maxY - 1;
         }
-        return new Color(image.getRGB(x, y));
+        return new Color(mtImage.getRGB(x, y));
     }
 
     public int getColorAt(double a, double b) {
-        int c = new Color(image
-                .getRGB((int) (a * image
-                        .getWidth()),
-                        (int) (b * image
-                        .getHeight()))
+        int c = new Color(mtImage
+                .getRGB((int) (a * mtImage
+                        .maxX),
+                        (int) (b * mtImage
+                        .maxY))
         ).getRGB();
         if (new Color(c).equals(transparent)) {
             return 0xFFFFFF00;
@@ -247,15 +282,15 @@ public class VideoTexture extends ITexture {
     public Color getMaillageTexturedColor(int numQuadX, int numQuadY, double x,
             double y) {
 
-        int xi = ((int) (1d * image.getWidth() * x));
-        int yi = ((int) (1d * image.getHeight() * y));
-        if (xi >= image.getWidth()) {
-            xi = image.getWidth() - 1;
+        int xi = ((int) (1d * mtImage.maxX * x));
+        int yi = ((int) (1d * mtImage.maxY *       y));
+        if (xi >= mtImage.maxX) {
+            xi = mtImage.maxX - 1;
         }
-        if (yi >= image.getHeight()) {
-            yi = image.getHeight() - 1;
+        if (yi >= mtImage.maxY) {
+            yi = mtImage.maxY - 1;
         }
-        Color c = new Color(image.getRGB(xi, yi));
+        Color c = new Color(mtImage.getRGB(xi, yi));
         if (c.equals(transparent)) {
             return null;
         } else {
@@ -287,14 +322,14 @@ public class VideoTexture extends ITexture {
             dy = r12;
         }
         int xi = ((int) ((((int) x + dx) / numQuadX + Math.signum(numTRI - 0.5)
-                * image.getWidth())));
-        int yi = ((int) ((((int) y + dy) / numQuadY * image.getHeight())));
-        return new Color(image.getRGB(xi, yi));
+                * mtImage.maxX)));
+        int yi = ((int) ((((int) y + dy) / numQuadY * mtImage.maxY)));
+        return new Color(mtImage.getRGB(xi, yi));
     }
 
     public boolean nextFrame() {
         try {
-            image = vp.imageSuivante();
+            mtImage = new MapTextImage(vp.imageSuivante());
         } catch (EOFilmException ex) {
             Logger.getLogger(VideoTexture.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -321,7 +356,7 @@ public class VideoTexture extends ITexture {
             }
 
         }
-        BufferedImage image1 = event.getImage();
+        BufferedImage mtImage1 = event.getImage();
         if (image1 != null) {
             vp.add(new ECBufferedImage(convert(image1, BufferedImage.TYPE_INT_ARGB)));
             notSuivante = true;
@@ -331,11 +366,11 @@ public class VideoTexture extends ITexture {
     private BufferedImage convert(BufferedImage src, int type) {
         int w = src.getWidth();
         int h = src.getHeight();
-        BufferedImage imageC = new BufferedImage(w, h, type);
-        Graphics2D g2 = imageC.createGraphics();
+        BufferedImage mtImageC = new BufferedImage(w, h, type);
+        Graphics2D g2 = mtImageC.createGraphics();
         g2.drawRenderedImage(src, null);
         g2.dispose();
-        return imageC;
+        return mtImageC;
     }
 
     public void setTransparent(Color WHITE) {
