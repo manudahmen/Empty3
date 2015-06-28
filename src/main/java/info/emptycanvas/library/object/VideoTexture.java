@@ -18,7 +18,6 @@ import java.util.logging.Logger;
  * @author manu
  */
 public class VideoTexture extends ITexture {
-    private ECBufferedImage image1;
     class MapTextImage
     {
         private int maxX;
@@ -28,11 +27,6 @@ public class VideoTexture extends ITexture {
         private final BufferedImage image;
         protected int addsToMapIfNotPresentAndReturns(int x, int y)
         {
-            if(arrayColors==null)
-            {
-                arrayColors = new int[x*y];
-                arrayIsPresent = new boolean[x*y];
-            }
             if(!arrayIsPresent[y*maxX+x])
             {
                 arrayColors[y*maxX+x] = image.getRGB(x, y);
@@ -45,6 +39,10 @@ public class VideoTexture extends ITexture {
         public MapTextImage(BufferedImage bi)
         { 
             image = bi;
+            maxX = bi.getWidth();
+            maxY = bi.getHeight();
+            arrayColors = new int[maxX*maxY];
+            arrayIsPresent = new boolean[maxX*maxY];
         }
 
         private int getRGB(int xi, int yi) {
@@ -117,7 +115,9 @@ public class VideoTexture extends ITexture {
         private synchronized ECBufferedImage imageSuivante() throws EOFilmException {
             if (!mtImages.isEmpty()) {
                 ECBufferedImage ret = mtImages.get(0);
-
+                
+                mtImage = new MapTextImage(ret);
+                
                 mtImages.remove(0);
 
                 reprendre();
@@ -357,8 +357,9 @@ public class VideoTexture extends ITexture {
 
         }
         BufferedImage mtImage1 = event.getImage();
-        if (image1 != null) {
-            vp.add(new ECBufferedImage(convert(image1, BufferedImage.TYPE_INT_ARGB)));
+        if (mtImage1 != null) {
+            vp.add(new ECBufferedImage(convert(mtImage1, BufferedImage.TYPE_INT_ARGB)));
+            mtImage = new MapTextImage(mtImage1);
             notSuivante = true;
         }
     }
