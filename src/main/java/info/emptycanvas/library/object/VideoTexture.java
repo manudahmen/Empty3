@@ -25,7 +25,7 @@ public class VideoTexture extends ITexture {
         private int maxY;
         private int [] arrayColors;
         private boolean [] arrayIsPresent;
-        private final BufferedImage mtImage;
+        private final BufferedImage image;
         protected int addsToMapIfNotPresentAndReturns(int x, int y)
         {
             if(arrayColors==null)
@@ -35,7 +35,7 @@ public class VideoTexture extends ITexture {
             }
             if(!arrayIsPresent[y*maxX+x])
             {
-                arrayColors[y*maxX+x] =mtImage.getRGB(x, y);
+                arrayColors[y*maxX+x] = image.getRGB(x, y);
                 arrayIsPresent[y*maxX+x] = true;
             }
             
@@ -44,7 +44,7 @@ public class VideoTexture extends ITexture {
         }
         public MapTextImage(BufferedImage bi)
         { 
-            mtImage = bi;
+            image = bi;
         }
 
         private int getRGB(int xi, int yi) {
