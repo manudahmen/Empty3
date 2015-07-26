@@ -108,7 +108,7 @@ public class TRICylindre extends TRIObjetGenerateurAbstract {
 
     @Override
     public String toString() {
-        return "Sphere (\n\t" + centre.toString() + "\n\t" + radius + "\n\t\""
+        return "Cylindre (\n\t" + centre.toString() + "\n\t" + radius + "\n\t\""
                 + texture.toString() + "\"\n)\n";
     }
 
