@@ -3,6 +3,7 @@
  */
 package info.emptycanvas.library.testing;
 
+import info.emptycanvas.library.RegisterOutput;
 import info.emptycanvas.library.object.ECBufferedImage;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.ZBufferImpl;
@@ -133,7 +134,7 @@ public abstract class TestObjet implements Test, Runnable {
                     aw = null;
                     aviOpen = false;
                 } catch (IOException e) {
-                    Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+                    o.println("Can't close or flush movie" + runtimeInfoSucc());
                 }
             }
         }
@@ -196,12 +197,19 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     
+    private RegisterOutput o = new RegisterOutput();
 
+    public RegisterOutput getO() {
+        return o;
+    }
+    
     public TestObjet() {
+        
         init();
     }
 
     public TestObjet(ArrayList<TestInstance.Parameter> params) {
+        init();
     }
 
     public TestObjet(boolean binit) {
@@ -347,6 +355,10 @@ public abstract class TestObjet implements Test, Runnable {
     public abstract void ginit();
 
     private void init() {
+        o.addOutput(System.out);
+        
+        o.addOutput(Logger.getLogger(getClass().getCanonicalName()));
+
         if (initialise) {
             return;
         }
@@ -364,8 +376,7 @@ public abstract class TestObjet implements Test, Runnable {
                 dirl = new File(config.getProperty("folder.output"));
             }
         } catch (IOException ex) {
-            Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            o.println(ex.getLocalizedMessage());
         }
         if (dirl == null) {
             dirl = new File(bundle1.getString("testpath"));
@@ -504,9 +515,9 @@ public abstract class TestObjet implements Test, Runnable {
         /*
          * ObjectOutputStream oos = null; try { oos = new ObjectOutputStream(new
          * FileOutputStream(serid)); oos.writeInt(serie); } catch (IOException
-         * ex) { Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+         * ex) { o.println(
          * null, ex); } finally { try { oos.close(); } catch (IOException ex) {
-         * Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null,
+         * o.println( null,
          * ex); } }
          */
 
@@ -628,11 +639,11 @@ public abstract class TestObjet implements Test, Runnable {
             z.backgroundTexture(scene().texture());
         }
 
-        Logger.getLogger(getClass().getCanonicalName()).info(getClass().getCanonicalName());
-        Logger.getLogger(getClass().getCanonicalName()).info(directory().getAbsolutePath());
-        Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}", getGenerate());
+        o.println("");
+        o.println(directory().getAbsolutePath());
+        o.println("Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}"+ getGenerate());
 
-        Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO, "Starting movie  {0}", runtimeInfoSucc());
+        o.println("Starting movie  {0}"+ runtimeInfoSucc());
         while ((nextFrame() || unterminable()) && !stop) {
             try{
             pauseActive = true;
@@ -719,15 +730,14 @@ public abstract class TestObjet implements Test, Runnable {
                                 return;
                             }
                         } else {
-                            Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
+                            o.println(
                                     "No file open for avi writing");
 
                         }
                         ecrireImage(ri, type, file);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
-                            null, ex);
+                    o.println( ex.getLocalizedMessage());
                     reportException(ex);
                 }
 
@@ -743,27 +753,25 @@ public abstract class TestObjet implements Test, Runnable {
                             + File.separator + filename + ".bmood");
                     new Loader().saveBin(foutm, scene);
                 } catch (VersionNonSupporteeException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
-                            null, ex);
+                    o.println( ex.getLocalizedMessage());
                     reportException(ex);
                 } catch (ExtensionFichierIncorrecteException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE,
-                            null, ex);
+                    o.println( ex.getLocalizedMessage());
                     reportException(ex);
                 }
 
             }
             if ((generate & GENERATE_MODEL) > 0) {
                 try {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "Start generating model");
+                    o.println( "Start generating model");
                     exportFrame("export-stl", "export-" + frame + ".STL");
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.INFO, "End generating model");
+                    o.println( "End generating model");
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                    o.println(  ex.getLocalizedMessage());
                 } catch (IOException ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                    o.println(  ex.getLocalizedMessage());
                 } catch (Exception ex) {
-                    Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, "Other exception in generating model", ex);
+                    o.println( "Other exception in generating model"+ ex);
                     ex.printStackTrace();
                 }
 
@@ -777,9 +785,9 @@ public abstract class TestObjet implements Test, Runnable {
 
         afterRender();
 
-        Logger.getLogger(getClass().getCanonicalName()).info(frame() + "\n" + runtimeInfoSucc());
+        o.println(""+frame() + "\n" + runtimeInfoSucc());
 
-        Logger.getLogger(getClass().getCanonicalName()).info("Fin de la création des image et/u des modèles" + "\n" + runtimeInfoSucc());
+        o.println("Fin de la création des image et/u des modèles" + "\n" + runtimeInfoSucc());
         if (zip != null) {
             try {
                 zip.end();
@@ -794,7 +802,7 @@ public abstract class TestObjet implements Test, Runnable {
                 aw.close();
 
             } catch (IOException e) {
-                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+                o.println("Can't close or flush movie" + runtimeInfoSucc());
             }
         }
         String cmd;
@@ -809,7 +817,7 @@ public abstract class TestObjet implements Test, Runnable {
                     System.out.print(outputStream);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                o.println(  ex.getLocalizedMessage());
             }
         } else if (file.exists()) {
             try {
@@ -819,12 +827,12 @@ public abstract class TestObjet implements Test, Runnable {
                 OutputStream outputStream = runtime.exec(cmd).getOutputStream();
                 System.out.print(outputStream);
             } catch (IOException ex) {
-                Logger.getLogger(TestObjet.class.getName()).log(Level.SEVERE, null, ex);
+                o.println( ex.getLocalizedMessage());
             }
         }
 
-        Logger.getLogger(getClass().getCanonicalName()).info("End movie       " + runtimeInfoSucc());
-        Logger.getLogger(getClass().getCanonicalName()).info("Quit run method " + runtimeInfoSucc());
+        o.println("End movie       " + runtimeInfoSucc());
+        o.println("Quit run method " + runtimeInfoSucc());
 
     }
 
@@ -845,7 +853,7 @@ public abstract class TestObjet implements Test, Runnable {
                 str.stopThreads();
                 str = null;
             } catch (NullPointerException ex) {
-                Logger.getLogger(this.getClass().getName()).warning("Can't stop thread");
+                o.println("Can't stop thread");
 
             }
         }
@@ -927,7 +935,7 @@ public abstract class TestObjet implements Test, Runnable {
                 aw = null;
                 aviOpen = false;
             } catch (IOException e) {
-                Logger.getLogger(getClass().getCanonicalName()).severe("Can't close or flush movie" + runtimeInfoSucc());
+                o.println("Can't close or flush movie" + runtimeInfoSucc());
             }
         }
 
@@ -951,13 +959,9 @@ public abstract class TestObjet implements Test, Runnable {
                 new Loader().load(f, scene);
 
             } catch (VersionNonSupporteeException ex) {
-                Logger.getLogger(TestObjet.class
-                        .getName()).log(Level.SEVERE,
-                                null, ex);
+                o.println( ex.getLocalizedMessage());
             } catch (ExtensionFichierIncorrecteException ex) {
-                Logger.getLogger(TestObjet.class
-                        .getName()).log(Level.SEVERE,
-                                null, ex);
+                o.println( ex.getLocalizedMessage());
             }
         } else {
             System.err.println("Erreur: extension incorrecte");
