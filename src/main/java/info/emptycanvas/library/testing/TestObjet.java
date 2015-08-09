@@ -251,7 +251,7 @@ public abstract class TestObjet implements Test, Runnable {
 
     protected void ecrireImage(RenderedImage ri, String type, File fichier) {
         if (fichier == null) {
-            System.err.println("Erreur OBJET FICHIER (java.io.File) est NULL");
+            o.println("Erreur OBJET FICHIER (java.io.File) est NULL");
             System.exit(1);
         }
 
@@ -275,7 +275,7 @@ public abstract class TestObjet implements Test, Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(fichier.getAbsolutePath());
+        o.println(fichier.getAbsolutePath());
 
     }
 
@@ -389,7 +389,7 @@ public abstract class TestObjet implements Test, Runnable {
         if (!this.dir.exists()) {
             this.dir.mkdirs();
         } else {
-            System.err.println("Repertoire cree avec SUCCES");
+            o.println("Repertoire cree avec SUCCES");
             // System.exit(1);
         }
         serid = new File(this.dir.getAbsolutePath() + File.separator
@@ -555,7 +555,7 @@ public abstract class TestObjet implements Test, Runnable {
                     "/skull-cross-bones-evil.png");
 
             if (is == null) {
-                System.err.println("Erreur d'initialisation: pas correct!");
+                o.println("Erreur d'initialisation: pas correct!");
                 System.exit(-1);
             }
 
@@ -582,7 +582,7 @@ public abstract class TestObjet implements Test, Runnable {
                     "/pouce-leve.jpg");
 
             if (is == null) {
-                System.err.println("Erreur d'initialisation: pas correct!");
+                o.println("Erreur d'initialisation: pas correct!");
                 System.exit(-1);
             }
 
@@ -660,7 +660,7 @@ public abstract class TestObjet implements Test, Runnable {
             finit();
 
             if ((generate & GENERATE_OPENGL) > 0 && false) {
-                System.out.println("No OpenGL");
+                o.println("No OpenGL");
             } else {
                 try {
                     testScene();
@@ -964,7 +964,7 @@ public abstract class TestObjet implements Test, Runnable {
                 o.println( ex.getLocalizedMessage());
             }
         } else {
-            System.err.println("Erreur: extension incorrecte");
+            o.println("Erreur: extension incorrecte");
             System.exit(1);
 
         }

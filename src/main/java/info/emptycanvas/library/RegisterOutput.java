@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package info.emptycanvas.library;
-
-import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -53,7 +51,7 @@ public class RegisterOutput {
         if(output!=null)
             new PrintWriter(output).println(s);
         if(pane!=null)
-            pane.setText(pane.getText()+"\\"+pane.getText());
+            pane.setText(pane.getText()+"\n"+s);
         
         
     }
