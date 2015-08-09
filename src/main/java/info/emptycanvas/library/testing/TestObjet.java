@@ -622,7 +622,7 @@ public abstract class TestObjet implements Test, Runnable {
         }
         ginit();
 
-        z = ZBufferFactory.instance(resx, resy, D3);
+            z = ZBufferFactory.instance(resx, resy, D3);
 
         if (scene().texture() != null) {
             z.backgroundTexture(scene().texture());
@@ -712,6 +712,7 @@ public abstract class TestObjet implements Test, Runnable {
                         if ((generate & GENERATE_MOVIE) > 0 && isAviOpen()) {
 
                             try {
+                                
                                 aw.write(0, ri, 1);
                             } catch (IOException e) {
                                 reportException(e);

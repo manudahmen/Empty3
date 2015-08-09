@@ -28,7 +28,7 @@ public class Scene extends Representable implements Serializable {
     private ArrayList<Lumiere> lumieres = new ArrayList<Lumiere>();
     private SceneCadre cadre = new SceneCadre();
     private GTime gt = new GTime();
-    private Camera cameraActive;
+    public Camera cameraActive;
     private Lumiere lumiereActive;
     private String DESCRIPTION;
     private Time time;

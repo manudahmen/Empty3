@@ -5,7 +5,6 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -26,8 +25,6 @@ public class PObjet extends Representable {
         return points.add(position == null ? arg0 : position.calculer(arg0));
     }
 
-    public void add(Point3D point3d, Color c) {
-    }
 
     public Point3D get(int arg0) {
         return calculerPoint(points.get(arg0));
@@ -50,15 +47,6 @@ public class PObjet extends Representable {
         return points.iterator();
     }
 
-    public Barycentre position() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void position(Barycentre p) {
-        this.position = p;
-
-    }
 
     public Point3D remove(int arg0) {
         return points.remove(arg0);
@@ -76,9 +64,6 @@ public class PObjet extends Representable {
         return points.size();
     }
 
-    public TColor texture() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public String toString() {
         String s = "tri \n(\n\n";

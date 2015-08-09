@@ -43,6 +43,12 @@ public class VideoTexture extends ITexture {
             maxY = bi.getHeight();
             arrayColors = new int[maxX*maxY];
             arrayIsPresent = new boolean[maxX*maxY];
+            for(int i=0; i<arrayIsPresent.length; i++)
+            {
+                arrayIsPresent[i] = false;
+            
+                arrayColors[i] = 0;
+            }
         }
 
         private int getRGB(int xi, int yi) {
