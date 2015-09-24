@@ -266,6 +266,9 @@ public class Point3D extends Representable {
         return p;
     }
 
+    public Point3D mult(Point3D point3D) {
+        return Matrix33.YZX.mult(Matrix33.ZXY.mult(Matrix33.XYZ.mult(point3D)));
+    }
     /**
      * *
      * norme d'un vecteur (distance du point à l'origine)

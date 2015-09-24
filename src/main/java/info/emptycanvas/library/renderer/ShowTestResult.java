@@ -166,6 +166,7 @@ public final class ShowTestResult extends javax.swing.JFrame implements Runnable
                             getClass().getResourceAsStream("be/ibiiztera/md/pmatrix/test/pushmatrix/newtest/skull-cross-bones-evil.ico")
                     )
             );
+            testRef.STOP();
         } catch (IOException e) {
 
         }
