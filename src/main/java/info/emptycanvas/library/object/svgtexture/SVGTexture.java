@@ -1,6 +1,7 @@
 package info.emptycanvas.library.object.svgtexture;
 
 import info.emptycanvas.library.object.ITexture;
+import org.apache.batik.util.XMLResourceDescriptor;
 
 import java.awt.*;
 import java.io.File;
@@ -11,6 +12,9 @@ import java.io.File;
 public class SVGTexture extends ITexture {
 
     public SVGTexture(File file) {
+        String parser = XMLResourceDescriptor.getXMLParserClassName();
+        //SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+        String uri = file.toURI().toString();
 
     }
 

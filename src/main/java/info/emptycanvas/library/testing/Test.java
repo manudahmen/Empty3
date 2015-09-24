@@ -3,9 +3,9 @@ package info.emptycanvas.library.testing;
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.ZBuffer;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  *
@@ -17,13 +17,6 @@ public interface Test extends Runnable {
      * After the loop extend to add extra info on movie
      */
     public void afterRender();
-/***
- * Not in use
- * @param template
- * @param properties
- * @return 
- */
-    String applyTemplate(String template, Properties properties);
 /**
  * Prefer use scene().cameraActive()
  * @return 
@@ -41,11 +34,6 @@ public interface Test extends Runnable {
      */
     public ArrayList<TestInstance.Parameter> getInitParams();
 
-    /***
-     * Not in use
-     * @return 
-     */
-    String getTemplate();
 
     /***
      * boolean for begin loop and making a movie or a image sequence

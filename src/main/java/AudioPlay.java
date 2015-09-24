@@ -11,16 +11,10 @@
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-import javax.media.*;
-
-import java.io.*;
-
-import java.util.*;
-
 class AudioPlay {
 
     public static void main(String args[]) throws Exception {
-
+/*
         // Take the path of the audio file from command line
         File f = new File(args[0]);
 
@@ -42,7 +36,7 @@ class AudioPlay {
             p.stop();
 
         }
-
+*/
     }
 
 }

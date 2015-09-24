@@ -4,44 +4,27 @@
 package info.emptycanvas.library.testing;
 
 import info.emptycanvas.library.RegisterOutput;
-import info.emptycanvas.library.object.ECBufferedImage;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.ZBufferImpl;
-import info.emptycanvas.library.object.Camera;
-import info.emptycanvas.library.object.Camera3D;
-import info.emptycanvas.library.object.ZBuffer3D;
-import info.emptycanvas.library.object.Scene;
-import info.emptycanvas.library.object.ZBuffer;
-import info.emptycanvas.library.object.ZBufferFactory;
 import info.emptycanvas.library.export.STLExport;
-import info.emptycanvas.library.object.ITexture;
+import info.emptycanvas.library.object.*;
 import info.emptycanvas.library.script.ExtensionFichierIncorrecteException;
 import info.emptycanvas.library.script.Loader;
 import info.emptycanvas.library.script.VersionNonSupporteeException;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.Graphics;
-
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-
 import org.monte.media.Format;
 import org.monte.media.FormatKeys;
 import org.monte.media.FormatKeys.MediaType;
 import org.monte.media.VideoFormatKeys;
 import org.monte.media.avi.AVIWriter;
 import org.monte.media.math.Rational;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  *
@@ -221,18 +204,15 @@ public abstract class TestObjet implements Test, Runnable {
 
     public abstract void afterRenderFrame();
 
-    @Override
     public String applyTemplate(String template, Properties properties) {
         return "";
         // throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
     public Camera camera() {
         return c;
     }
 
-    @Override
     public void camera(Camera c) {
         this.c = c;
     }
@@ -346,11 +326,6 @@ public abstract class TestObjet implements Test, Runnable {
         return resy;
     }
 
-    @Override
-    public String getTemplate() {
-        // throw new UnsupportedOperationException("Not supported yet.");
-        return "";
-    }
 
     public abstract void ginit();
 
@@ -454,17 +429,14 @@ public abstract class TestObjet implements Test, Runnable {
         return structure;
     }
 
-    @Override
     public boolean loop() {
         return loop;
     }
 
-    @Override
     public void loop(boolean isLooping) {
         this.loop = isLooping;
     }
 
-    @Override
     public boolean nextFrame() {
         frame++;
 
@@ -534,7 +506,6 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-    @Override
     public void publishResult() {
         if (publish) {
             str = new ShowTestResult(ri);
@@ -603,7 +574,6 @@ public abstract class TestObjet implements Test, Runnable {
         }
     }
 
-    @Override
     public void run() {
 
         timeStart = System.nanoTime();
@@ -840,7 +810,6 @@ public abstract class TestObjet implements Test, Runnable {
         saveTxt = b;
     }
 
-    @Override
     public Scene scene() {
         return scene;
     }
@@ -946,10 +915,8 @@ public abstract class TestObjet implements Test, Runnable {
      *
      * @throws java.lang.Exception
      */
-    @Override
     public abstract void testScene() throws Exception;
 
-    @Override
     public void testScene(File f) throws Exception {
         if (f.getAbsolutePath().toLowerCase().endsWith("mood")
                 || f.getAbsolutePath().toLowerCase().endsWith("moo")
