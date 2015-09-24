@@ -962,4 +962,21 @@ public abstract class TestObjet implements Test, Runnable {
         return z;
     }
 
+    public static final int ON_TEXTURE_ENDS_STOP = 0;
+    public static final int ON_TEXTURE_ENDS_LOOP_TEXTURE = 1;
+
+    public static final int ON_MAX_FRAMES_STOP = 0;
+    public static final int ON_MAX_FRAMES_CONTINUE = 1;
+
+    private int onTextureEnds = ON_TEXTURE_ENDS_STOP;
+
+    public void onTextureEnds(ITexture texture, int texture_event) {
+        texture.onTextureEnds = texture_event;
+    }
+
+    private int onMaxFrameEvent = ON_MAX_FRAMES_STOP;
+
+    public void onMaxFrame(int maxFramesEvent) {
+        this.onMaxFrameEvent = maxFramesEvent;
+    }
 }

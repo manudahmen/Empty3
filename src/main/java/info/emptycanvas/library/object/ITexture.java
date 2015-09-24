@@ -16,6 +16,7 @@ import java.awt.Color;
  * @author manu
  */
 public abstract class ITexture extends MediaListenerAdapter {
+    public int onTextureEnds = 0;
     DeformMap dm;
     public void setDeformMap(DeformMap map)
     {

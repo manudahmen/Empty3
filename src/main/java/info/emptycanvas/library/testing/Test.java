@@ -1,6 +1,7 @@
 package info.emptycanvas.library.testing;
 
 import info.emptycanvas.library.object.Camera;
+import info.emptycanvas.library.object.ITexture;
 import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.ZBuffer;
 
@@ -86,5 +87,10 @@ public interface Test extends Runnable {
      * @return instance of running ZBuffer (ZBufferImpl)
      */
     public ZBuffer getZ();
-    
+
+
+    public void onTextureEnds(ITexture texture, int texture_event);
+
+    public void onMaxFrame(int maxFramesEvent);
+
 }
