@@ -3,7 +3,7 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ public class Polygone extends Representable implements TRIGenerable {
     }
 
     public Polygone(Color c) {
-        texture(new TColor(c));
+        texture(new ColorTexture(c));
     }
 
     public Polygone(ITexture c) {
@@ -32,7 +32,7 @@ public class Polygone extends Representable implements TRIGenerable {
     }
 
     public Polygone(Point3D[] list, Color c) {
-        this(list, new TColor(c));
+        this(list, new ColorTexture(c));
     }
 
     public Polygone(Point3D[] list, ITexture c) {

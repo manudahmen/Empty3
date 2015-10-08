@@ -324,7 +324,7 @@ public class ZBufferImpl implements ZBuffer {
         }
 
         /*
-         * public void testProf(Point3D p, Point3D n, TColor c) { Color cc =
+         * public void testProf(Point3D p, Point3D n, ColorTexture c) { Color cc =
          * c.getCouleur(); float[] compArray = new float[3];
          * cc.getColorComponents(compArray); double m =
          * Math.abs(n.norme1().prodScalaire(p.moins(activeLight()).norme1()));
@@ -702,12 +702,12 @@ public class ZBufferImpl implements ZBuffer {
         }
     }
 
-    public void couleurDeFond(TColor c) {
+    public void couleurDeFond(ColorTexture c) {
         if (original == null) {
             original = new int[la * ha];
         }
 
-        if (c.type() == TColor.TYPE_COULEUR) {
+        if (c.type() == ColorTexture.TYPE_COULEUR) {
             couleurDeFond(c.getCouleur());
         } else {
             for (int x = 0; x < la; x++) {
@@ -895,7 +895,7 @@ public class ZBufferImpl implements ZBuffer {
                             b.getControle(i, j),
                             b.getControle(i, j - 1 < 0 ? 0 : j - 1),
                             b.getControle(i - 1 < 0 ? 0 : i - 1,
-                            j - 1 < 0 ? 0 : j - 1)}, new TColor(b.getColor(
+                            j - 1 < 0 ? 0 : j - 1)}, new ColorTexture(b.getColor(
                                 i1, i2, 1d * i / i1, 1d * j / i2))));
                     }
                 }
@@ -1054,7 +1054,7 @@ public class ZBufferImpl implements ZBuffer {
                                                     : i - 1) * 1d / i1,
                                             (j - 1 < 0 ? 0 : j - 1) * 1d
                                             / i2)},
-                                new TColor(b.getColor(i1,
+                                new ColorTexture(b.getColor(i1,
                                                 i2, 1.0d * i / i1, 1.d * j / i2))));
                     }
                 }
@@ -1108,8 +1108,8 @@ public class ZBufferImpl implements ZBuffer {
                     for (double j = 0;
                             j < 1; j += incr) {
                         TRI[] tris = new TRI[2];
-                        tris[0] = new TRI(n.formule(i, j), n.formule(i + incr, j), n.formule(i + incr, j + incr), new TColor(Color.WHITE));
-                        tris[1] = new TRI(n.formule(i + incr, j + incr), n.formule(i, j + incr), n.formule(i, j), new TColor(Color.WHITE));
+                        tris[0] = new TRI(n.formule(i, j), n.formule(i + incr, j), n.formule(i + incr, j + incr), new ColorTexture(Color.WHITE));
+                        tris[1] = new TRI(n.formule(i + incr, j + incr), n.formule(i, j + incr), n.formule(i, j), new ColorTexture(Color.WHITE));
                         dessinerSilhouette3D(tris[0]);
                         dessinerSilhouette3D(tris[1]);
                     }
@@ -1141,12 +1141,12 @@ public class ZBufferImpl implements ZBuffer {
                                 n.calculerPoint3D(u + incr1, v),
                                 n.calculerPoint3D(u + incr2,
                                         v + incr2),
-                                new TColor(Color.MAGENTA)));
+                                new ColorTexture(Color.MAGENTA)));
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
                                 n.calculerPoint3D(u, v + incr2),
                                 n.calculerPoint3D(u + incr2,
                                         v + incr2),
-                                new TColor(Color.MAGENTA)));
+                                new ColorTexture(Color.MAGENTA)));
 
                     }
 

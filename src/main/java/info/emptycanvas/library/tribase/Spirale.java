@@ -5,12 +5,7 @@
  */
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.MODObjet;
+import info.emptycanvas.library.object.*;
 
 import java.util.ArrayList;
 
@@ -106,7 +101,6 @@ public class Spirale extends Representable implements TRIGenerable {
     private Point3D p1;
     private Point3D p2;
 
-    @Override
     public TRIObject generate() {
         // TODO Auto-generated method stub
         return null;
@@ -144,7 +138,7 @@ public class Spirale extends Representable implements TRIGenerable {
         this.sphere = sphere;
     }
 
-    public TColor texture() {
+    public ColorTexture texture() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

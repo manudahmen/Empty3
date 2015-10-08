@@ -1,11 +1,11 @@
 package info.emptycanvas.library.physics;
 
-import java.awt.Color;
-
-import info.emptycanvas.library.object.*;
 import info.emptycanvas.library.extra.Polyhedre;
+import info.emptycanvas.library.object.*;
 import info.emptycanvas.library.testing.TestObjetStub;
 import info.emptycanvas.library.tribase.TRISphere;
+
+import java.awt.*;
 
 public class TestGravite2 extends TestObjetStub {
 	int X = 2;
@@ -58,7 +58,7 @@ public class TestGravite2 extends TestObjetStub {
 			((TRISphere) r).setMaxX(7);
 			((TRISphere) r).setMaxY(7);
 
-			((TRISphere) r).texture(new TColor(billes[i].color));
+			((TRISphere) r).texture(new ColorTexture(billes[i].color));
 
 			rc.add(r);
 

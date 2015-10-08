@@ -6,16 +6,9 @@
  */
 package info.emptycanvas.library.extra;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.TRIGenerable;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.PObjet;
+import info.emptycanvas.library.object.*;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * @author MANUEL DAHMEN
@@ -121,7 +114,7 @@ public class SimpleSphere extends Representable implements TRIGenerable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public TColor texture() {
+    public ColorTexture texture() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

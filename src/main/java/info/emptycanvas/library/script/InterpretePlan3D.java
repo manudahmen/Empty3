@@ -5,16 +5,11 @@
  */
 package info.emptycanvas.library.script;
 
-import info.emptycanvas.library.tribase.Plan3D;
-import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TColor;
-import java.io.IOException;
+import info.emptycanvas.library.tribase.Plan3D;
+
 import java.util.ArrayList;
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -63,7 +58,7 @@ public class InterpretePlan3D implements Interprete {
         is = new InterpreteTColor();
         is.setRepertoire(repertoire);
 
-        TColor tc = (TColor) is.interprete(text, pos);
+        ColorTexture tc = (ColorTexture) is.interprete(text, pos);
         plan.texture(tc);
         pos = is.getPosition();
 

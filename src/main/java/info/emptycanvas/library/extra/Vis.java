@@ -5,11 +5,8 @@
  */
 package info.emptycanvas.library.extra;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.MODObjet;
+import info.emptycanvas.library.object.*;
+
 import java.util.ArrayList;
 
 public class Vis extends Representable {
@@ -51,7 +48,7 @@ public class Vis extends Representable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public TColor texture() {
+    public ColorTexture texture() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

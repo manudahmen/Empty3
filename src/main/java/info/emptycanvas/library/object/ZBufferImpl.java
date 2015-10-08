@@ -11,14 +11,14 @@
 package info.emptycanvas.library.object;
 
 import info.emptycanvas.library.extra.SimpleSphere;
-import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 import info.emptycanvas.library.nurbs.ParametrizedCurve;
 import info.emptycanvas.library.nurbs.ParametrizedSurface;
+import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
-import javax.imageio.ImageIO;
 
 /**
  * *
@@ -365,7 +365,7 @@ public class ZBufferImpl implements ZBuffer {
         }
 
         /*
-         * public void testProf(Point3D p, Point3D n, TColor c) { Color cc =
+         * public void testProf(Point3D p, Point3D n, ColorTexture c) { Color cc =
          * c.getCouleur(); float[] compArray = new float[3];
          * cc.getColorComponents(compArray); double m =
          * Math.abs(n.norme1().prodScalaire(p.moins(activeLight()).norme1()));
@@ -811,16 +811,16 @@ public class ZBufferImpl implements ZBuffer {
                         ligne(b.getControle(i - 1 < 0 ? 0 : i - 1, j),
                                 b.getControle(i, j),
                                 new ColorTexture(b.getColor(i1, i2, 1.0 * i
-                                                / i1, 1.0 * j / i2)));
+                                        / i1, 1.0 * j / i2)));
                         ligne(b.getControle(i, j - 1 < 0 ? 0 : j - 1),
                                 b.getControle(i, j),
                                 new ColorTexture(b.getColor(i1, i2, 1.0 * i
-                                                / i1, 1.0 * j / i2)));
+                                        / i1, 1.0 * j / i2)));
                         ligne(b.getControle(i - 1 < 0 ? 0 : i - 1,
                                 j - 1 < 0 ? 0 : j - 1),
                                 b.getControle(i, j),
                                 new ColorTexture(b.getColor(i1, i2, 1.0 * i
-                                                / i1, 1.0 * j / i2)));
+                                        / i1, 1.0 * j / i2)));
                     }
                 }
             } else if (r instanceof PObjet) {
@@ -916,7 +916,7 @@ public class ZBufferImpl implements ZBuffer {
                             b.getControle(i, j),
                             b.getControle(i, j - 1 < 0 ? 0 : j - 1),
                             b.getControle(i - 1 < 0 ? 0 : i - 1,
-                            j - 1 < 0 ? 0 : j - 1)}, new TColor(
+                                    j - 1 < 0 ? 0 : j - 1)}, new ColorTexture(
                                 b.getColor(i1, i2, 1d * i / i1, 1d * j / i2))));
                     }
                 }

@@ -5,7 +5,7 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class TRI extends Representable {
 
@@ -26,7 +26,7 @@ public class TRI extends Representable {
         sommet[0] = point3d;
         sommet[1] = point3d2;
         sommet[2] = point3d3;
-        this.texture(new TColor(red));
+        this.texture(new ColorTexture(red));
     }
 
     public TRI(Point3D point3d, Point3D point3d2, Point3D point3d3,
@@ -71,7 +71,7 @@ public class TRI extends Representable {
     }
 
     public void setCouleur(Color couleur) {
-        this.texture(new TColor(couleur));
+        this.texture(new ColorTexture(couleur));
 
     }
 

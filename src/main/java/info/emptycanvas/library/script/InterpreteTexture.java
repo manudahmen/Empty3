@@ -1,25 +1,24 @@
 package info.emptycanvas.library.script;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
+import info.emptycanvas.library.object.ColorTexture;
+import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.ITexture;
+import info.emptycanvas.library.object.ImageTexture;
 
 import javax.imageio.ImageIO;
-
-import info.emptycanvas.library.object.ECBufferedImage;
-import info.emptycanvas.library.object.TColor;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class InterpreteTexture implements Interprete {
 
     private String rep;
     private int position;
 
-    @Override
     public InterpreteConstants constant() {
         return null;
     }
 
-    @Override
     public int getPosition() {
         return position;
     }
@@ -28,9 +27,9 @@ public class InterpreteTexture implements Interprete {
         return rep;
     }
 
-    @Override
+
     public Object interprete(String text, int pos) throws InterpreteException {
-        TColor tc = null;
+        ITexture tc = null;
 
         boolean pass = false;
         try {
@@ -39,7 +38,7 @@ public class InterpreteTexture implements Interprete {
             pos = ic.getPosition();
             pass = true;
 
-            tc = new TColor(c);
+            tc = new ColorTexture(c);
 
         } catch (InterpreteException ex) {
         }
@@ -53,7 +52,7 @@ public class InterpreteTexture implements Interprete {
                 pass = true;
 
                 try {
-                    tc = new TColor(new ECBufferedImage(ImageIO.read(f)));
+                    tc = new ImageTexture(new ECBufferedImage(ImageIO.read(f)));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -67,7 +66,6 @@ public class InterpreteTexture implements Interprete {
         return tc;
     }
 
-    @Override
     public void setConstant(InterpreteConstants c) {
 
     }
@@ -76,7 +74,6 @@ public class InterpreteTexture implements Interprete {
         this.rep = rep;
     }
 
-    @Override
     public void setRepertoire(String r) {
         this.setRep(r);
 

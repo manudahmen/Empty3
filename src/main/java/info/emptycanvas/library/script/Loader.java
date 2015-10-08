@@ -20,48 +20,20 @@
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.extra.AttracteurEtrange;
-import info.emptycanvas.library.extra.Tourbillon;
-import info.emptycanvas.library.extra.SimpleSphereAvecTexture;
 import info.emptycanvas.library.extra.SimpleSphere;
+import info.emptycanvas.library.extra.SimpleSphereAvecTexture;
+import info.emptycanvas.library.extra.Tourbillon;
 import info.emptycanvas.library.nurbs.NurbsSurface;
-import info.emptycanvas.library.tribase.Tubulaire;
-import info.emptycanvas.library.tribase.TRISphere;
-import info.emptycanvas.library.tribase.TRIEllipsoide;
+import info.emptycanvas.library.object.*;
 import info.emptycanvas.library.tribase.Plan3D;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Tetraedre;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.BezierCubique;
-import info.emptycanvas.library.object.Cube;
-import info.emptycanvas.library.object.PolyMap;
-import info.emptycanvas.library.object.Scene;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.IllegalOperationException;
-import info.emptycanvas.library.object.ID;
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Camera;
-import info.emptycanvas.library.object.WiredRepresentation;
-import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.Polygone;
-import info.emptycanvas.library.object.Quads;
-import info.emptycanvas.library.object.SegmentDroite;
-import info.emptycanvas.library.object.Lumiere;
-import info.emptycanvas.library.object.BSpline;
-import info.emptycanvas.library.object.BezierCubique2D;
-import info.emptycanvas.library.object.Representable;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import info.emptycanvas.library.tribase.TRIEllipsoide;
+import info.emptycanvas.library.tribase.TRISphere;
+import info.emptycanvas.library.tribase.Tubulaire;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import info.emptycanvas.library.object.RepresentableConteneur;
-import java.io.*;
-
-import java.util.ArrayList;
 
 public class Loader implements SceneLoader {
 
@@ -773,7 +745,7 @@ public class Loader implements SceneLoader {
                     interpreteH.interpreteBlank();
                     String ido = interpreteH.interpreteIdentifier();
                     interpreteH.interpreteBlank();
-                    TColor tc = interpreteH.interpreteTColor();
+                    ColorTexture tc = interpreteH.interpreteTColor();
                     interpreteH.interpreteBlank();
 
                     Representable r = sc.find(ido);

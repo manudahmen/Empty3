@@ -5,14 +5,8 @@
  */
 package info.emptycanvas.library.extra;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.TRIConteneur;
-import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.Representable;
+import info.emptycanvas.library.object.*;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +44,7 @@ public class Polyhedre extends Representable implements TRIConteneur {
         }
     }
 
-    public Polyhedre(ArrayList<Point3D> list, TColor tColor) {
+    public Polyhedre(ArrayList<Point3D> list, ColorTexture tColor) {
         this.points = list;
         this.texture = tColor;
         for (int a = 0; a < points.size(); a++) {

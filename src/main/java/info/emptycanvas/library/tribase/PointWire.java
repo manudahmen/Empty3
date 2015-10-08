@@ -5,12 +5,7 @@
  */
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.BezierCubique;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.MODObjet;
+import info.emptycanvas.library.object.*;
 
 import java.util.ArrayList;
 
@@ -80,7 +75,7 @@ public class PointWire extends Representable implements IFct1D3D {
                         .mult(-1));
     }
 
-    public TColor texture() {
+    public ColorTexture texture() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -8,9 +8,6 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
 /**
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
@@ -19,7 +16,7 @@ public class Parallelipipede extends RepresentableConteneur {
 
     private double a = 1, b = 1, c = 1;
 
-    public Parallelipipede(double a, double b, double c, TColor texture) {
+    public Parallelipipede(double a, double b, double c, ColorTexture texture) {
         this.a = a;
         this.b = b;
         this.c = c;

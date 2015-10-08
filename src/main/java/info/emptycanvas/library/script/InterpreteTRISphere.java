@@ -19,16 +19,11 @@
  */
 package info.emptycanvas.library.script;
 
-import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.tribase.TRISphere;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -84,13 +79,13 @@ public class InterpreteTRISphere implements Interprete {
         Double r = (Double) ib.read(text, pos).get(1);
         pos = ib.getPosition();
 
-        TColor tc = null;
+        ColorTexture tc = null;
 
         InterpreteTColor tci = new InterpreteTColor();
 
         tci.setRepertoire(repertoire);
 
-        tc = (TColor) tci.interprete(text, pos);
+        tc = (ColorTexture) tci.interprete(text, pos);
 
         pos = tci.getPosition();
 

@@ -5,10 +5,10 @@
  */
 package info.emptycanvas.library.script;
 
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Polygone;
-import info.emptycanvas.library.object.TColor;
-import java.awt.Color;
+
 import java.util.ArrayList;
 
 public class InterpretePolygone implements Interprete {
@@ -67,7 +67,7 @@ public class InterpretePolygone implements Interprete {
         ib.read(text, pos);
         pos = ib.getPosition();
         InterpreteTColor pc = new InterpreteTColor();
-        TColor c = (TColor) pc.interprete(text, pos);
+        ColorTexture c = (ColorTexture) pc.interprete(text, pos);
         pos = pc.getPosition();
         ib = new InterpretesBase();
         pattern = new ArrayList<Integer>();

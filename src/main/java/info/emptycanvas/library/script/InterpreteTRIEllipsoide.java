@@ -5,16 +5,11 @@
  */
 package info.emptycanvas.library.script;
 
-import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.tribase.TRIEllipsoide;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -79,7 +74,7 @@ public class InterpreteTRIEllipsoide implements Interprete {
         pos = ib.getPosition();
 
         InterpreteTColor pc = new InterpreteTColor();
-        TColor tc = (TColor) pc.interprete(text, pos);
+        ColorTexture tc = (ColorTexture) pc.interprete(text, pos);
         pos = pc.getPosition();
 
         pattern = new ArrayList<Integer>();

@@ -8,15 +8,16 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
+import org.monte.media.Format;
+import org.monte.media.VideoFormatKeys;
+import org.monte.media.avi.AVIReader;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.monte.media.Format;
-import org.monte.media.VideoFormatKeys;
-import org.monte.media.avi.AVIReader;
 
 /**
  *

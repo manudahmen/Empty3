@@ -5,17 +5,17 @@
  */
 package info.emptycanvas.library.script;
 
-import java.awt.Color;
+import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.TColor;
 
-import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
-
-import info.emptycanvas.library.object.ECBufferedImage;
-import info.emptycanvas.library.object.TColor;
 
 public class InterpreteTColor implements Interprete {
 
@@ -23,13 +23,11 @@ public class InterpreteTColor implements Interprete {
     private String repertoire;
     private int pos;
 
-    @Override
     public InterpreteConstants constant() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public int getPosition() {
         return pos;
     }
@@ -77,7 +75,7 @@ public class InterpreteTColor implements Interprete {
 				
                  ECBufferedImage ec = (ECBufferedImage) iPGM.interprete(text, pos);
 				
-                 tc = new TColor(ec);
+                 tc = new ColorTexture(ec);
 				
                  this.pos = inf.getPosition();
                  */
@@ -112,13 +110,11 @@ public class InterpreteTColor implements Interprete {
 
     }
 
-    @Override
     public void setConstant(InterpreteConstants c) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void setRepertoire(String r) {
         this.repertoire = r;
     }

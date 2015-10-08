@@ -5,16 +5,13 @@
  */
 package info.emptycanvas.library.script;
 
-import java.awt.Color;
+import info.emptycanvas.library.object.BezierCubique2D;
+import info.emptycanvas.library.object.ITexture;
+import info.emptycanvas.library.object.Point3D;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import info.emptycanvas.library.object.BezierCubique2D;
-import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.object.ITexture;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TColor;
 
 public class InterpreteBezier2D implements Interprete {
 

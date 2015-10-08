@@ -3,39 +3,15 @@
  */
 package info.emptycanvas.library.script;
 
-import info.emptycanvas.library.extra.CollineModele3;
-import info.emptycanvas.library.extra.AttracteurEtrange;
-import info.emptycanvas.library.extra.Tourbillon;
-import info.emptycanvas.library.extra.SimpleSphereAvecTexture;
-import info.emptycanvas.library.extra.CollineModele2;
-import info.emptycanvas.library.extra.CollineModele1;
-import info.emptycanvas.library.extra.SimpleSphere;
+import info.emptycanvas.library.extra.*;
 import info.emptycanvas.library.nurbs.NurbsSurface;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Tetraedre;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.BezierCubique;
-import info.emptycanvas.library.object.PolyMap;
-import info.emptycanvas.library.object.Cube;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.TColor;
-import info.emptycanvas.library.object.ID;
-import info.emptycanvas.library.object.Camera;
-import info.emptycanvas.library.object.Polygone;
-import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.object.Quads;
-import info.emptycanvas.library.object.LumierePointSimple;
-import info.emptycanvas.library.object.SegmentDroite;
-import info.emptycanvas.library.object.Lumiere;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.BezierCubique2D;
-import info.emptycanvas.library.object.BSpline;
-import info.emptycanvas.library.object.LumierePoint;
+import info.emptycanvas.library.object.*;
 import info.emptycanvas.library.tribase.Plan3D;
 import info.emptycanvas.library.tribase.TRIEllipsoide;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.tribase.Tubulaire;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -653,7 +629,7 @@ public class InterpreteFacade {
 
     }
 
-    TColor interpreteTColor() {
+    ColorTexture interpreteTColor() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

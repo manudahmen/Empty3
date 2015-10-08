@@ -8,9 +8,10 @@
  */
 package info.emptycanvas.library.script;
 
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Quads;
-import info.emptycanvas.library.object.TColor;
+
 import java.util.ArrayList;
 
 /**
@@ -74,7 +75,7 @@ public class InterpreteQuads implements Interprete {
         pos = ib.getPosition();
 
         InterpreteTColor itc = new InterpreteTColor();
-        TColor tc = (TColor) itc.interprete(text, pos);
+        ColorTexture tc = (ColorTexture) itc.interprete(text, pos);
         pos = itc.getPosition();
 
         ib = new InterpretesBase();

@@ -9,8 +9,9 @@
 package info.emptycanvas.library.script;
 
 import info.emptycanvas.library.nurbs.NurbsSurface;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TColor;
+
 import java.util.ArrayList;
 
 /**
@@ -91,7 +92,7 @@ public class InterpreteNurbs implements Interprete {
         }
         InterpreteTColor itc = new InterpreteTColor();
 
-        TColor tc = (TColor) itc.interprete(text, pos);
+        ColorTexture tc = (ColorTexture) itc.interprete(text, pos);
         pos = itc.getPosition();
 
         nurbs.setMaillage(points, poids);

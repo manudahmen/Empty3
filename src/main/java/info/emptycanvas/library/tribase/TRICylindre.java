@@ -1,11 +1,6 @@
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.MODObjet;
-import info.emptycanvas.library.object.Matrix33;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.TColor;
+import info.emptycanvas.library.object.*;
 
 public class TRICylindre extends TRIObjetGenerateurAbstract {
 

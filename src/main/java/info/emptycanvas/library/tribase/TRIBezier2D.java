@@ -1,10 +1,8 @@
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.BezierCubique2D;
-import info.emptycanvas.library.object.Matrix33;
-import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.TColor;
+import info.emptycanvas.library.object.BezierCubique2D;
+import info.emptycanvas.library.object.Point3D;
 
 @SuppressWarnings("serial")
 public class TRIBezier2D extends TRIObjetGenerateurAbstract {

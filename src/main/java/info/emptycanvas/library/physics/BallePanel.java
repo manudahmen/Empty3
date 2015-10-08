@@ -1,17 +1,12 @@
 package info.emptycanvas.library.physics;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import info.emptycanvas.library.object.Point3D;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JPanel;
-
-import info.emptycanvas.library.object.Point3D;
 
 public class BallePanel extends DataPanel implements Runnable {
 	/**
@@ -32,13 +27,13 @@ public class BallePanel extends DataPanel implements Runnable {
 		
 		addMouseMotionListener(new MouseMotionListener() {
 
-			@Override
+
 			public void mouseMoved(MouseEvent e) {
 				Point p = e.getPoint();
 
 			}
 
-			@Override
+
 			public void mouseDragged(MouseEvent e) {
 				
 			}
@@ -48,7 +43,7 @@ public class BallePanel extends DataPanel implements Runnable {
 			
 			private Bille activee;
 
-			@Override
+
 			public void mouseReleased(MouseEvent arg0) {
 				if(activee!=null)
 				{
@@ -59,26 +54,26 @@ public class BallePanel extends DataPanel implements Runnable {
 				}
 				
 			}
-			
-			@Override
+
+
 			public void mousePressed(MouseEvent e) {	
 				activee = getBille(e.getPoint());
 				
 			}
-			
-			@Override
+
+
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
-			
-			@Override
+
+
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
-			
-			@Override
+
+
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
@@ -166,7 +161,6 @@ public class BallePanel extends DataPanel implements Runnable {
 		//afficher(bi);
 	}
 	
-	@Override
 	public void run() {
 		init(20);
 		
