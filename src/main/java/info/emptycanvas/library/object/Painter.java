@@ -26,4 +26,8 @@ public class Painter {
         pa.setZBuffer(z);
         pa.setScene(scene);
     }
+
+    public PaintingAct getPaintingAct() {
+        return pa;
+    }
 }

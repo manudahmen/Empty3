@@ -222,12 +222,8 @@ public class ZBufferImpl implements ZBuffer {
         }
 
         public boolean checkPoint(Point3D p) {
-            if (p.getX() > minx & p.getX() < maxx & p.getY() > miny
-                    & p.getY() < maxy) {
-                return true;
-            } else {
-                return false;
-            }
+            return p.getX() > minx & p.getX() < maxx & p.getY() > miny
+                    & p.getY() < maxy;
         }
 
         public double echelleEcran() {
@@ -494,11 +490,7 @@ public class ZBufferImpl implements ZBuffer {
         }
 
         public boolean checkID(int x, int y, int id2) {
-            if (checkCoordonnees(x, y) && Simeid[x][y] == id2) {
-                return true;
-            } else {
-                return false;
-            }
+            return checkCoordonnees(x, y) && Simeid[x][y] == id2;
         }
 
         public int COULEUR_FOND_INT(int x, int y) {
@@ -663,17 +655,17 @@ public class ZBufferImpl implements ZBuffer {
         activeLight = l;
     }
 
-    @Override
+
     public Camera camera() {
         return this.cameraC;
     }
 
-    @Override
+
     public void camera(Camera c) {
         this.cameraC = c;
     }
 
-    @Override
+
     public Point3D camera(Point3D p) {
         /*
          * if (this instanceof ZBuffer3DImpl && currentScene.cameraActive()
@@ -696,7 +688,7 @@ public class ZBufferImpl implements ZBuffer {
         return p2;
     }
 
-    @Override
+
     public Point coordonneesPoint2D(Point3D p) {
         switch (type_perspective) {
             case PERSPECTIVE_ISOM:
@@ -709,7 +701,7 @@ public class ZBufferImpl implements ZBuffer {
         }
     }
 
-    @Override
+
     public Point3D coordonneesPoint3D(Point p, double zdistance) {
         throw new UnsupportedOperationException("Operation non supportee");
     }
@@ -742,7 +734,7 @@ public class ZBufferImpl implements ZBuffer {
     }
 
     @Deprecated
-    @Override
+
     public void dessinerContours() {
         Scene scene = currentScene;
         id++;
@@ -856,7 +848,7 @@ public class ZBufferImpl implements ZBuffer {
     }
 
     @Deprecated
-    @Override
+
     public void dessinerSilhouette() {
         Scene scene = currentScene;
         id++;
@@ -955,7 +947,7 @@ public class ZBufferImpl implements ZBuffer {
         }
     }
 
-    @Override
+
     public void dessinerSilhouette3D() {
         if (firstRun) {
             ime = new ImageMap(la, ha);
@@ -976,7 +968,13 @@ public class ZBufferImpl implements ZBuffer {
     }
 
     public void dessinerSilhouette3D(Representable re) {
-
+        if (re.getPainter() != null) {
+            try {
+                re.paint();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         Iterator<Representable> it = null;
         // COLLECTION
         if (re instanceof RepresentableConteneur) {
@@ -1024,7 +1022,7 @@ public class ZBufferImpl implements ZBuffer {
             } else if (r instanceof Point3D) {
                 Point3D p = camera(((Point3D) r));
                 interactionCourant = r;
-                ime.testProf(p, ((Point3D) r).texture());
+                ime.testProf(p, r.texture());
             } else if (r instanceof SegmentDroite) {
                 SegmentDroite s = (SegmentDroite) r;
                 interactionCourant = s;
@@ -1163,7 +1161,7 @@ public class ZBufferImpl implements ZBuffer {
 
     }
 
-    @Override
+
     public void dessinerStructure() {
         if (firstRun) {
             ime = new ImageMap(la, ha);
@@ -1222,7 +1220,7 @@ public class ZBufferImpl implements ZBuffer {
                 }
             } else if (r instanceof Point3D) {
                 Point3D p = camera((Point3D) r);
-                ime.testProf(p, ((Point3D) r).texture());
+                ime.testProf(p, r.texture());
             } else if (r instanceof SegmentDroite) {
                 SegmentDroite s = (SegmentDroite) r;
                 ligne(camera(s.getOrigine()), camera(s.getExtremite()),
@@ -1293,7 +1291,7 @@ public class ZBufferImpl implements ZBuffer {
 
     }
 
-    @Override
+
     public double distanceCamera(Point3D x3d) {
         switch (type_perspective) {
             case PERSPECTIVE_ISOM:
@@ -1311,7 +1309,7 @@ public class ZBufferImpl implements ZBuffer {
         return box.echelleEcran();
     }
 
-    @Override
+
     public Color getColorAt(Point p) {
         if (ime.getIME().getElementProf((int) p.getX(), (int) p.getY()) >= INFINI_PROF) {
             return new Color(ime.getIME().getElementCouleur((int) p.getX(),
@@ -1325,7 +1323,7 @@ public class ZBufferImpl implements ZBuffer {
         return Sc;
     }
 
-    @Override
+
     public ZBuffer getInstance(int x, int y) {
         return new ZBufferImpl(x, y);
     }
@@ -1346,7 +1344,7 @@ public class ZBufferImpl implements ZBuffer {
         return ha;
     }
 
-    @Override
+
     public ECBufferedImage image() {
         ECBufferedImage bi2 = new ECBufferedImage(la, ha,
                 ECBufferedImage.TYPE_INT_RGB);
@@ -1373,16 +1371,16 @@ public class ZBufferImpl implements ZBuffer {
         interactionCourant = r;
     }
 
-    @Override
+
     public boolean isLocked() {
         return locked;
     }
 
-    @Override
+
     public void isobox(boolean isBox) {
     }
 
-    @Override
+
     public void isometrique() {
         type_perspective = PERSPECTIVE_ISOM;
     }
@@ -1417,7 +1415,7 @@ public class ZBufferImpl implements ZBuffer {
 
     }
 
-    @Override
+
     public boolean lock() {
         if (locked) {
             return false;
@@ -1469,7 +1467,7 @@ public class ZBufferImpl implements ZBuffer {
         }
     }
 
-    @Override
+
     public void plotPoint(Point3D p, Color c) {
         if (p != null) {
             ime.dessine(p, c);
@@ -1480,22 +1478,22 @@ public class ZBufferImpl implements ZBuffer {
         return null;
     }
 
-    @Override
+
     public int resX() {
         return dimx;
     }
 
-    @Override
+
     public int resY() {
         return dimy;
     }
 
-    @Override
+
     public Scene scene() {
         return currentScene;
     }
 
-    @Override
+
     public void scene(Scene s) {
         this.currentScene = s;
     }
@@ -1509,19 +1507,19 @@ public class ZBufferImpl implements ZBuffer {
         this.colorationActive = a;
     }
 
-    @Override
+
     public void suivante() {
         id++;
     }
 
-    @Override
+
     public void testPoint(Point3D p) {
         if (p != null && p.texture() != null) {
             ime.testProf(p, p.texture());
         }
     }
 
-    @Override
+
     public void testPoint(Point3D p, Color c) {
         if (scene().lumiereActive() != null) {
             ITexture t = scene().lumiereActive().getCouleur(
@@ -1608,7 +1606,7 @@ public class ZBufferImpl implements ZBuffer {
         }
     }
 
-    @Override
+
     public boolean unlock() {
         if (!locked) {
             return false;
@@ -1617,18 +1615,18 @@ public class ZBufferImpl implements ZBuffer {
         return true;
     }
 
-    @Override
+
     public void zoom(float z) {
         if (z > 0) {
             zoom = z;
         }
     }
 
-    @Override
+
     public void couleurDeFond(ITexture couleurFond) {
     }
 
-    @Override
+
     public void backgroundTexture(ITexture tex) {
         backgroundTexture.setText(tex);
     }

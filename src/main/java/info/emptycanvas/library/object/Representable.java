@@ -115,4 +115,14 @@ public class Representable implements Serializable {
         this.painter = new Painter(z, s);
         painter.addAction(pa);
     }
+
+    public Painter getPainter() {
+        return painter;
+    }
+
+    public void paint() {
+        if (getPainter() != null) {
+            getPainter().getPaintingAct().paint();
+        }
+    }
 }
