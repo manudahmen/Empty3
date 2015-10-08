@@ -52,6 +52,20 @@ public class Scene extends Representable implements Serializable {
 
     }
 
+    public boolean add(Representable add, ZBuffer zBuffer) {
+
+        this.dernierAjout = add;
+
+        add.informer(this);
+
+        add.scene(this);
+
+        add.setPainter(new Painter(zBuffer, this));
+
+        return objets.add(add);
+
+    }
+
     public ITexture calculerCouleurLumiere(ITexture t, Point3D point, Point3D normale) {
         int size = lumieres().size();
         ITexture[] cs = new ColorTexture[size];

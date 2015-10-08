@@ -814,6 +814,7 @@ public abstract class TestObjet implements Test, Runnable {
         return scene;
     }
 
+
     public void closeView() {
 
         if (str != null) {

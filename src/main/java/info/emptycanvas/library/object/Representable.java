@@ -17,6 +17,7 @@ public class Representable implements Serializable {
     protected Scene scene;
     protected ITexture texture = orange_yellow;
     private String id;
+    private Painter painter;
 
     public Representable() {
     }
@@ -95,5 +96,14 @@ public class Representable implements Serializable {
     public boolean ISdrawStructureDrawFastIMPLEMENTED(ZBuffer z)
     {
         return false;
+    }
+
+    public void setPainter(Painter painter) {
+        this.painter = painter;
+    }
+
+    public void paintingAct(ZBuffer z, Scene s, PaintingAct pa) {
+        this.painter = new Painter(z, s);
+        painter.addAction(pa);
     }
 }
