@@ -814,6 +814,9 @@ public abstract class TestObjet implements Test, Runnable {
         return scene;
     }
 
+    public void paintingAct(Representable representable, PaintingAct pa) {
+        representable.paintingAct(getZ(), scene(), pa);
+    }
 
     public void closeView() {
 
