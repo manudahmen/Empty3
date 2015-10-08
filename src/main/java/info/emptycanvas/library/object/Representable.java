@@ -102,6 +102,15 @@ public class Representable implements Serializable {
         this.painter = painter;
     }
 
+    /**
+     * When correctly initialized, PaintingAct action method is called while
+     * the shape is rendered.
+     *
+     * @param z  the actual ZBuffer in which the action should occurs
+     * @param s  the scene in which the actions can access to other objects properties.
+     *           Optional parameter
+     * @param pa The "painting act" (term refering to history of arts).
+     */
     public void paintingAct(ZBuffer z, Scene s, PaintingAct pa) {
         this.painter = new Painter(z, s);
         painter.addAction(pa);
