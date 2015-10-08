@@ -109,7 +109,7 @@ public class Representable implements Serializable {
      * @param z  the actual ZBuffer in which the action should occurs
      * @param s  the scene in which the actions can access to other objects properties.
      *           Optional parameter
-     * @param pa The "painting act" (term refering to history of arts).
+     * @param pa The "painting act" (term referring to history of arts).
      */
     public void paintingAct(ZBuffer z, Scene s, PaintingAct pa) {
         this.painter = new Painter(z, s);
