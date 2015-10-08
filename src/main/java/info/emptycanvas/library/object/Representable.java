@@ -3,7 +3,7 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.Serializable;
 
 public class Representable implements Serializable {
@@ -17,7 +17,7 @@ public class Representable implements Serializable {
     protected Scene scene;
     protected ITexture texture = orange_yellow;
     private String id;
-    private Painter painter;
+    private Painter painter = null;
 
     public Representable() {
     }
