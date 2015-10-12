@@ -5,8 +5,10 @@ package info.emptycanvas.library.object;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Representable implements Serializable {
+    protected static ArrayList<Painter> classPainters = new ArrayList<Painter>();
     protected double NFAST = 100;
     protected ITexture CFAST = new ColorTexture(Color.GRAY);
 
@@ -111,9 +113,21 @@ public class Representable implements Serializable {
      *           Optional parameter
      * @param pa The "painting act" (term referring to history of arts).
      */
-    public void paintingAct(ZBuffer z, Scene s, PaintingAct pa) {
-        this.painter = new Painter(z, s);
+    public void setPaintingAct(ZBuffer z, Scene s, PaintingAct pa) {
+        this.painter = new Painter(z, s, this);
+        pa.setObjet(this);
+        pa.setScene(s);
+        pa.setZBuffer(z);
         painter.addAction(pa);
+    }
+    public static void setPaintingActForClass(ZBuffer z, Scene s, PaintingAct pa) {
+        Painter p = null;
+        classPainters().add(new Painter(z, s, Representable.class));
+        p.addAction(pa);
+    }
+
+    private static ArrayList<Painter> classPainters() {
+        return classPainters;
     }
 
     public Painter getPainter() {
