@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.netbeans.external:swing-layout-1.0.4:RELEASE731" type="repository">
+    <properties maven-id="org.netbeans.external:swing-layout-1.0.4:RELEASE731" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/swing-layout-1.0.4-RELEASE731.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -883,10 +883,12 @@ public abstract class TestObjet implements Test, Runnable {
 
     public void setResx(int resx) {
         this.resx = resx;
+        z = ZBufferFactory.instance(resx, resy, D3);
     }
 
     public void setResy(int resy) {
         this.resy = resy;
+        z = ZBufferFactory.instance(resx, resy, D3);
     }
 
     public void setStructure(boolean structure) {
@@ -963,6 +965,8 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     public ZBuffer getZ() {
+        if (z == null)
+            z = ZBufferFactory.instance(resx, resy, D3);
         return z;
     }
 

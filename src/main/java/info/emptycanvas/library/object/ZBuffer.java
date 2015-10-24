@@ -82,6 +82,13 @@ public interface ZBuffer {
      */
     public void dessinerSilhouette3D();
 
+    /**
+     * Ajoute un objet à l'image... (le dessine si tout est bien initialisé
+     *
+     * @param r Objet à ajouter
+     */
+    public void dessinerSilhouette3D(Representable r);
+
     public void dessinerStructure();
 
     /**
