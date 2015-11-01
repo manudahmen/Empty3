@@ -37,7 +37,7 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean aviOpen = false;
     private String filmName;
     private int idxFilm;
-    private boolean unterminable = true;
+    private boolean unterminable = false;
     private long timeStart;
     private long lastInfoEllapsedMillis;
     public static final int GENERATE_NOTHING = 0;
@@ -67,7 +67,7 @@ public abstract class TestObjet implements Test, Runnable {
     private String fileExtension = "JPG";
     private boolean publish = true;
     private boolean isometrique = false;
-    private boolean loop = false;
+    private boolean loop = true;
     private int maxFrames = 5000;
     private String text = "scene";
     private File fileScene;
