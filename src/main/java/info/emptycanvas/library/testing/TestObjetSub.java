@@ -1,6 +1,6 @@
 package info.emptycanvas.library.testing;
 
-public class TestObjetStub extends TestObjet {
+public class TestObjetSub extends TestObjet {
 
     public void finit() {
 

@@ -11,8 +11,8 @@ package info.emptycanvas.library.nurbs;
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.testing.TestObjetStub;
-import static info.emptycanvas.library.testing.TestObjetStub.GENERATE_MODEL;
+import info.emptycanvas.library.testing.TestObjetSub;
+
 import java.awt.Color;
 //import nurbs.Axes;
 
@@ -20,7 +20,7 @@ import java.awt.Color;
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public class TestNurbs2 extends TestObjetStub {
+public class TestNurbs2 extends TestObjetSub {
 
     public double mr() {
         return Math.random();

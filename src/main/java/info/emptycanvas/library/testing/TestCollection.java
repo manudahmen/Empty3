@@ -23,7 +23,7 @@ public class TestCollection {
     private boolean dr;
 
     public void add(final File fichier) {
-        TestObjet to = new TestObjetStub() {
+        TestObjet to = new TestObjetSub() {
 
 
             @Override

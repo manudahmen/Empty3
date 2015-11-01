@@ -3,7 +3,7 @@ package info.emptycanvas.library.object;
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
-import info.emptycanvas.library.testing.TestObjetStub;
+import info.emptycanvas.library.testing.TestObjetSub;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -58,7 +58,7 @@ public class VideoTexture extends ITexture {
     }
     
     MapTextImage mtImage;
-    static class sTestObjet extends TestObjetStub {
+    static class sTestObjet extends TestObjetSub {
 
         TRI tri = null;
         VideoTexture videoTexture;
@@ -164,7 +164,7 @@ public class VideoTexture extends ITexture {
     }
 
     public static void testing() {
-        TestObjetStub to;
+        TestObjetSub to;
         to = new sTestObjet();
         to.setMaxFrames(2000);
         to.setResx(400);

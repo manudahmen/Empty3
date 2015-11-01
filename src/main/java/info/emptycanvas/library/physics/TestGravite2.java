@@ -2,12 +2,12 @@ package info.emptycanvas.library.physics;
 
 import info.emptycanvas.library.extra.Polyhedre;
 import info.emptycanvas.library.object.*;
-import info.emptycanvas.library.testing.TestObjetStub;
+import info.emptycanvas.library.testing.TestObjetSub;
 import info.emptycanvas.library.tribase.TRISphere;
 
 import java.awt.*;
 
-public class TestGravite2 extends TestObjetStub {
+public class TestGravite2 extends TestObjetSub {
 	int X = 2;
 	int Y = 2;
 	int Z = 2;
