@@ -94,4 +94,9 @@ public class Point2D {
     public void setY(double y) {
         this.y = y;
     }
+
+    public Point3D get3D()
+    {
+        return new Point3D(x, y, 0);
+    }
 }

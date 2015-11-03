@@ -388,5 +388,9 @@ public class Point3D extends Representable {
         z.testPoint(this, new Color(CFAST.getColorAt(0.5, 0.5)));
         
     }
-    
+    public Point2D get2D()
+    {
+        return new Point2D(x[0], x[1]);
+    }
+
 }
