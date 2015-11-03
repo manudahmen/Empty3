@@ -24,10 +24,10 @@ public abstract class ParametrizedSurface extends TRIObjetGenerateurAbstract {
 
     protected double start1 = 0, start2 = 0;
     protected double end1 = 1, end2 = 1;
-    public double incr1 = 0.1;
-    public double incr2 = 0.1;
-    private double NFAST = 100;
-    private ITexture CFAST = new ColorTexture(Color.GRAY);
+    public double incr1 = 0.01;
+    public double incr2 = 0.01;
+    protected double NFAST = 100;
+    protected ITexture CFAST = new ColorTexture(Color.GRAY);
 
     public abstract Point3D calculerPoint3D(double u, double v);
 

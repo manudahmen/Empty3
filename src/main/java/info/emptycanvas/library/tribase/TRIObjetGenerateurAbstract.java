@@ -83,7 +83,6 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
      * @param tris TRI[1] = ((x,y),(x+1,y),(x+1,y+1)) TRI[2] =
      * ((x,y),(x,y+1),(x+1,y+1))
      */
-    @Override
     public void getTris(int numX, int numY, TRI[] tris) {
         int nextX = numX + 1;
         int nextY = numY + 1;

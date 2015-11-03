@@ -27,6 +27,7 @@ import info.emptycanvas.library.tribase.TRIGenerable;
 import info.emptycanvas.library.tribase.TRIObjetGenerateur;
 import info.emptycanvas.library.nurbs.ParametrizedSurface;
 import info.emptycanvas.library.object.RepresentableConteneur;
+import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 
 public class STLExport {
 
@@ -53,24 +54,7 @@ public class STLExport {
     }
 
     public static void traite(ParametrizedSurface n, PrintWriter pw) {
-        write("", pw);
-        for (double i = n.getStartU(); i < n.getEndU() - n.getIncrU(); i += n.getIncrU()) {
-            for (double j = n.getStartV(); j <n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
-                double u = i;
-                double v = j;
-                traite(new TRI(n.calculerPoint3D(u, v),
-                        n.calculerPoint3D(u + n.getIncrU(), v),
-                        n.calculerPoint3D(u + n.getIncrU(),
-                                v + n.getIncrV()),
-                        n.texture()), pw);
-                traite(new TRI(n.calculerPoint3D(u, v),
-                        n.calculerPoint3D(u, v + n.getIncrV()),
-                        n.calculerPoint3D(u + n.getIncrU(),
-                                v + n.getIncrV()),
-                        n.texture()), pw);
-            }
-
-        }
+traite((TRIObjetGenerateur)n, pw);
     }
 
     private static void traite(Polygone r, PrintWriter pw) {
