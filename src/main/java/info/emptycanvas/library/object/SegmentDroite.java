@@ -7,7 +7,8 @@ package info.emptycanvas.library.object;
 
 import info.emptycanvas.library.lighting.Infini;
 import info.emptycanvas.library.nurbs.ParametrizedCurve;
-import java.awt.Color;
+
+import java.awt.*;
 
 /**
  * @author MANUEL DAHMEN
@@ -23,9 +24,9 @@ public class SegmentDroite extends ParametrizedCurve {
      *
      */
     private static final long serialVersionUID = 1390105309325238894L;
+    public double SMALL_NUM = 0.00000001; // anything that avoids division
     private Point3D origine;
     private Point3D extremite;
-    public double SMALL_NUM = 0.00000001; // anything that avoids division
     // overflow
 
     // prodScalaire product (3D) which allows vector operations in arguments
@@ -40,21 +41,36 @@ public class SegmentDroite extends ParametrizedCurve {
     }
 
     public Point3D calculerPoint3D(double d) {
-        return origine.plus(extremite.moins(origine).mult(d));
+        return rotation(origine).plus(rotation(extremite)
+                .moins(rotation(origine)).mult(d));
     }
 
     /**
      * @return the extremite
      */
     public Point3D getExtremite() {
-        return extremite;
+        return rotation(extremite);
+    }
+
+    /**
+     * @param extremite the extremite to set
+     */
+    public void setExtremite(Point3D extremite) {
+        this.extremite = extremite;
     }
 
     /**
      * @return the origine
      */
     public Point3D getOrigine() {
-        return origine;
+        return rotation(origine);
+    }
+
+    /**
+     * @param origine the origine to set
+     */
+    public void setOrigine(Point3D origine) {
+        this.origine = origine;
     }
 
     // intersect3D_RayTriangle(): find the 3D intersection of a ray with a
@@ -154,20 +170,6 @@ public class SegmentDroite extends ParametrizedCurve {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * @param extremite the extremite to set
-     */
-    public void setExtremite(Point3D extremite) {
-        this.extremite = extremite;
-    }
-
-    /**
-     * @param origine the origine to set
-     */
-    public void setOrigine(Point3D origine) {
-        this.origine = origine;
-    }
-
     @Override
     public boolean supporteTexture() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -186,7 +188,7 @@ public class SegmentDroite extends ParametrizedCurve {
     }
     @Override
     public Point3D calculerVitesse3D(double t) {
-        return getExtremite().moins(origine).norme1();
+        return getExtremite().moins(getOrigine()).norme1();
     }
 
 }
