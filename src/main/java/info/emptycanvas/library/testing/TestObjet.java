@@ -32,6 +32,24 @@ import java.util.logging.Logger;
  */
 public abstract class TestObjet implements Test, Runnable {
 
+    public static final int GENERATE_NOTHING = 0;
+    public static final int GENERATE_IMAGE = 1;
+    public static final int GENERATE_MODEL = 2;
+    public static final int GENERATE_OPENGL = 4;
+    public static final int GENERATE_MOVIE = 8;
+    public static final int GENERATE_NO_IMAGE_FILE_WRITING = 16;
+    public static final ArrayList<TestInstance.Parameter> initParams = new ArrayList<TestInstance.Parameter>();
+    public static final int ON_TEXTURE_ENDS_STOP = 0;
+    public static final int ON_TEXTURE_ENDS_LOOP_TEXTURE = 1;
+    public static final int ON_MAX_FRAMES_STOP = 0;
+    public static final int ON_MAX_FRAMES_CONTINUE = 1;
+    protected Scene scene;
+    protected String description = "";
+    protected Camera c;
+    protected int frame = 0;
+    protected ArrayList<TestInstance.Parameter> dynParams;
+    Properties properties = new Properties();
+    ShowTestResult str;
     private File avif;
     private AVIWriter aw;
     private boolean aviOpen = false;
@@ -40,15 +58,7 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean unterminable = false;
     private long timeStart;
     private long lastInfoEllapsedMillis;
-    public static final int GENERATE_NOTHING = 0;
-    public static final int GENERATE_IMAGE = 1;
-    public static final int GENERATE_MODEL = 2;
-    public static final int GENERATE_OPENGL = 4;
-    public static final int GENERATE_MOVIE = 8;
-    public static final int GENERATE_NO_IMAGE_FILE_WRITING = 16;
-
     private int generate = 1 | 8;
-
     private int version = 1;
     private String template = "";
     private String type = "JPEG";
@@ -57,11 +67,7 @@ public abstract class TestObjet implements Test, Runnable {
     private File file = null;
     private int resx = 1600;
     private int resy = 1200;
-    Properties properties = new Properties();
     private File dir = null;
-    protected Scene scene;
-    protected String description = "";
-    protected Camera c;
     private ECBufferedImage ri;
     private String filename = "frame";
     private String fileExtension = "JPG";
@@ -79,7 +85,6 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean structure = false;
     private boolean noZoom;
     private String sousdossier;
-    protected int frame = 0;
     private boolean D3 = false;
     private ImageContainer biic;
     private ECBufferedImage riG;
@@ -90,15 +95,36 @@ public abstract class TestObjet implements Test, Runnable {
     private boolean pauseActive = false;
     private ITexture couleurFond;
     private File directory;
-    protected ArrayList<TestInstance.Parameter> dynParams;
-
-    public static final ArrayList<TestInstance.Parameter> initParams = new ArrayList<TestInstance.Parameter>();
-    ShowTestResult str;
-
     private ZipWriter zip;
-
     private boolean stop = false;
     private ZBuffer z;
+    private RegisterOutput o = new RegisterOutput();
+    private int onTextureEnds = ON_TEXTURE_ENDS_STOP;
+    private int onMaxFrameEvent = ON_MAX_FRAMES_STOP;
+
+    public TestObjet() {
+
+        init();
+    }
+
+
+    public TestObjet(ArrayList<TestInstance.Parameter> params) {
+        init();
+    }
+
+    public TestObjet(boolean binit) {
+        if (binit) {
+            init();
+        } else {
+        }
+    }
+
+    public static void main(String[] args) {
+        TestObjet gui = new TestObjetSub();
+        gui.loop(true);
+        gui.setMaxFrames(2000);
+        new Thread(gui).start();
+    }
 
     public int getIdxFilm() {
         return idxFilm;
@@ -179,27 +205,8 @@ public abstract class TestObjet implements Test, Runnable {
         return "Dernier intervalle de temps : " + (displayLastIntervalTimeInterval * 1E-9) + "\nTemps total partiel : " + (displayPartialTimeInterval * 1E-9);
     }
 
-    
-    private RegisterOutput o = new RegisterOutput();
-
     public RegisterOutput getO() {
         return o;
-    }
-    
-    public TestObjet() {
-        
-        init();
-    }
-
-    public TestObjet(ArrayList<TestInstance.Parameter> params) {
-        init();
-    }
-
-    public TestObjet(boolean binit) {
-        if (binit) {
-            init();
-        } else {
-        }
     }
 
     public abstract void afterRenderFrame();
@@ -301,8 +308,16 @@ public abstract class TestObjet implements Test, Runnable {
         return filename;
     }
 
+    public void setFilename(String fn) {
+        this.filename = fn;
+    }
+
     public int getGenerate() {
         return generate;
+    }
+
+    public void setGenerate(int generate) {
+        this.generate = generate;
     }
 
     public ArrayList<TestInstance.Parameter> getInitParameters() {
@@ -318,20 +333,33 @@ public abstract class TestObjet implements Test, Runnable {
         return maxFrames;
     }
 
+    public void setMaxFrames(int maxFrames) {
+        this.maxFrames = maxFrames;
+    }
+
     public int getResx() {
         return resx;
+    }
+
+    public void setResx(int resx) {
+        this.resx = resx;
+        z = ZBufferFactory.instance(resx, resy, D3);
     }
 
     public int getResy() {
         return resy;
     }
 
+    public void setResy(int resy) {
+        this.resy = resy;
+        z = ZBufferFactory.instance(resx, resy, D3);
+    }
 
     public abstract void ginit();
 
     private void init() {
         o.addOutput(System.out);
-        
+
         o.addOutput(Logger.getLogger(getClass().getCanonicalName()));
 
         if (initialise) {
@@ -429,6 +457,10 @@ public abstract class TestObjet implements Test, Runnable {
         return structure;
     }
 
+    public void setStructure(boolean structure) {
+        this.structure = structure;
+    }
+
     public boolean loop() {
         return loop;
     }
@@ -497,8 +529,7 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-
-    public boolean nextFrame() {
+    public boolean nextFrame2UnknownDiplicate() {
         frame++;
 
         if (D3()) {
@@ -605,10 +636,6 @@ public abstract class TestObjet implements Test, Runnable {
     public void reportStop() {
     }
 
-    public void setFilename(String fn) {
-        this.filename = fn;
-    }
-
     public void reportSucces(File film) {
         try {
             InputStream is = getClass().getResourceAsStream(
@@ -634,10 +661,6 @@ public abstract class TestObjet implements Test, Runnable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public void setGenerate(int generate) {
-        this.generate = generate;
     }
 
     public void run() {
@@ -870,34 +893,16 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-    public void setMaxFrames(int maxFrames) {
-        this.maxFrames = maxFrames;
-    }
-
     public void saveBMood(boolean b) {
         saveTxt = b;
-    }
-
-    public void setResx(int resx) {
-        this.resx = resx;
-        z = ZBufferFactory.instance(resx, resy, D3);
     }
 
     public Scene scene() {
         return scene;
     }
 
-    public void setResy(int resy) {
-        this.resy = resy;
-        z = ZBufferFactory.instance(resx, resy, D3);
-    }
-
     public void paintingAct(Representable representable, PaintingAct pa) {
         representable.setPaintingAct(getZ(), scene(), pa);
-    }
-
-    public void setStructure(boolean structure) {
-        this.structure = structure;
     }
 
     public void closeView() {
@@ -972,13 +977,6 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-    public static void main(String[] args) {
-        TestObjet gui = new TestObjetSub();
-        gui.loop(true);
-        gui.setMaxFrames(2000);
-        new Thread(gui).start();
-    }
-
     /**
      * Definir la scene scene().add(<<Representable>>)
      *
@@ -1006,29 +1004,19 @@ public abstract class TestObjet implements Test, Runnable {
         }
     }
 
-    public static final int ON_TEXTURE_ENDS_STOP = 0;
-
     public void writeOnPictureAfterZ(BufferedImage bi) {
     }
 
-    public static final int ON_TEXTURE_ENDS_LOOP_TEXTURE = 1;
-
     public void writeOnPictureBeforeZ(BufferedImage bi) {
     }
-
-    public static final int ON_MAX_FRAMES_STOP = 0;
 
     public String getFolder() {
         return dir.getAbsolutePath();
     }
 
-    public static final int ON_MAX_FRAMES_CONTINUE = 1;
-
     public void unterminable(boolean b) {
         unterminable = b;
     }
-
-    private int onTextureEnds = ON_TEXTURE_ENDS_STOP;
 
     public ZBuffer getZ() {
         if (z == null)
@@ -1039,8 +1027,6 @@ public abstract class TestObjet implements Test, Runnable {
     public void onTextureEnds(ITexture texture, int texture_event) {
         texture.onTextureEnds = texture_event;
     }
-
-    private int onMaxFrameEvent = ON_MAX_FRAMES_STOP;
 
     public void onMaxFrame(int maxFramesEvent) {
         this.onMaxFrameEvent = maxFramesEvent;

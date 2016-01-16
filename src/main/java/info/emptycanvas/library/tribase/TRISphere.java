@@ -6,9 +6,7 @@
 package info.emptycanvas.library.tribase;
 
 import info.emptycanvas.library.nurbs.ParametrizedSurface;
-import info.emptycanvas.library.object.Matrix33;
 import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Barycentre;
 
 /**
  *
@@ -35,21 +33,10 @@ public class TRISphere extends ParametrizedSurface {
 
         Point3D centre = this.centre;
 
-        if (bc == null) {
-            bc = new Barycentre();
-        }
-
-        if (bc != null) {
-            centre = centre.plus(bc.position);
-        } else if (bc.rotation == null) {
-            bc.rotation = Matrix33.I;
-        }
         Point3D p
-                = bc.rotation.mult(
-                new Point3D(centre.getX() + Math.sin(u) * Math.sin(v)
+                = rotation(new Point3D(centre.getX() + Math.sin(u) * Math.sin(v)
                         * radius, centre.getY() + Math.sin(u) * Math.cos(v) * radius,
-                        centre.getZ() + Math.cos(u) * radius)
-        );
+                centre.getZ() + Math.cos(u) * radius));
         return p;
     }
 
@@ -70,12 +57,12 @@ public class TRISphere extends ParametrizedSurface {
         return centre;
     }
 
-    public double getRadius() {
-        return radius;
-    }
-
     public void setCentre(Point3D centre) {
         this.centre = centre;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     public void setRadius(double radius) {

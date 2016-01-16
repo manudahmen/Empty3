@@ -3,22 +3,17 @@
  */
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.TRI;
-import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.ZBuffer;
+import info.emptycanvas.library.object.*;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Point;
 
 /**
  * @author MANUEL DAHMEN
- *
- * dev
- *
- * 15 oct. 2011
- *
+ *         <p>
+ *         dev
+ *         <p>
+ *         15 oct. 2011
  */
 public abstract class TRIObjetGenerateurAbstract extends Representable implements TRIObjetGenerateur {
     // Overrides from TriObjetGenerateur
@@ -33,18 +28,13 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
     protected boolean cy = false;
 
     @Override
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
-    }
-
-    @Override
     public int getMaxX() {
         return maxX;
     }
 
     @Override
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
     }
 
     @Override
@@ -53,13 +43,8 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
     }
 
     @Override
-    public void setCirculaireX(boolean cx) {
-        this.cx = cx;
-    }
-
-    @Override
-    public void setCirculaireY(boolean cy) {
-        this.cy = cy;
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
     }
 
     @Override
@@ -68,8 +53,18 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
     }
 
     @Override
+    public void setCirculaireX(boolean cx) {
+        this.cx = cx;
+    }
+
+    @Override
     public boolean getCirculaireY() {
         return cy;
+    }
+
+    @Override
+    public void setCirculaireY(boolean cy) {
+        this.cy = cy;
     }
 
     @Override
@@ -81,7 +76,7 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
      * @param numX num�ro de valeur de x par rapport � maxX
      * @param numY num�ro de valeur de y par rapport � maxY
      * @param tris TRI[1] = ((x,y),(x+1,y),(x+1,y+1)) TRI[2] =
-     * ((x,y),(x,y+1),(x+1,y+1))
+     *             ((x,y),(x,y+1),(x+1,y+1))
      */
     public void getTris(int numX, int numY, TRI[] tris) {
         int nextX = numX + 1;
@@ -97,15 +92,15 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             tris[t] = new TRI();
             if (t == 0) {
                 tris[t].setSommet(new Point3D[]{
-                    position().calculer(coordPoint3D(numX, numY)),
-                    position().calculer(coordPoint3D(nextX, numY)), 
-                    position().calculer(coordPoint3D(nextX, nextY))}
+                        position().calculer(coordPoint3D(numX, numY)),
+                        position().calculer(coordPoint3D(nextX, numY)),
+                        position().calculer(coordPoint3D(nextX, nextY))}
                 );
             } else {
                 tris[t].setSommet(new Point3D[]{
-                    position().calculer(coordPoint3D(numX, nextY)),
-                    position().calculer(coordPoint3D(numX, numY)), 
-                    position().calculer(coordPoint3D(nextX, nextY))}
+                        position().calculer(coordPoint3D(numX, nextY)),
+                        position().calculer(coordPoint3D(numX, numY)),
+                        position().calculer(coordPoint3D(nextX, nextY))}
                 );
             }
 
@@ -115,32 +110,34 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
 
             Point3D normale = tris[t].getSommet()[1].moins(
                     tris[t].getSommet()[0]).prodVect(
-                            (tris[t].getSommet()[2].moins(tris[t].getSommet()[0])));
+                    (tris[t].getSommet()[2].moins(tris[t].getSommet()[0])));
             for (int i = 0; i < 3; i++) {
                 tris[t].getSommet()[i].setNormale(normale);
             }
 
         }
     }
+
     /***
      * Method for interpolate cordinates
      * and textures.
+     *
      * @param tris
      * @param numX
      * @param numY
      * @param ratioX
      * @param ratioY
-     * @return 
+     * @return
      */
     @Override
     public Point3D getPoint3D(TRI[] tris, int numX, int numY, double ratioX,
-            double ratioY) {
+                              double ratioY) {
         if (ratioX > ratioY) {
             Point3D[] sommet = tris[0].getSommet();
             Point3D ret = sommet[0].plus(
                     sommet[1].moins(sommet[0]).mult(ratioX)).plus(
-                            sommet[2].moins(sommet[1]).mult(ratioY));
-            if(texture()==null) texture = new ColorTexture(new Color(255, 128, 0));
+                    sommet[2].moins(sommet[1]).mult(ratioY));
+            if (texture() == null) texture = new ColorTexture(new Color(255, 128, 0));
             ret.texture(new ColorTexture(texture.getMaillageTexturedColor(numX, numY,
                     ((numX + ratioX) / maxX), ((numY + ratioY) / maxY))));
 
@@ -150,10 +147,10 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             return ret;
         } else {
             Point3D[] sommet = tris[1].getSommet();
-            if(texture()==null) texture = new ColorTexture(new Color(255, 128, 0));
+            if (texture() == null) texture = new ColorTexture(new Color(255, 128, 0));
             Point3D ret = sommet[1].plus(
                     sommet[0].moins(sommet[1]).mult(ratioY)).plus(
-                            sommet[2].moins(sommet[0]).mult(ratioX));
+                    sommet[2].moins(sommet[0]).mult(ratioX));
             ret.texture(new ColorTexture(texture.getMaillageTexturedColor(numX, numY,
                     ((numX + ratioX) / maxX), ((numY + ratioY) / maxY))));
 
@@ -163,12 +160,14 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             return ret;
         }
     }
+
     /***
      * Draws in Image with ZBuffer 2D drawing class
-     * 
+     * <p>
      * Ce serait mieux de calculer les points avec
      * des couleurs.. Bien oui c'est encore TODO
-     * @param z 
+     *
+     * @param z
      */
     public void draw(ZBuffer z) {
         Point3D INFINI = new Point3D(0, 0, 10000, new ColorTexture(Color.BLUE));
@@ -203,7 +202,7 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
                         if (p1 != null & p2 != null) {
                             double incr = 1.0 / (Math
                                     .abs(p1.getX() - p2.getX()) + Math.abs(p1
-                                            .getY() - p2.getY()));
+                                    .getY() - p2.getY()));
                             if (incr < incrMax) {
                                 incrMax = incr;
                             }
