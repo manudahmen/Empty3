@@ -17,27 +17,14 @@ import java.io.Serializable;
  */
 public class Matrix33 implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7007460681652570657L;
-
-    public static Matrix33 rot(double a, double b) {
-        return new Matrix33(
-                new double[]{
-                    Math.cos(a), Math.sin(b), 0,
-                    -Math.sin(a), Math.cos(b), 0,
-                    0, 0, 1
-
-                }
-        );
-    }
-
-    private double[] d;
     public static final Matrix33 XYZ;
     public static final Matrix33 YZX;
     public static final Matrix33 ZXY;
     public static final Matrix33 I;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7007460681652570657L;
 
     static {
         XYZ = new Matrix33(new double[]{1, 0, 0, 0, 1, 0, 0, 0, 1});
@@ -45,6 +32,8 @@ public class Matrix33 implements Serializable {
         ZXY = new Matrix33(new double[]{0, 0, 1, 1, 0, 0, 0, 1, 0});
         I = new Matrix33(new double[]{1, 0, 0, 0, 1, 0, 0, 0, 1});
     }
+
+    private double[] d;
 
     public Matrix33() {
         d = new double[9];
@@ -64,6 +53,38 @@ public class Matrix33 implements Serializable {
 
             }
         }
+    }
+
+    public static Matrix33 rot(double a, double b) {
+        return new Matrix33(
+                new double[]{
+                        Math.cos(a), Math.sin(b), 0,
+                        -Math.sin(a), Math.cos(b), 0,
+                        0, 0, 1
+
+                }
+        );
+    }
+
+    public static Matrix33 rotationX(double a) {
+        return new Matrix33(
+                new double[]{1, 0, 0,
+                        Math.cos(a), -Math.sin(a), 0,
+                        Math.sin(a), Math.cos(a)});
+    }
+
+    public static Matrix33 rotationY(double a) {
+        return new Matrix33(
+                new double[]{Math.cos(a), 0, Math.sin(a), 0,
+                        0, 1, 0
+                        - Math.sin(a), Math.cos(a), 0});
+    }
+
+    public static Matrix33 rotationZ(double a) {
+        return new Matrix33(
+                new double[]{Math.cos(a), -Math.sin(a), 0,
+                        Math.sin(a), Math.cos(a), 0,
+                        0, 0, 1});
     }
 
     public double get(int i, int j) {
