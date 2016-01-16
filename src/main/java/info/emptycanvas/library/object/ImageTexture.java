@@ -5,11 +5,13 @@
  */
 package info.emptycanvas.library.object;
 
+import info.emptycanvas.library.tribase.Point;
 import org.monte.media.avi.AVIReader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
 
 /**
  * @author manu
@@ -34,7 +36,8 @@ public class ImageTexture extends ITexture {
 
     @Override
     public int getColorAt(double x, double y) {
-        return couleur(x / image.getWidth(), y / image.getHeight()).getRGB();
+        Point trans = getCoord(x, y);
+        return couleur(trans.x / image.getWidth(), trans.y / image.getHeight()).getRGB();
     }
 
     protected Color couleur(double rx, double ry) {
@@ -125,9 +128,13 @@ public class ImageTexture extends ITexture {
      */
     public Color getMaillageTexturedColor(int numQuadX, int numQuadY, double x,
                                           double y) {
+        Point p = getCoord(x, y);
 
-        int xi = ((int) (1d * image.getWidth() * x));
-        int yi = ((int) (1d * image.getHeight() * y));
+        int xi = ((int) (1d * image.getWidth() * p.x));
+        int yi = ((int) (1d * image.getHeight() * p.y));
+
+
+
         if (xi >= image.getWidth()) {
             xi = image.getWidth() - 1;
         }
@@ -169,7 +176,12 @@ public class ImageTexture extends ITexture {
         int xi = ((int) ((((int) x + dx) / numQuadX + Math.signum(numTRI - 0.5)
                 * image.getWidth())));
         int yi = ((int) ((((int) y + dy) / numQuadY * image.getHeight())));
-        Color c = new Color(image.getRGB(xi, yi));
+        Point p = getCoord(xi / (double) image.getWidth(), yi / (double) image.getHeight());
+
+        int x1 = (int) p.x;
+        int y1 = (int) p.y;
+
+        Color c = new Color(image.getRGB(x1, y1));
         if (c.equals(transparent)) {
             return new Color(transparent);
         } else {
