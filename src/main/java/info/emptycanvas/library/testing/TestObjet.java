@@ -47,7 +47,7 @@ public abstract class TestObjet implements Test, Runnable {
     public static final int GENERATE_MOVIE = 8;
     public static final int GENERATE_NO_IMAGE_FILE_WRITING = 16;
 
-    private int generate = 1;
+    private int generate = 1 | 8;
 
     private int version = 1;
     private String template = "";
@@ -259,7 +259,7 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
-    public void exportFrame(String format, String filename) throws FileNotFoundException, IOException {
+    public void exportFrame(String format, String filename) throws IOException {
         STLExport.save(
                 new File(directory.getAbsolutePath() + File.separator + filename),
                 scene(),
@@ -311,7 +311,7 @@ public abstract class TestObjet implements Test, Runnable {
     }
 
     public ArrayList<TestInstance.Parameter> getInitParams() {
-        return this.initParams;
+        return initParams;
     }
 
     public int getMaxFrames() {
@@ -493,11 +493,69 @@ public abstract class TestObjet implements Test, Runnable {
          * ex); } }
          */
 
-        if (loop() && frame > maxFrames || (frame > 1 && !loop())) {
-            return false;
-        }
+        return !(loop() && frame > maxFrames || (frame > 1 && !loop()));
 
-        return true;
+    }
+
+
+    public boolean nextFrame() {
+        frame++;
+
+        if (D3()) {
+            fileG = new File(this.dir.getAbsolutePath() + File.separator
+                    + sousdossier + File.separator + "GAUCHE" + File.separator
+                    + "__SERID_" + (serie) + "__" + filename
+                    + (1000000 + frame) + "." + fileExtension);
+            while (fileG == null || fileG.exists()) {
+                serie++;
+                fileG = new File(this.dir.getAbsolutePath() + File.separator
+                        + sousdossier + File.separator + "GAUCHE"
+                        + File.separator + "__SERID_" + (serie) + "__"
+                        + filename + (1000000 + frame) + "." + fileExtension);
+            }
+
+            fileD = new File(this.dir.getAbsolutePath() + File.separator
+                    + sousdossier + File.separator + "DROITE" + File.separator
+                    + "__SERID_" + (serie) + "__" + filename
+                    + (1000000 + frame) + "." + fileExtension);
+            while (fileD == null || fileD.exists()) {
+                serie++;
+                fileD = new File(this.dir.getAbsolutePath() + File.separator
+                        + sousdossier + File.separator + "DROITE"
+                        + File.separator + "__SERID_" + (serie) + "__"
+                        + filename + (1000000 + frame) + "." + fileExtension);
+            }
+        } else {
+            file = new File(this.dir.getAbsolutePath() + File.separator
+                    + sousdossier + File.separator + "__SERID_" + (serie)
+                    + "__" + filename + (1000000 + frame) + "." + fileExtension);
+            fileScene = new File(this.dir.getAbsolutePath() + File.separator
+                    + sousdossier + File.separator + "__SERID_" + (serie)
+                    + "__" + filename + (1000000 + frame) + "."
+                    + binaryExtension);
+            while (file == null || file.exists()) {
+                serie++;
+                file = new File(this.dir.getAbsolutePath() + File.separator
+                        + sousdossier + File.separator + "__SERID_" + (serie)
+                        + "__" + filename + (1000000 + frame) + "."
+                        + fileExtension);
+                fileScene = new File(this.dir.getAbsolutePath()
+                        + File.separator + sousdossier + File.separator
+                        + "__SERID_" + (serie) + "__" + filename
+                        + (1000000 + frame) + "." + binaryExtension);
+            }
+        }
+        /*
+         * ObjectOutputStream oos = null; try { oos = new ObjectOutputStream(new
+         * FileOutputStream(serid)); oos.writeInt(serie); } catch (IOException
+         * ex) { o.println(
+         * null, ex); } finally { try { oos.close(); } catch (IOException ex) {
+         * o.println( null,
+         * ex); } }
+         */
+
+        return !(loop() && frame > maxFrames || (frame > 1 && !loop()));
+
     }
 
     public void PAUSE() {
@@ -547,6 +605,10 @@ public abstract class TestObjet implements Test, Runnable {
     public void reportStop() {
     }
 
+    public void setFilename(String fn) {
+        this.filename = fn;
+    }
+
     public void reportSucces(File film) {
         try {
             InputStream is = getClass().getResourceAsStream(
@@ -572,6 +634,10 @@ public abstract class TestObjet implements Test, Runnable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void setGenerate(int generate) {
+        this.generate = generate;
     }
 
     public void run() {
@@ -603,7 +669,7 @@ public abstract class TestObjet implements Test, Runnable {
         }
         ginit();
 
-            z = ZBufferFactory.instance(resx, resy, D3);
+        z = ZBufferFactory.instance(resx, resy, D3);
 
         if (scene().texture() != null) {
             z.backgroundTexture(scene().texture());
@@ -611,151 +677,149 @@ public abstract class TestObjet implements Test, Runnable {
 
         o.println("");
         o.println(directory().getAbsolutePath());
-        o.println("Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}"+ getGenerate());
+        o.println("Generate (0 NOTHING  1 IMAGE  2 MODEL  4 OPENGL) {0}" + getGenerate());
 
-        o.println("Starting movie  {0}"+ runtimeInfoSucc());
+        o.println("Starting movie  {0}" + runtimeInfoSucc());
         while ((nextFrame() || unterminable()) && !stop) {
-            try{
-            pauseActive = true;
-            while (isPause()) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            pauseActive = false;
-
-            finit();
-
-            if ((generate & GENERATE_OPENGL) > 0 && false) {
-                o.println("No OpenGL");
-            } else {
-                try {
-                    testScene();
-
-                } catch (Exception e1) {
-                    reportException(e1);
-                    return;
-                }
-            }
-
-            z.suivante();
-            z.scene(scene);
-
-            if ((generate & GENERATE_IMAGE) > 0) {
-                try {
-                    if (isometrique) {
-                        z.isometrique();
-                        z.isobox(noZoom);
-                    } else {
-                        z.perspective();
+            try {
+                pauseActive = true;
+                while (isPause()) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
+                }
+                pauseActive = false;
 
-                    if (z instanceof ZBufferImpl) {
-                        ((ZBufferImpl) z).setColoration(true);
+                finit();
+
+                if ((generate & GENERATE_OPENGL) > 0 && false) {
+                    o.println("No OpenGL");
+                } else {
+                    try {
+                        testScene();
+
+                    } catch (Exception e1) {
+                        reportException(e1);
+                        return;
                     }
+                }
 
-                    if (structure && !D3()) {
-                        z.dessinerStructure();
+                z.suivante();
+                z.scene(scene);
 
-                        ri = z.image();
+                if ((generate & GENERATE_IMAGE) > 0) {
+                    try {
+                        if (isometrique) {
+                            z.isometrique();
+                            z.isobox(noZoom);
+                        } else {
+                            z.perspective();
+                        }
 
-                        if (((generate & GENERATE_IMAGE) > 0) && !((generate & GENERATE_NO_IMAGE_FILE_WRITING) > 0)) {
+                        if (z instanceof ZBufferImpl) {
+                            ((ZBufferImpl) z).setColoration(true);
+                        }
 
+                        if (structure && !D3()) {
+                            z.dessinerStructure();
+
+                            ri = z.image();
+
+                            if (((generate & GENERATE_IMAGE) > 0) && !((generate & GENERATE_NO_IMAGE_FILE_WRITING) > 0)) {
+
+                                ecrireImage(ri, type, file);
+                            }
+                            if ((generate & GENERATE_MOVIE) > 0 && true) {
+                                try {
+                                    aw.write(0, ri, 1);
+                                } catch (IOException e) {
+                                    reportException(e);
+                                    return;
+                                }
+                            }
+                        } else if (D3() && z instanceof ZBuffer3D
+                                && scene().cameraActive() instanceof Camera3D) {
+
+                            ((ZBuffer3D) z).genererEtRetourner(scene());
+
+                            riG = ((ZBuffer3D) z).imageGauche();
+                            riD = ((ZBuffer3D) z).imageDroite();
+
+                            ecrireImage(riG, type, fileG);
+                            ecrireImage(riD, type, fileD);
+
+                        } else {
+
+                            z.dessinerSilhouette3D();
+                            afterRenderFrame();
+                            ri = z.image();
+                            if ((generate & GENERATE_MOVIE) > 0 && isAviOpen()) {
+
+                                try {
+
+                                    aw.write(0, ri, 1);
+                                } catch (IOException e) {
+                                    reportException(e);
+                                    return;
+                                }
+                            } else {
+                                o.println(
+                                        "No file open for avi writing");
+
+                            }
                             ecrireImage(ri, type, file);
                         }
-                        if ((generate & GENERATE_MOVIE) > 0 && true) {
-                            try {
-                                aw.write(0, ri, 1);
-                            } catch (IOException e) {
-                                reportException(e);
-                                return;
-                            }
-                        }
-                    } else if (D3() && z instanceof ZBuffer3D
-                            && scene().cameraActive() instanceof Camera3D) {
-
-                        ((ZBuffer3D) z).genererEtRetourner(scene());
-
-                        riG = ((ZBuffer3D) z).imageGauche();
-                        riD = ((ZBuffer3D) z).imageDroite();
-
-                        ecrireImage(riG, type, fileG);
-                        ecrireImage(riD, type, fileD);
-
-                    } else {
-
-                        z.dessinerSilhouette3D();
-                        afterRenderFrame();
-                        ri = ((ZBufferImpl) z).image();
-                        if ((generate & GENERATE_MOVIE) > 0 && isAviOpen()) {
-
-                            try {
-                                
-                                aw.write(0, ri, 1);
-                            } catch (IOException e) {
-                                reportException(e);
-                                return;
-                            }
-                        } else {
-                            o.println(
-                                    "No file open for avi writing");
-
-                        }
-                        ecrireImage(ri, type, file);
+                    } catch (Exception ex) {
+                        o.println(ex.getLocalizedMessage());
+                        reportException(ex);
                     }
-                } catch (Exception ex) {
-                    o.println( ex.getLocalizedMessage());
-                    reportException(ex);
+
+                    biic.setImage(ri != null ? ri : (frame % 2 == 0 ? riG : riD));
+                    biic.setStr("" + frame);
                 }
 
-                biic.setImage(ri != null ? ri : (frame % 2 == 0 ? riG : riD));
-                biic.setStr("" + frame);
-            }
+                afterRenderFrame();
 
-            afterRenderFrame();
+                if (isSaveBMood()) {
+                    try {
+                        File foutm = new File(this.dir.getAbsolutePath()
+                                + File.separator + filename + ".bmood");
+                        new Loader().saveBin(foutm, scene);
+                    } catch (VersionNonSupporteeException ex) {
+                        o.println(ex.getLocalizedMessage());
+                        reportException(ex);
+                    } catch (ExtensionFichierIncorrecteException ex) {
+                        o.println(ex.getLocalizedMessage());
+                        reportException(ex);
+                    }
 
-            if (isSaveBMood()) {
-                try {
-                    File foutm = new File(this.dir.getAbsolutePath()
-                            + File.separator + filename + ".bmood");
-                    new Loader().saveBin(foutm, scene);
-                } catch (VersionNonSupporteeException ex) {
-                    o.println( ex.getLocalizedMessage());
-                    reportException(ex);
-                } catch (ExtensionFichierIncorrecteException ex) {
-                    o.println( ex.getLocalizedMessage());
-                    reportException(ex);
                 }
+                if ((generate & GENERATE_MODEL) > 0) {
+                    try {
+                        o.println("Start generating model");
+                        exportFrame("export-stl", "export-" + frame + ".STL");
+                        o.println("End generating model");
+                    } catch (FileNotFoundException ex) {
+                        o.println(ex.getLocalizedMessage());
+                    } catch (IOException ex) {
+                        o.println(ex.getLocalizedMessage());
+                    } catch (Exception ex) {
+                        o.println("Other exception in generating model" + ex);
+                        ex.printStackTrace();
+                    }
 
-            }
-            if ((generate & GENERATE_MODEL) > 0) {
-                try {
-                    o.println( "Start generating model");
-                    exportFrame("export-stl", "export-" + frame + ".STL");
-                    o.println( "End generating model");
-                } catch (FileNotFoundException ex) {
-                    o.println(  ex.getLocalizedMessage());
-                } catch (IOException ex) {
-                    o.println(  ex.getLocalizedMessage());
-                } catch (Exception ex) {
-                    o.println( "Other exception in generating model"+ ex);
-                    ex.printStackTrace();
                 }
-
-            }
-            }
-            catch(ArrayIndexOutOfBoundsException ex)
-            {
+            } catch (ArrayIndexOutOfBoundsException ex) {
                 ex.printStackTrace();
             }
         }
 
         afterRender();
 
-        o.println(""+frame() + "\n" + runtimeInfoSucc());
+        o.println("" + frame() + "\n" + runtimeInfoSucc());
 
         o.println("Fin de la création des image et/u des modèles" + "\n" + runtimeInfoSucc());
         if (zip != null) {
@@ -787,7 +851,7 @@ public abstract class TestObjet implements Test, Runnable {
                     System.out.print(outputStream);
                 }
             } catch (IOException ex) {
-                o.println(  ex.getLocalizedMessage());
+                o.println(ex.getLocalizedMessage());
             }
         } else if (file.exists()) {
             try {
@@ -797,7 +861,7 @@ public abstract class TestObjet implements Test, Runnable {
                 OutputStream outputStream = runtime.exec(cmd).getOutputStream();
                 System.out.print(outputStream);
             } catch (IOException ex) {
-                o.println( ex.getLocalizedMessage());
+                o.println(ex.getLocalizedMessage());
             }
         }
 
@@ -806,16 +870,34 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
+    public void setMaxFrames(int maxFrames) {
+        this.maxFrames = maxFrames;
+    }
+
     public void saveBMood(boolean b) {
         saveTxt = b;
+    }
+
+    public void setResx(int resx) {
+        this.resx = resx;
+        z = ZBufferFactory.instance(resx, resy, D3);
     }
 
     public Scene scene() {
         return scene;
     }
 
+    public void setResy(int resy) {
+        this.resy = resy;
+        z = ZBufferFactory.instance(resx, resy, D3);
+    }
+
     public void paintingAct(Representable representable, PaintingAct pa) {
-        representable.setPaintingAct(getZ(), scene(),  pa);
+        representable.setPaintingAct(getZ(), scene(), pa);
+    }
+
+    public void setStructure(boolean structure) {
+        this.structure = structure;
     }
 
     public void closeView() {
@@ -869,32 +951,6 @@ public abstract class TestObjet implements Test, Runnable {
         this.fileExtension = ext;
     }
 
-    public void setFilename(String fn) {
-        this.filename = fn;
-    }
-
-    public void setGenerate(int generate) {
-        this.generate = generate;
-    }
-
-    public void setMaxFrames(int maxFrames) {
-        this.maxFrames = maxFrames;
-    }
-
-    public void setResx(int resx) {
-        this.resx = resx;
-        z = ZBufferFactory.instance(resx, resy, D3);
-    }
-
-    public void setResy(int resy) {
-        this.resy = resy;
-        z = ZBufferFactory.instance(resx, resy, D3);
-    }
-
-    public void setStructure(boolean structure) {
-        this.structure = structure;
-    }
-
     public void STOP() {
         stop = true;
         setGenerate(GENERATE_NOTHING);
@@ -916,6 +972,13 @@ public abstract class TestObjet implements Test, Runnable {
 
     }
 
+    public static void main(String[] args) {
+        TestObjet gui = new TestObjetSub();
+        gui.loop(true);
+        gui.setMaxFrames(2000);
+        new Thread(gui).start();
+    }
+
     /**
      * Definir la scene scene().add(<<Representable>>)
      *
@@ -932,9 +995,9 @@ public abstract class TestObjet implements Test, Runnable {
                 new Loader().load(f, scene);
 
             } catch (VersionNonSupporteeException ex) {
-                o.println( ex.getLocalizedMessage());
+                o.println(ex.getLocalizedMessage());
             } catch (ExtensionFichierIncorrecteException ex) {
-                o.println( ex.getLocalizedMessage());
+                o.println(ex.getLocalizedMessage());
             }
         } else {
             o.println("Erreur: extension incorrecte");
@@ -943,40 +1006,35 @@ public abstract class TestObjet implements Test, Runnable {
         }
     }
 
+    public static final int ON_TEXTURE_ENDS_STOP = 0;
+
     public void writeOnPictureAfterZ(BufferedImage bi) {
     }
 
+    public static final int ON_TEXTURE_ENDS_LOOP_TEXTURE = 1;
+
     public void writeOnPictureBeforeZ(BufferedImage bi) {
     }
+
+    public static final int ON_MAX_FRAMES_STOP = 0;
 
     public String getFolder() {
         return dir.getAbsolutePath();
     }
 
+    public static final int ON_MAX_FRAMES_CONTINUE = 1;
+
     public void unterminable(boolean b) {
         unterminable = b;
     }
 
-    public static void main(String[] args) {
-        TestObjet gui = new TestObjetSub();
-        gui.loop(true);
-        gui.setMaxFrames(2000);
-        new Thread(gui).start();
-    }
+    private int onTextureEnds = ON_TEXTURE_ENDS_STOP;
 
     public ZBuffer getZ() {
         if (z == null)
             z = ZBufferFactory.instance(resx, resy, D3);
         return z;
     }
-
-    public static final int ON_TEXTURE_ENDS_STOP = 0;
-    public static final int ON_TEXTURE_ENDS_LOOP_TEXTURE = 1;
-
-    public static final int ON_MAX_FRAMES_STOP = 0;
-    public static final int ON_MAX_FRAMES_CONTINUE = 1;
-
-    private int onTextureEnds = ON_TEXTURE_ENDS_STOP;
 
     public void onTextureEnds(ITexture texture, int texture_event) {
         texture.onTextureEnds = texture_event;
