@@ -75,7 +75,7 @@ public class Matrix33 implements Serializable {
 
     public static Matrix33 rotationY(double a) {
         return new Matrix33(
-                new double[]{Math.cos(a), 0, Math.sin(a), 0,
+                new double[]{Math.cos(a), 0, Math.sin(a),
                         0, 1, 0
                         - Math.sin(a), Math.cos(a), 0});
     }
