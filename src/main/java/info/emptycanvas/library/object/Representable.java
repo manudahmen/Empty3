@@ -19,6 +19,7 @@ public class Representable implements Serializable {
     protected ITexture texture = orange_yellow;
     private String id;
     private Painter painter = null;
+
     public Representable() {
     }
 
@@ -110,15 +111,14 @@ public class Representable implements Serializable {
 
     /***
      * DOn't call ZBuffer dessiine methods here: it would loop.
+     *
      * @param z ZBuffer use plot or dessine(P) or tracerTriangle(TRI, Itexture)
      */
-    public void drawStructureDrawFast(ZBuffer z)
-    {
+    public void drawStructureDrawFast(ZBuffer z) {
         throw new UnsupportedOperationException("No genral method for drawing objects");
     }
 
-    public boolean ISdrawStructureDrawFastIMPLEMENTED(ZBuffer z)
-    {
+    public boolean ISdrawStructureDrawFastIMPLEMENTED(ZBuffer z) {
         return false;
     }
 
@@ -163,7 +163,14 @@ public class Representable implements Serializable {
         }
 
         public Point3D rotation(Point3D p) {
+
             return rot.mult(p.moins(centreRot)).plus(centreRot);
+            //return rot.mult(p.moins(centreRot)).plus(centreRot);
+        }
+
+        public Point3D rotationAxe(Point3D p, int axe, double angle) {
+
+            return Matrix33.rotationX(angle).mult(p);
         }
     }
 }

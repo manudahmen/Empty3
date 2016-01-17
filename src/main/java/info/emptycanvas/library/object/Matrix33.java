@@ -9,11 +9,10 @@ import java.io.Serializable;
 
 /**
  * @author MANUEL DAHMEN
- *
- * dev
- *
- * 17 nov. 2011
- *
+ *         <p>
+ *         dev
+ *         <p>
+ *         17 nov. 2011
  */
 public class Matrix33 implements Serializable {
 
@@ -40,6 +39,10 @@ public class Matrix33 implements Serializable {
     }
 
     public Matrix33(double[] d) {
+        if (d.length != 9) {
+            System.out.println("Erreur dans Matrix33 . 9 éléments requis");
+            System.exit(-1);
+        }
         this.d = d;
     }
 
@@ -77,7 +80,7 @@ public class Matrix33 implements Serializable {
         return new Matrix33(
                 new double[]{Math.cos(a), 0, Math.sin(a),
                         0, 1, 0
-                        - Math.sin(a), 0, Math.cos(a),});
+                        - Math.sin(a), 0, Math.cos(a)});
     }
 
     public static Matrix33 rotationZ(double a) {
