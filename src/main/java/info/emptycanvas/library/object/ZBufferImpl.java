@@ -573,13 +573,13 @@ public class ZBufferImpl implements ZBuffer {
                     for (double j = n.getStartU(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
                         double u = i;
                         double v = j;
-                        dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
-                                n.calculerPoint3D(u + n.getIncrU(), v),
-                                n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV()),
+                        dessinerSilhouette3D(new TRI(n.rotation(n.calculerPoint3D(u, v)),
+                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v)),
+                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV())),
                                 n.texture()));
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
-                                n.calculerPoint3D(u, v + n.getIncrV()),
-                                n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV()),
+                                n.rotation(n.calculerPoint3D(u, v + n.getIncrV())),
+                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV())),
                                 n.texture()));
 
                     }

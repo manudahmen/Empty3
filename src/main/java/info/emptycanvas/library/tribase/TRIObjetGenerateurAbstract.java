@@ -92,15 +92,15 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
             tris[t] = new TRI();
             if (t == 0) {
                 tris[t].setSommet(new Point3D[]{
-                        position().calculer(coordPoint3D(numX, numY)),
-                        position().calculer(coordPoint3D(nextX, numY)),
-                        position().calculer(coordPoint3D(nextX, nextY))}
+                        rotation(position().calculer(coordPoint3D(numX, numY))),
+                        rotation(position().calculer(coordPoint3D(nextX, numY))),
+                        rotation(position().calculer(coordPoint3D(nextX, nextY)))}
                 );
             } else {
                 tris[t].setSommet(new Point3D[]{
-                        position().calculer(coordPoint3D(numX, nextY)),
-                        position().calculer(coordPoint3D(numX, numY)),
-                        position().calculer(coordPoint3D(nextX, nextY))}
+                        rotation(position().calculer(coordPoint3D(numX, nextY))),
+                        rotation(position().calculer(coordPoint3D(numX, numY))),
+                        rotation(position().calculer(coordPoint3D(nextX, nextY)))}
                 );
             }
 
