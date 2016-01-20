@@ -8,8 +8,7 @@
  */
 package info.emptycanvas.library.object;
 
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * *
@@ -25,7 +24,7 @@ public interface ZBuffer {
      *
      * @return camera used for display
      */
-    public Camera camera();
+    Camera camera();
 
     /**
      * Fixe une caméra dans la scène virtuelle L'appel est inutile si la
@@ -33,9 +32,9 @@ public interface ZBuffer {
      *
      * @param c
      */
-    public void camera(Camera c);
+    void camera(Camera c);
 
-    public Point3D camera(Point3D p);
+    Point3D camera(Point3D p);
 
     /**
      * Coordonnées du point sur écran
@@ -43,7 +42,7 @@ public interface ZBuffer {
      * @param p point dans l'espace en 3 dim
      * @return point en coordonnées Image
      */
-    public Point coordonneesPoint2D(Point3D p);
+    Point coordonneesPoint2D(Point3D p);
 
     /**
      * *
@@ -53,7 +52,7 @@ public interface ZBuffer {
      * @param zdistance
      * @return
      */
-    public Point3D coordonneesPoint3D(Point p, double zdistance);
+    Point3D coordonneesPoint3D(Point p, double zdistance);
 
     /**
      * *
@@ -61,35 +60,36 @@ public interface ZBuffer {
      *
      * @param couleurFond
      */
-    public void couleurDeFond(ITexture couleurFond);
+    void couleurDeFond(ITexture couleurFond);
 
     /**
      *
      * @deprecated
      */
     @Deprecated
-    public void dessinerContours();
+    void dessinerContours();
 
     /**
      *
      * @deprecated
      */
     @Deprecated
-    public void dessinerSilhouette();
+    void dessinerSilhouette();
 
     /**
      * Dessine la scène complète
      */
-    public void dessinerSilhouette3D();
+    void dessinerSilhouette3D();
 
     /**
      * Ajoute un objet à l'image... (le dessine si tout est bien initialisé
      *
      * @param r Objet à ajouter
+     * @param refObject Objet de référence pour le déplacement et la rotation
      */
-    public void dessinerSilhouette3D(Representable r);
+    void dessinerSilhouette3D(Representable r, Representable refObject);
 
-    public void dessinerStructure();
+    void dessinerStructure();
 
     /**
      * Distance à la caméra ???
@@ -97,9 +97,9 @@ public interface ZBuffer {
      * @param p
      * @return
      */
-    public double distanceCamera(Point3D p);
+    double distanceCamera(Point3D p);
 
-    public Color getColorAt(Point p);
+    Color getColorAt(Point p);
 
     /**
      * *
@@ -110,7 +110,7 @@ public interface ZBuffer {
      * @param y hauteur (resy)
      * @return instance
      */
-    public ZBuffer getInstance(int x, int y);
+    ZBuffer getInstance(int x, int y);
 
     /**
      * *
@@ -119,28 +119,28 @@ public interface ZBuffer {
      * @param p
      * @return
      */
-    public Representable getObjectAt(Point p);
+    Representable getObjectAt(Point p);
 
     /**
      * Retourne l'image, après dessin par dessinerSilhouette3D
      *
      * @return image
      */
-    public ECBufferedImage image();
+    ECBufferedImage image();
 
     /**
      * Verrou
      *
      * @return Verrou?
      */
-    public boolean isLocked();
+    boolean isLocked();
 
-    public void isobox(boolean isBox);
+    void isobox(boolean isBox);
 
     /**
      * Rendu en 3D isométrique
      */
-    public void isometrique();
+    void isometrique();
 
     /**
      * Verouille le zbuffer pendant les calculs.
@@ -148,12 +148,12 @@ public interface ZBuffer {
      * @return false si le zbuffer a été préalablement verrouillé. true si
      * verrouillage par appel de cette méthode.
      */
-    public boolean lock();
+    boolean lock();
 
     /**
      * Rendu en 3D caméra-oeil
      */
-    public void perspective();
+    void perspective();
 
     /**
      * Dessine un point
@@ -161,7 +161,7 @@ public interface ZBuffer {
      * @param p point
      * @param c couleur
      */
-    public void plotPoint(Point3D p, Color c);
+    void plotPoint(Point3D p, Color c);
 
     /**
      * *
@@ -169,40 +169,40 @@ public interface ZBuffer {
      *
      * @return résolution x
      */
-    public int resX();
+    int resX();
 
     /**
      * Résolution Y
      *
      * @return résolution y
      */
-    public int resY();
+    int resY();
 
     /**
      * Retourne la scène en cours de traitement
      *
      * @return scene
      */
-    public Scene scene();
+    Scene scene();
 
     /**
      * Assigne une nouvelle scène
      *
      * @param s scene
      */
-    public void scene(Scene s);
+    void scene(Scene s);
 
     /**
      * Passe une nouvelle image
      */
-    public void suivante();
+    void suivante();
 
     /**
      * Teste le point p
      *
      * @param point3D point
      */
-    public void testPoint(Point3D point3D);
+    void testPoint(Point3D point3D);
 
     /**
      * Dessine un point
@@ -210,27 +210,27 @@ public interface ZBuffer {
      * @param p point
      * @param c couleur
      */
-    public void testPoint(Point3D p, Color c);
+    void testPoint(Point3D p, Color c);
 
-    public void tracerLumineux();
+    void tracerLumineux();
 
     /**
      * Déverrouille le zbuffer
      *
      * @return true si déverrouillage. False si non-verrouillé
      */
-    public boolean unlock();
+    boolean unlock();
 
     /**
      * Ajuste le facteur de zoom (cadre) en 3D isométrique
      *
      * @param z
      */
-    public void zoom(float z);
+    void zoom(float z);
 
-    public void backgroundTexture(ITexture tex);
+    void backgroundTexture(ITexture tex);
 
-    public int largeur();
+    int largeur();
 
-    public int hauteur();
+    int hauteur();
 }

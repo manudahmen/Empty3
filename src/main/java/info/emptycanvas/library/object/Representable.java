@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Representable implements Serializable {
     public static final ITexture orange_yellow = new ColorTexture(new Color(255, 128, 0));
     protected static ArrayList<Painter> classPainters = new ArrayList<Painter>();
-    protected Rotation rotation;
+    protected Rotation rotation = new Rotation();
     protected double NFAST = 100;
     protected ITexture CFAST = new ColorTexture(Color.GRAY);
     protected Barycentre bc = new Barycentre();
@@ -157,6 +157,9 @@ public class Representable implements Serializable {
         public Matrix33 rot = Matrix33.I;
         public Point3D centreRot = Point3D.O0;
 
+        public Rotation() {
+
+        }
         public Rotation(Matrix33 m, Point3D c) {
             rot = m;
             centreRot = c;

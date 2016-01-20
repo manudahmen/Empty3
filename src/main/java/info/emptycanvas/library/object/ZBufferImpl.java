@@ -347,7 +347,7 @@ public class ZBufferImpl implements ZBuffer {
                                 b.getControle(i, j - 1 < 0 ? 0 : j - 1),
                                 b.getControle(i - 1 < 0 ? 0 : i - 1,
                                         j - 1 < 0 ? 0 : j - 1)}, new ColorTexture(
-                                b.getColor(i1, i2, 1d * i / i1, 1d * j / i2))));
+                                b.getColor(i1, i2, 1d * i / i1, 1d * j / i2))), r);
                     }
                 }
             } else if (r instanceof PObjet) {
@@ -393,10 +393,10 @@ public class ZBufferImpl implements ZBuffer {
             box = new Box2D();
 
         }
-        dessinerSilhouette3D(currentScene);
+        dessinerSilhouette3D(currentScene, null);
     }
 
-    public void dessinerSilhouette3D(Representable re) {
+    public void dessinerSilhouette3D(Representable re, Representable refObject) {
         if (re.getPainter() != null) {
             try {
                 re.paint();
@@ -410,13 +410,13 @@ public class ZBufferImpl implements ZBuffer {
             RepresentableConteneur name = (RepresentableConteneur) re;
             it = name.getListRepresentable().iterator();
             while (it.hasNext()) {
-                dessinerSilhouette3D(it.next());
+                dessinerSilhouette3D(it.next(), re);
             }
         } else if (re instanceof Scene) {
             Scene scene = (Scene) re;
             it = scene.iterator();
             while (it.hasNext()) {
-                dessinerSilhouette3D(it.next());
+                dessinerSilhouette3D(it.next(), re);
             }
         } else if (re != null) {
             Representable r = re;
@@ -443,26 +443,30 @@ public class ZBufferImpl implements ZBuffer {
 
                     TRI t = ts.next();
                     interactionCourant = t;
-                    tracerTriangle(camera(t.getSommet()[0]),
-                            camera(t.getSommet()[1]), camera(t.getSommet()[2]),
+                    tracerTriangle(r.rotation(camera(t.getSommet()[0])),
+                            r.rotation(camera(t.getSommet()[1])), r.rotation(camera(t.getSommet()[2])),
                             new Color(t.texture().getColorAt(0.5, 0.5)));
 
                 }
             } else if (r instanceof Point3D) {
-                Point3D p = camera(((Point3D) r));
+                Point3D p = refObject == null ? camera(((Point3D) r)) : refObject.rotation(camera(((Point3D) r)));
                 interactionCourant = r;
                 ime.testProf(p, r.texture());
             } else if (r instanceof SegmentDroite) {
                 SegmentDroite s = (SegmentDroite) r;
                 interactionCourant = s;
-                ligne(camera(s.getOrigine()), camera(s.getExtremite()),
+                Point3D pO = refObject == null ? camera(s.getOrigine()) : refObject.rotation(s.getOrigine());
+                Point3D pE = refObject == null ? camera(s.getExtremite()) : refObject.rotation(camera(s.getExtremite()));
+                ligne(pO, pE,
                         s.texture());
             } else if (r instanceof TRI) {
                 TRI t = (TRI) r;
                 interactionCourant = r;
-                tracerTriangle(camera(t.getSommet()[0]),
-                        camera(t.getSommet()[1]), camera(t.getSommet()[2]),
-                        new Color(t.texture().getColorAt(0.5, 0.5)));
+                Point3D p1 = refObject == null ? camera(t.getSommet()[0]) : refObject.rotation(camera(t.getSommet()[0]));
+                Point3D p2 = refObject == null ? camera(t.getSommet()[1]) : refObject.rotation(camera(t.getSommet()[1]));
+                Point3D p3 = refObject == null ? camera(t.getSommet()[2]) : refObject.rotation(camera(t.getSommet()[2]));
+                //TODO
+                tracerTriangle(p1, p2, p3, new Color(t.texture().getColorAt(0.5, 0.5)));
             } else if (r instanceof BSpline) {
                 BSpline b = (BSpline) r;
                 interactionCourant = r;
@@ -498,20 +502,20 @@ public class ZBufferImpl implements ZBuffer {
                     for (int j = 0; j < i2; j++) {
                         dessinerSilhouette3D(new Polygone(
                                 new Point3D[]{
-                                        b.calculerPoint3D((i - 1 < 0 ? 0
+                                        r.rotation(b.calculerPoint3D((i - 1 < 0 ? 0
                                                 : i - 1) * 1d / i1, (j) * 1d
-                                                / i2),
-                                        b.calculerPoint3D((i) * 1d / i1, (j)
-                                                * 1d / i2),
-                                        b.calculerPoint3D((i) * 1d / i1,
+                                                / i2)),
+                                        r.rotation(b.calculerPoint3D((i) * 1d / i1, (j)
+                                                * 1d / i2)),
+                                        r.rotation(b.calculerPoint3D((i) * 1d / i1,
                                                 (j - 1 < 0 ? 0 : j - 1) * 1d
-                                                        / i2),
-                                        b.calculerPoint3D((i - 1 < 0 ? 0
+                                                        / i2)),
+                                        r.rotation(b.calculerPoint3D((i - 1 < 0 ? 0
                                                         : i - 1) * 1d / i1,
                                                 (j - 1 < 0 ? 0 : j - 1) * 1d
-                                                        / i2)}, new ColorTexture(
+                                                        / i2))}, new ColorTexture(
                                 b.getColor(i1, i2, 1.0d * i / i1, 1.d
-                                        * j / i2))));
+                                        * j / i2))), r);
                     }
                 }
             } else if (r instanceof PObjet) {
@@ -520,7 +524,7 @@ public class ZBufferImpl implements ZBuffer {
                 for (Point3D p : b.getPoints()) {
                     {
                         interactionCourant = p;
-                        ime.testProf(camera(p), p.texture());
+                        ime.testProf(r.rotation(camera(p)), p.texture());
                     }
                 }
             } else if (r instanceof POConteneur) {
@@ -528,16 +532,16 @@ public class ZBufferImpl implements ZBuffer {
                 for (Point3D p : c.iterable()) {
                     {
                         interactionCourant = p;
-                        ime.testProf(camera(p), p.texture());
+                        ime.testProf(r.rotation(camera(p)), p.texture());
                     }
                 }
             } else if (r instanceof TRIConteneur) {
                 for (TRI t : ((TRIConteneur) r).iterable()) {
                     {
                         interactionCourant = t;
-                        tracerTriangle(camera(t.getSommet()[0]),
-                                camera(t.getSommet()[1]),
-                                camera(t.getSommet()[2]), new Color(t.texture()
+                        tracerTriangle(r.rotation(camera(t.getSommet()[0])),
+                                r.rotation(camera(t.getSommet()[1])),
+                                r.rotation(camera(t.getSommet()[2])), new Color(t.texture()
                                         .getColorAt(0.5, 0.5)));
                     }
                 }
@@ -559,7 +563,7 @@ public class ZBufferImpl implements ZBuffer {
                 for (double i = 0; i <= 1 - incr; i += incr) {
                     dessinerSilhouette3D(new SegmentDroite(
                             n.calculerPoint3D(i), n.calculerPoint3D(i + incr),
-                            new ColorTexture(Color.MAGENTA)));
+                            new ColorTexture(Color.MAGENTA)), n);
 
                     // System.out
                     // .print("+"+n.calculerPoint3D(i).toString());
@@ -573,14 +577,14 @@ public class ZBufferImpl implements ZBuffer {
                     for (double j = n.getStartU(); j <= n.getEndV() - n.getIncrV(); j += n.getIncrV()) {
                         double u = i;
                         double v = j;
-                        dessinerSilhouette3D(new TRI(n.rotation(n.calculerPoint3D(u, v)),
-                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v)),
-                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV())),
-                                n.texture()));
                         dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
-                                n.rotation(n.calculerPoint3D(u, v + n.getIncrV())),
-                                n.rotation(n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV())),
-                                n.texture()));
+                                n.calculerPoint3D(u + n.getIncrU(), v),
+                                n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV()),
+                                n.texture()), n);
+                        dessinerSilhouette3D(new TRI(n.calculerPoint3D(u, v),
+                                n.calculerPoint3D(u, v + n.getIncrV()),
+                                n.calculerPoint3D(u + n.getIncrU(), v + n.getIncrV()),
+                                n.texture()), n);
 
                     }
 
