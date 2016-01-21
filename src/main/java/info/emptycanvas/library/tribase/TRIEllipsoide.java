@@ -5,11 +5,9 @@
  */
 package info.emptycanvas.library.tribase;
 
-import info.emptycanvas.library.object.Matrix33;
-import info.emptycanvas.library.object.Point3D;
-import info.emptycanvas.library.object.Barycentre;
-import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.MODObjet;
+import info.emptycanvas.library.object.Point3D;
+import info.emptycanvas.library.object.Representable;
 
 /**
  *
@@ -19,7 +17,7 @@ import info.emptycanvas.library.object.MODObjet;
  *
  * @date 22-mars-2012
  */
-public class TRIEllipsoide extends TRIObjetGenerateurAbstract {
+public class TRIEllipsoide extends DSurface {
 
     private Point3D centre = new Point3D(0, 0, 0);
     private double radiusx = 1.0;
@@ -36,31 +34,32 @@ public class TRIEllipsoide extends TRIObjetGenerateurAbstract {
     }
 
     @Override
-    public Point3D coordPoint3D(int x, int y) {
-        double b = 1.0 * x / getMaxX() * Math.PI - Math.PI / 2;
-        double a = 1.0 * y / getMaxY() * 2 * Math.PI;
+    public Point3D calculerPoint3D(double u, double v) {
+        double b = 1.0 * u * Math.PI - Math.PI / 2;
+        double a = 1.0 * v * 2 * Math.PI;
 
         Point3D centre = this.centre;
 
-        if (bc == null) {
-            bc = new Barycentre();
-        }
-
-        if (bc != null) {
-            centre = centre.plus(bc.position);
-        } else if (bc.rotation == null) {
-            bc.rotation = Matrix33.I;
-        }
         Point3D p
-                = bc.rotation.mult(
-                        new Point3D(centre.getX() + radiusx * Math.sin(a) * Math.sin(b), centre.getY() + radiusy * Math.sin(a) * Math.cos(b),
-                                centre.getZ() + radiusz * Math.cos(a))
-                );
+                = rotation(
+                new Point3D(centre.getX() + radiusx * Math.sin(a) * Math.sin(b), centre.getY() + radiusy * Math.sin(a) * Math.cos(b),
+                        centre.getZ() + radiusz * Math.cos(a))
+        );
         return p;
     }
 
+    @Override
+    public Point3D calculerVitesse3D(double u, double v) {
+        return new Point3D();
+    }
+
+
     public Point3D getCentre() {
         return centre;
+    }
+
+    public void setCentre(Point3D centre) {
+        this.centre = centre;
     }
 
     public String id() {
@@ -69,10 +68,6 @@ public class TRIEllipsoide extends TRIObjetGenerateurAbstract {
 
     public Representable place(MODObjet aThis) {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setCentre(Point3D centre) {
-        this.centre = centre;
     }
 
     public void setId(String id) {

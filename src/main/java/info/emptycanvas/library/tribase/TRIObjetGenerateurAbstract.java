@@ -188,8 +188,8 @@ public abstract class TRIObjetGenerateurAbstract extends Representable implement
                     getTris(numX, numY, tris);
 
                 } catch (Exception ex) {
-                    // ex.printStackTrace();
-                    //Excpetio, may occur here'
+                    ex.printStackTrace();
+                    //Exception may occur here'
                 }
                 boolean drop = false;
                 double incrMax = 1;
