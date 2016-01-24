@@ -1,62 +1,83 @@
 package info.emptycanvas.library.object;
 
+import info.emptycanvas.library.tribase.DPath;
+
 /**
- * Created by Win on 24-01-16.
+ * Created by Manuel Dahmen on 24-01-16.
  */
 public class TrajectoireAbstraite extends Representable implements Trajectoire {
     private RepresentableConteneur objs;
+    private DPath courbe;
+    private double fps = 25.0;
+    private int frame;
+    private double tDebut;
+    private double tFin;
+
+    public double fps() {
+        return fps;
+
+
+    }
+
+    public void fps(double fps) {
+        this.fps = fps;
+    }
 
     @Override
     public boolean asuivant() {
-        return false;
+        return t() < tFin();
     }
 
     @Override
     public int frame() {
-        return 0;
+        return frame;
     }
 
     @Override
     public void frame(int f) {
-
+        frame = f;
     }
 
     @Override
     public Point3D point() {
-        return null;
+        return courbe.calculerPoint3D(1. * (tFin() - t() - tDebut()) / fps());
     }
 
     @Override
     public double t() {
-        return 0;
+        return (frame() / fps() - tDebut());
     }
 
-    @Override
     public void t(double t) {
-
+        this.frame = (int) ((frame() - fps() * tDebut()));
     }
+
 
     @Override
     public double tDebut() {
-        return 0;
+        return tDebut;
     }
 
     @Override
     public void tDebut(double t) {
-
+        this.tDebut = t;
     }
 
     @Override
     public double tFin() {
-        return 0;
+        return tFin;
     }
 
     @Override
     public void tFin(double t) {
-
+        this.tFin = t;
     }
 
-    public void rotationParFrame(Matrix33 rotParFrame, Point3D orig) {
+    public void setAvanceParFrame(DPath courbe) {
+        this.courbe = courbe;
+    }
+
+    public void setRotationParFrame(Matrix33 rotParFrame, Point3D orig) {
         this.rotation = new Rotation(rotParFrame, orig);
     }
 
@@ -71,6 +92,7 @@ public class TrajectoireAbstraite extends Representable implements Trajectoire {
             } else if (r instanceof RepresentableConteneur) {
                 for (Representable re : ((RepresentableConteneur) r).getListRepresentable()) {
                     // TODO re.rotation();
+                    re.position();
                 }
             } else {
                 // TODO r.rotation();
