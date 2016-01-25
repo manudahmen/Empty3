@@ -34,6 +34,10 @@ public class Matrix33 implements Serializable {
 
     private double[] d;
 
+    public Matrix33(Matrix33 copy) {
+
+        d = copy.d.clone();
+    }
     public Matrix33() {
         d = new double[9];
     }
@@ -126,6 +130,33 @@ public class Matrix33 implements Serializable {
         return rotation(p);
     }
 
+    public Matrix33 mult(double f) {
+        Matrix33 mres = new Matrix33(this);
+
+        for (int i = 0; i < d.length; i++) {
+            mres.d[i] *= f;
+        }
+        return mres;
+    }
+
+    public Matrix33 plus(Matrix33 m) {
+        Matrix33 mres = new Matrix33(this);
+
+        for (int i = 0; i < d.length; i++) {
+            mres.d[i] += m.d[i];
+        }
+        return mres;
+    }
+
+    public Matrix33 moins(Matrix33 m) {
+        Matrix33 mres = new Matrix33(this);
+
+        for (int i = 0; i < d.length; i++) {
+            mres.d[i] -= d[i];
+        }
+        return mres;
+    }
+
     public Point3D rotation(Point3D p) {
         Point3D pa = new Point3D();
         for (int i = 0; i < 3; i++) {
@@ -176,5 +207,29 @@ public class Matrix33 implements Serializable {
 
     public Matrix33 uniteV() {
         return this;
+    }
+
+    public Matrix33 power(int n) {
+        Matrix33 a = null; // RESULT
+        if (n == 0) {
+            a = Matrix33.I;
+        } else if (n == 1)
+            a = this;
+        else if (n > 1) {
+            a = this;
+            for (int i = 2; i <= n; i++)
+                a = a.mult(this);
+        } else if (n == -1) {
+            a = inverse();
+        } else if (n < -1) {
+            a = inverse();
+            for (int i = -1; i >= n; i--)
+                a = a.mult(this);
+        }
+        return new Matrix33(a);
+    }
+
+    public Matrix33 pourcents(Matrix33 m, double pc) {
+        return this.mult(m.mult(pc));
     }
 }
