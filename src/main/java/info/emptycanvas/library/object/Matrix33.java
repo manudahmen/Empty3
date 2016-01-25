@@ -230,6 +230,6 @@ public class Matrix33 implements Serializable {
     }
 
     public Matrix33 pourcents(Matrix33 m, double pc) {
-        return this.mult(m.mult(pc));
+        return mult(1 - pc).plus(m.mult(pc));
     }
 }
