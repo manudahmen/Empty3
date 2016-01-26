@@ -78,7 +78,7 @@ public class TrajectoireAbstraite extends Representable implements Trajectoire {
     }
 
     public void setRotationParFrame(Matrix33 rotParFrame, Point3D orig) {
-        this.rotation = new Rotation(rotParFrame, orig);
+        this.setRotation(new RotationInt(rotParFrame, orig));
     }
 
     public void ajoutObjet(Representable representable) {
