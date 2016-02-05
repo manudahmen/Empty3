@@ -65,8 +65,8 @@ public abstract class TestObjet implements Test, Runnable {
     private String filenameZIP = "tests";
     private String fileextZIP = "diapo";
     private File file = null;
-    private int resx = 1600;
-    private int resy = 1200;
+    private int resx = 1920;
+    private int resy = 1080;
     private File dir = null;
     private ECBufferedImage ri;
     private String filename = "frame";
